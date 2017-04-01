@@ -474,7 +474,7 @@ public class Game
     /**
      * Count any kiwis in this position
      */
-    public void countKiwi() 
+    public void countKiwi() // TODO : change this to a score function instead
     {
         //check if there are any kiwis here
         for (Occupant occupant : island.getOccupants(player.getPosition())) {
@@ -843,7 +843,7 @@ public class Game
     private Island island;
     private Player player;
     private GameState state;
-    private int kiwiCount;
+    private int kiwiCount; // Change to keep track of score instead
     private int totalPredators;
     private int totalKiwis;
     private int predatorsTrapped;
