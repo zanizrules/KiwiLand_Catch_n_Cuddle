@@ -4,7 +4,7 @@ package nz.ac.aut.ense701.gameModel;
 /**
  * Kiwi represents a kiwi living on the island
  * @author AS
- * @version July 2011
+ * @version July 2011b
  */
 public class Kiwi  extends Fauna {
     private boolean counted;
