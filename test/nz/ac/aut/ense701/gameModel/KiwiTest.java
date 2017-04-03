@@ -53,10 +53,6 @@ public class KiwiTest {
         assertEquals("K", kiwi.getStringRepresentation());
     }
 
-    @Test
-    public void testGetImageString() { assertNotNull(kiwi.getImage().getImageLocation()); };
 
-    @Test
-    public void testGetImageIcon(){assertNotNull((kiwi.getImage().getImage()));}
     
 }

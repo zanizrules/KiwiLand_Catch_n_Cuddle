@@ -9,7 +9,7 @@ public class Image {
 
     public void setImageLocation(String imageLoc){
         this.imageLocation = imageLoc;
-        //Wont work until assents are properly assigned
+        //Wont work until assets are properly assigned
         this.imageIcon = new ImageIcon(this.getClass().getResource(imageLoc));
 
     }
