@@ -41,7 +41,6 @@ public class GridSquarePanel extends javax.swing.JPanel
         //Hard Coded to test images to screen
         /*
         ImageHolder image = new ImageHolder();
-        image.setImageDimensions(50,50);
         image.setImageLocation("assets/kiwi.png");
 */
 

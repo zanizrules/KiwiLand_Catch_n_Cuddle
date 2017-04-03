@@ -11,8 +11,8 @@ import java.io.IOException;
 public class ImageHolder {
     private String imageLocation;
     private ImageIcon imageIcon;
-    private int imgWidth;
-    private int imgHeight;
+    private int imgWidth = 50;
+    private int imgHeight = 50;
     Image scalledImg;
 
 
