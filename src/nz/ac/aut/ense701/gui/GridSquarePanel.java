@@ -1,10 +1,11 @@
 package nz.ac.aut.ense701.gui;
 
-import java.awt.Color;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 import nz.ac.aut.ense701.gameModel.Game;
 import nz.ac.aut.ense701.gameModel.Terrain;
+
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import java.awt.*;
 
 /*
  * Panel for representing a single GridSquare of the island on the GUI.
@@ -67,7 +68,10 @@ public class GridSquarePanel extends javax.swing.JPanel
             // set border colour according to 
             // whether the player is in the grid square or not
             setBorder(game.hasPlayer(row,column) ? activeBorder : normalBorder);
+
         }
+
+
         else
         {
             lblText.setText("");
@@ -99,6 +103,7 @@ public class GridSquarePanel extends javax.swing.JPanel
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblText;
     // End of variables declaration//GEN-END:variables
+
     
     private Game game;
     private int row, column;

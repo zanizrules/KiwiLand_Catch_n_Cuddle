@@ -11,7 +11,10 @@ public abstract class Occupant
 {
     private Position position;
     private final String   name;
-    private final String   description;    
+    private final String   description;
+    private Image image = new Image();
+
+
 
     /**
      * Construct an occupant for a known position & name.
@@ -23,7 +26,7 @@ public abstract class Occupant
     {
         this.position    = position;
         this.name        = name;
-        this.description = description;        
+        this.description = description;
     }
     
     /**
@@ -35,6 +38,8 @@ public abstract class Occupant
     {
         return this.position;
     }
+
+    public Image getImage() {return this.image;}
     
     /**
      * Changes the position of the occupant.
@@ -84,6 +89,8 @@ public abstract class Occupant
      * @return the string representation of the occupant
      */
     public abstract String getStringRepresentation();
+
+    public void setImage(String ImageLoc) {this.image.setImageLocation(ImageLoc);}
 
 
 }
