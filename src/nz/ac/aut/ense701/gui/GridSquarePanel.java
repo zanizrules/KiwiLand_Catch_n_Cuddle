@@ -28,6 +28,7 @@ public class GridSquarePanel extends javax.swing.JPanel
         this.row    = row;
         this.column = column;
         initComponents();
+
     }
 
     /**
@@ -35,6 +36,15 @@ public class GridSquarePanel extends javax.swing.JPanel
      */
     public void update()
     {
+
+
+        //Hard Coded to test images to screen
+        /*
+        ImageHolder image = new ImageHolder();
+        image.setImageDimensions(50,50);
+        image.setImageLocation("assets/kiwi.png");
+*/
+
 
         // get the GridSquare object from the world
         Terrain terrain   = game.getTerrain(row, column);
@@ -56,6 +66,10 @@ public class GridSquarePanel extends javax.swing.JPanel
         if ( squareExplored || squareVisible )
         {
             // Set the text of the JLabel according to the occupant
+
+            //Sets the jPanel to hold the image icon
+            //lblText.setIcon(image.getImage());
+
             lblText.setText(game.getOccupantStringRepresentation(row,column));
             // Set the colour. 
             if ( squareVisible && !squareExplored ) 
@@ -79,6 +93,12 @@ public class GridSquarePanel extends javax.swing.JPanel
             lblText.setBackground(null);
             setBorder(normalBorder);
         }
+
+
+
+
+
+
 
 
     }
