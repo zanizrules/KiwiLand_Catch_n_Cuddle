@@ -18,10 +18,14 @@ public class Main
      */
     public static void main(String[] args) 
     {
+        //Used for testing basic GUI functionality
+        //TestGUI tester = new TestGUI();
+
+
         // create the game object
         final Game game = new Game();
         // create the GUI for the game
-        final KiwiCountUI  gui  = new KiwiCountUI(game);
+        final KiwiCountUI gui  = new KiwiCountUI(game);
         // make the GUI visible
         java.awt.EventQueue.invokeLater(new Runnable() 
         {
@@ -31,6 +35,15 @@ public class Main
                 gui.setVisible(true);
             }
         });
+
+
+
     }
+
+
+
+
+
+
 
 }
