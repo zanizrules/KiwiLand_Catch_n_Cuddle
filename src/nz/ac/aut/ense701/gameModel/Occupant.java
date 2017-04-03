@@ -12,7 +12,7 @@ public abstract class Occupant
     private Position position;
     private final String   name;
     private final String   description;
-    private Image image = new Image();
+    private ImageHolder imageHolder = new ImageHolder();
 
 
 
@@ -39,7 +39,7 @@ public abstract class Occupant
         return this.position;
     }
 
-    public Image getImage() {return this.image;}
+    public ImageHolder getImageHolder() {return this.imageHolder;}
     
     /**
      * Changes the position of the occupant.
@@ -90,7 +90,7 @@ public abstract class Occupant
      */
     public abstract String getStringRepresentation();
 
-    public void setImage(String ImageLoc) {this.image.setImageLocation(ImageLoc);}
+    public void setImageHolder(String ImageLoc) {this.imageHolder.setImageLocation(ImageLoc);}
 
 
 }

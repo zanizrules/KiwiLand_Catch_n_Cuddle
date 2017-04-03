@@ -1,6 +1,7 @@
 package nz.ac.aut.ense701.main;
 
 import nz.ac.aut.ense701.gameModel.Game;
+import nz.ac.aut.ense701.gameModel.TestGUI;
 import nz.ac.aut.ense701.gui.KiwiCountUI;
 
 /**
@@ -19,7 +20,7 @@ public class Main
     public static void main(String[] args) 
     {
         //Used for testing basic GUI functionality
-        //TestGUI tester = new TestGUI();
+        TestGUI tester = new TestGUI();
 
 
         // create the game object

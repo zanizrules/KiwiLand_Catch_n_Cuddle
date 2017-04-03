@@ -29,12 +29,12 @@ public class TestGUI extends JFrame {
             }
             */
             if(image == null){
-                System.out.println("No Image is Saved");
+                System.out.println("No ImageHolder is Saved");
             }else{
                 System.out.println("Yes there is an image");
             }
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setTitle("Image Checker");
+            frame.setTitle("ImageHolder Checker");
             frame.setSize(500,500);
             frame.add(label, BorderLayout.CENTER);
             frame.setVisible(true);
