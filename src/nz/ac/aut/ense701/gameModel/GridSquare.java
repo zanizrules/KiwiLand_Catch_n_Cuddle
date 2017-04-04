@@ -93,7 +93,15 @@ public class GridSquare
             result += occupant.getStringRepresentation();
         }
         return result;
-    } 
+    }
+
+    public ImageHolder getOccupantImage(){
+        ImageHolder result = new ImageHolder();
+        for(Occupant occupant: occupants){
+            result = occupant.getImageHolder();
+        }
+        return result;
+    }
     
     /**
      * Returns a string representation of the terrain.

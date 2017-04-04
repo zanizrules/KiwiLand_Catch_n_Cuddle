@@ -19,6 +19,7 @@ public class Predator extends Fauna
     public Predator(Position pos, String name, String description) 
     {
         super(pos, name, description);
+        setImageHolder("assets/rat.png");
     } 
  
     

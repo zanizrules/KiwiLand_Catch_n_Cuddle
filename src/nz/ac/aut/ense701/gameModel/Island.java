@@ -136,6 +136,11 @@ public class Island
         GridSquare square = getGridSquare(position);
         return square.getOccupantStringRepresentation();
     }
+
+    public ImageHolder getOccupantImage(Position position){
+        GridSquare square = getGridSquare(position);
+        return square.getOccupantImage();
+    }
     
     /**
      * Checks if this position contains a predator.

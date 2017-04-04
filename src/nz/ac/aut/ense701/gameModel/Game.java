@@ -187,6 +187,10 @@ public class Game
     public String getOccupantStringRepresentation(int row, int column) {
         return island.getOccupantStringRepresentation(new Position(island, row, column));
     }
+
+    public ImageHolder getOccupantImage(int row, int column){
+        return island.getOccupantImage(new Position(island, row, column));
+    }
     
     /**
      * Get values from player for GUI display

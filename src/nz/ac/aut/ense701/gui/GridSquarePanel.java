@@ -1,16 +1,12 @@
 package nz.ac.aut.ense701.gui;
 
-import javafx.scene.input.KeyCode;
 import nz.ac.aut.ense701.gameModel.Game;
-import nz.ac.aut.ense701.gameModel.MoveDirection;
 import nz.ac.aut.ense701.gameModel.Terrain;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 /*
  * Panel for representing a single GridSquare of the island on the GUI.
@@ -73,7 +69,14 @@ class GridSquarePanel extends JPanel {
             //Sets the jPanel to hold the image icon
             //lblText.setIcon(image.getImage());
 
-            lblText.setText(game.getOccupantStringRepresentation(row,column));
+            //if(game.getOccupantImage(row,column) != null){
+                //lblText.setIcon(game.getOccupantImage(row,column).getImage());
+                //Testing code
+                System.out.println(game.getOccupantImage(row,column).toString());
+            //}else {
+                lblText.setText(game.getOccupantStringRepresentation(row, column));
+
+            //}
             // Set the colour. 
             if ( squareVisible && !squareExplored ) 
             {

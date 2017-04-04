@@ -19,6 +19,7 @@ public class Kiwi  extends Fauna {
     public Kiwi(Position pos, String name, String description) {
         super(pos, name, description);
         counted = false;
+        this.setImageHolder("assets/kiwi.png");
 
 
     }

@@ -24,6 +24,7 @@ public abstract class Occupant
      */
     public Occupant(Position position, String name, String description) 
     {
+
         this.position    = position;
         this.name        = name;
         this.description = description;
