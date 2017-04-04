@@ -1,11 +1,16 @@
 package nz.ac.aut.ense701.gui;
 
+import javafx.scene.input.KeyCode;
 import nz.ac.aut.ense701.gameModel.Game;
+import nz.ac.aut.ense701.gameModel.MoveDirection;
 import nz.ac.aut.ense701.gameModel.Terrain;
 
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /*
  * Panel for representing a single GridSquare of the island on the GUI.
@@ -14,15 +19,14 @@ import java.awt.*;
  * @version 1.0 - created
  */
 
-public class GridSquarePanel extends javax.swing.JPanel 
-{
+class GridSquarePanel extends JPanel {
     /** 
      * Creates new GridSquarePanel.
      * @param game the game to represent
      * @param row the row to represent
      * @param column the column to represent
      */
-    public GridSquarePanel(Game game, int row, int column)
+    GridSquarePanel(Game game, int row, int column)
     {
         this.game   = game;
         this.row    = row;
@@ -33,7 +37,7 @@ public class GridSquarePanel extends javax.swing.JPanel
     /**
      * Updates the representation of the grid square panel.
      */
-    public void update()
+    void update()
     {
         // get the GridSquare object from the world
         Terrain terrain   = game.getTerrain(row, column);
@@ -110,4 +114,5 @@ public class GridSquarePanel extends javax.swing.JPanel
     
     private static final Border normalBorder = new LineBorder(Color.BLACK, 1);
     private static final Border activeBorder = new LineBorder(Color.RED, 3);
+
 }
