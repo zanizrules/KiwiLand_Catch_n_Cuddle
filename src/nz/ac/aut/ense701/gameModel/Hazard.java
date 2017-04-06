@@ -24,6 +24,7 @@ public class Hazard extends Occupant {
         
         super(position, name, description);
         this.impact = impact;
+        this.setImageHolder("assets/warningSign.png");
         
     }
     

@@ -2,6 +2,9 @@ package nz.ac.aut.ense701.gui;
 
 import nz.ac.aut.ense701.gameModel.Game;
 import nz.ac.aut.ense701.gameModel.Terrain;
+import nz.ac.aut.ense701.gameModel.ImageHolder;
+import nz.ac.aut.ense701.gameModel.Player;
+import nz.ac.aut.ense701.gameModel.Position;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -39,11 +42,10 @@ class GridSquarePanel extends JPanel {
 
 
         //Hard Coded to test images to screen
-        /*
-        ImageHolder image = new ImageHolder();
-        image.setImageLocation("assets/kiwi.png");
-*/
-
+        ImageHolder playerImage = new ImageHolder();
+        playerImage.setImageLocation("assets/memePlayer.png");
+        playerImage.setImageDimensions(70,70);
+        Position currentGrid = new Position(this.game.getIsland(),row,column);
 
         // get the GridSquare object from the world
         Terrain terrain   = game.getTerrain(row, column);
@@ -69,14 +71,21 @@ class GridSquarePanel extends JPanel {
             //Sets the jPanel to hold the image icon
             //lblText.setIcon(image.getImage());
 
-            //if(game.getOccupantImage(row,column) != null){
-                //lblText.setIcon(game.getOccupantImage(row,column).getImage());
+            if(
+                    game.getPlayer().getPosition().getRow() == currentGrid.getRow() &&
+                    game.getPlayer().getPosition().getColumn() == currentGrid.getColumn()
+                    ) {
+                System.out.println("Printing Player to screen");
+                lblText.setIcon(playerImage.getImage());
+
+
+            }else if(game.getOccupantImage(row,column) != null){
+                lblText.setIcon(game.getOccupantImage(row,column).getImage());
                 //Testing code
-                System.out.println(game.getOccupantImage(row,column).toString());
-            //}else {
+        }else {
                 lblText.setText(game.getOccupantStringRepresentation(row, column));
 
-            //}
+            }
             // Set the colour. 
             if ( squareVisible && !squareExplored ) 
             {
@@ -99,12 +108,6 @@ class GridSquarePanel extends JPanel {
             lblText.setBackground(null);
             setBorder(normalBorder);
         }
-
-
-
-
-
-
 
 
     }
@@ -136,6 +139,7 @@ class GridSquarePanel extends JPanel {
     
     private Game game;
     private int row, column;
+
     
     private static final Border normalBorder = new LineBorder(Color.BLACK, 1);
     private static final Border activeBorder = new LineBorder(Color.RED, 3);

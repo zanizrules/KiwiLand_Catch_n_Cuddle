@@ -25,6 +25,7 @@ public class Food extends Item
     {
         super(pos, name, description,weight, size);
         this.energy = energy;
+        this.setImageHolder("assets/food.png");
     }
 
 
