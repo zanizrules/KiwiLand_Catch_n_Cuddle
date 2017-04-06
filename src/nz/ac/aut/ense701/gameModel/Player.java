@@ -22,7 +22,8 @@ public class Player
     private boolean   alive;
     private Set<Item> backpack;
     private final double    maxBackpackWeight;
-    private final double    maxBackpackSize;   
+    private final double    maxBackpackSize;
+    private ImageHolder image = new ImageHolder();
     
     /**
      * Constructs a new player object.
@@ -57,6 +58,10 @@ public class Player
     public String getName()
     {
         return this.name;
+    }
+
+    public void setImageLocation(String imageLoc){
+        this.image.setImageLocation(imageLoc);
     }
     
     /**
@@ -337,11 +342,13 @@ public class Player
     {
         return backpack.remove(item);
     }
+
+    public ImageHolder getImage(){ return image;}
     
     /**
      * Moves the player over terrain to a new position.
      * 
-     * @param position the new position of the player
+     * @param newPosition the new position of the player
      * @param terrain the terrain to move over
      */
     public void moveToPosition(Position newPosition, Terrain terrain)

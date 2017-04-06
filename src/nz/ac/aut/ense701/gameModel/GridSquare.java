@@ -31,7 +31,8 @@ public class GridSquare
         this.explored  = false;
         this.visible   = false;
         this.occupants = new HashSet<Occupant>(); 
-        this.player    = null;        
+        this.player    = null;
+
     }
     
     /**************************************************************************************************

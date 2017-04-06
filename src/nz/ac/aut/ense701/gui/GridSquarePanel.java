@@ -42,9 +42,6 @@ class GridSquarePanel extends JPanel {
 
 
         //Hard Coded to test images to screen
-        ImageHolder playerImage = new ImageHolder();
-        playerImage.setImageLocation("assets/memePlayer.png");
-        playerImage.setImageDimensions(70,70);
         Position currentGrid = new Position(this.game.getIsland(),row,column);
 
         // get the GridSquare object from the world
@@ -75,8 +72,7 @@ class GridSquarePanel extends JPanel {
                     game.getPlayer().getPosition().getRow() == currentGrid.getRow() &&
                     game.getPlayer().getPosition().getColumn() == currentGrid.getColumn()
                     ) {
-                System.out.println("Printing Player to screen");
-                lblText.setIcon(playerImage.getImage());
+               lblText.setIcon(this.game.getPlayer().getImage().getImage());
 
 
             }else if(game.getOccupantImage(row,column) != null){

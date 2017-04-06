@@ -841,6 +841,8 @@ public class Game
             }
             if ( occupant != null ) island.addOccupant(occPos, occupant);
         }
+
+        player.setImageLocation("assets/memePlayer.png");
     }    
 
 

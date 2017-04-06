@@ -19,6 +19,7 @@ public class ImageHolder {
 
     public void resizeImage(){
         BufferedImage img = null;
+        System.out.println("Buffering Image" + imageLocation);
         try{
             img = ImageIO.read(new File(imageLocation));
 
