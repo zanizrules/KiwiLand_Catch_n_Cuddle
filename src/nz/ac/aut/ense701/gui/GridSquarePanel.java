@@ -2,8 +2,6 @@ package nz.ac.aut.ense701.gui;
 
 import nz.ac.aut.ense701.gameModel.Game;
 import nz.ac.aut.ense701.gameModel.Terrain;
-import nz.ac.aut.ense701.gameModel.ImageHolder;
-import nz.ac.aut.ense701.gameModel.Player;
 import nz.ac.aut.ense701.gameModel.Position;
 
 import javax.swing.*;
@@ -124,7 +122,7 @@ class GridSquarePanel extends JPanel {
 
         lblText.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblText.setText("content");
+        lblText.setText("");
         lblText.setOpaque(true);
         add(lblText, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
