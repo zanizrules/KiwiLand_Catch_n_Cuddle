@@ -40,7 +40,7 @@ public abstract class Occupant
         return this.position;
     }
 
-    public ImageHolder getImageHolder() {return this.imageHolder;}
+    ImageHolder getImageHolder() {return this.imageHolder;}
     
     /**
      * Changes the position of the occupant.

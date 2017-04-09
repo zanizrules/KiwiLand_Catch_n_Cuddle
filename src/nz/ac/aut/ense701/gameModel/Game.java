@@ -491,11 +491,10 @@ public class Game
         for (Occupant occupant : island.getOccupants(player.getPosition())) {
             if (occupant instanceof Kiwi) {
                 Kiwi kiwi = (Kiwi) occupant;
-                if (!kiwi.counted()) {
+                island.removeOccupant(player.getPosition(), kiwi); // TODO: this is where i remove kiwi
                     kiwi.count();
                     kiwiCount++;
                     score++;
-                }
             }
         }
         updateGameState();

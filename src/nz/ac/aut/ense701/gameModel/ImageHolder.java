@@ -13,11 +13,11 @@ public class ImageHolder {
     private ImageIcon imageIcon;
     private int imgWidth = 50;
     private int imgHeight = 50;
-    Image scalledImg;
+    private Image scalledImg;
 
 
 
-    public void resizeImage(){
+    private void resizeImage(){
         BufferedImage img = null;
         System.out.println("Buffering Image" + imageLocation);
         try{
@@ -27,7 +27,9 @@ public class ImageHolder {
             e.printStackTrace();
         }
 
-        scalledImg = img.getScaledInstance(imgWidth, imgHeight, Image.SCALE_SMOOTH);
+        if (img != null) {
+            scalledImg = img.getScaledInstance(imgWidth, imgHeight, Image.SCALE_SMOOTH);
+        }
 
     }
 

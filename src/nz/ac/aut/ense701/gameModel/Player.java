@@ -7,14 +7,14 @@ import java.util.HashSet;
 
 /**
  * Player represents the player in the KiwiIsland game.
- * 
+ *
  * @author AS
  * @version July 2011
  */
-public class Player 
+public class Player
 {
     public static final double MOVE_STAMINA = 1.0;
-    
+
     private Position  position;
     private final String    name;
     private final double    maxStamina;
@@ -24,33 +24,33 @@ public class Player
     private final double    maxBackpackWeight;
     private final double    maxBackpackSize;
     private ImageHolder image = new ImageHolder();
-    
+
     /**
      * Constructs a new player object.
-     * 
+     *
      * @param position the initial position of the player
      * @param name the name of the player
      * @param maxStamina the maximum stamina level of the player
      * @param maxBackpackWeight the most weight that can be in a backpack
      * @param maxBackpackSize the maximum size items that will fit in the backpack     
-     */    
+     */
     public Player(Position position, String name, double maxStamina,
                   double maxBackpackWeight, double maxBackpackSize)
     {
-       this.position          = position;
-       this.name              = name;
-       this.maxStamina        = maxStamina;
-       this.stamina = maxStamina;
-       this.maxBackpackWeight = maxBackpackWeight;
-       this.maxBackpackSize = maxBackpackSize;
-       this.alive = true;
-       this.backpack = new HashSet<Item>();
-    }   
-    
+        this.position          = position;
+        this.name              = name;
+        this.maxStamina        = maxStamina;
+        this.stamina = maxStamina;
+        this.maxBackpackWeight = maxBackpackWeight;
+        this.maxBackpackSize = maxBackpackSize;
+        this.alive = true;
+        this.backpack = new HashSet<Item>();
+    }
+
     /*****************************************************************************************************
      * Accessor methods
      ****************************************************************************************************/
-    
+
     /**
      * Gets the name of the player.
      * @return the name of the player
@@ -63,7 +63,7 @@ public class Player
     public void setImageLocation(String imageLoc){
         this.image.setImageLocation(imageLoc);
     }
-    
+
     /**
      * Gets the current position of the player.
      * @return the current position of the player
@@ -72,7 +72,7 @@ public class Player
     {
         return position;
     }
-    
+
     /**
      * Checks if Player is still alive
      * @return true if Player is alive, false if not
@@ -80,15 +80,15 @@ public class Player
     public boolean isAlive()
     {
         return this.alive;
-    }   
- 
+    }
+
     /**
      * Get the maximum stamina for the player.
      * @return maximum stamina
      */
     public double getMaximumStaminaLevel()
     {
-       return this.maxStamina;
+        return this.maxStamina;
     }
 
     /**
@@ -97,7 +97,7 @@ public class Player
      */
     public double getStaminaLevel()
     {
-       return this.stamina;
+        return this.stamina;
     }
 
 
@@ -117,10 +117,10 @@ public class Player
         return staminaNeeded;
     }
 
-    
+
     /**
      * Checks to see if the player has enough stamina to move.
-     * 
+     *
      * @param terrain the terrain to move in
      * @return true if player can move, false if not
      */
@@ -128,16 +128,16 @@ public class Player
     {
         return (this.stamina >= getStaminaNeededToMove(terrain));
     }
-    
-        
+
+
     /**
      * Get current size of backpack.
-     * 
+     *
      * @return currentBackpackSize
      */
     public double getCurrentBackpackSize(){
         double totalSize = 0.0;
-        for ( Item item : backpack ) 
+        for ( Item item : backpack )
         {
             totalSize += item.getSize();
         }
@@ -146,7 +146,7 @@ public class Player
 
     /**
      * Gets the maximum Backpack size.
-     * 
+     *
      * @return the maximum backpack size
      */
     public double getMaximumBackpackSize()
@@ -154,37 +154,37 @@ public class Player
         return maxBackpackSize;
     }
 
-    
+
     /**
      * Get current weight of backpack.
-     * 
+     *
      * @return currentBackpackWeight
      */
     public double getCurrentBackpackWeight()
     {
         double totalWeight = 0.0;
-        for ( Item item : backpack ) 
+        for ( Item item : backpack )
         {
             totalWeight += item.getWeight();
         }
         return totalWeight;
-    }    
+    }
 
-        
+
     /**
      * Gets the maximum Backpack weight.
-     * 
+     *
      * @return the maximum backpack weight
      */
     public double getMaximumBackpackWeight()
     {
         return maxBackpackWeight;
     }
-    
-        
+
+
     /**
      * Checks if the player has a specific item.
-     * 
+     *
      * @param item to check
      * @return true if item in backpack, false if not
      */
@@ -195,13 +195,13 @@ public class Player
 
     /**
      * Checks if the player has a tool.
-     * 
+     *
      * @return true if tool in backpack, false if not
      */
     public boolean hasTrap()
     {
         boolean found = false;
-        for ( Item item : backpack ) 
+        for ( Item item : backpack )
         {
             if(item instanceof Tool)
             {
@@ -214,7 +214,7 @@ public class Player
         }
         return found;
     }
-    
+
     /**
      * get a trap from player's backpack
      * @return trap or null if player has no trap
@@ -223,7 +223,7 @@ public class Player
     {
         Tool tool = null;
         Tool trap = null;
-        for ( Item item : backpack ) 
+        for ( Item item : backpack )
         {
             if(item instanceof Tool)
             {
@@ -236,66 +236,66 @@ public class Player
         }
         return trap;
     }
-    
+
     /**
      * Returns a collection of all items in the player's backpack.
-     * 
+     *
      * @return the items in the player's backpack
      */
     public Collection<Item> getInventory()
     {
         return Collections.unmodifiableCollection(backpack);
     }
-    
+
     /*************************************************************************************************************
      * Mutator methods
      ****************************************************************************************************************/
-    
+
     /**
      * Kills the Player
      */
     public void kill()
     {
         this.alive = false;
-    } 
-    
+    }
+
     /**
      * Decrease the stamina level by reduction.
-     * 
+     *
      * @param reduction the amount of stamina to reduce
      */
     public void reduceStamina(double reduction)
     {
-       if ( reduction > 0 )
-       { 
-          this.stamina -= reduction;
-          if ( this.stamina < 0.0 )
-          {
-             this.stamina = 0.0; 
-          }
-       }    
-    }    
-    
+        if ( reduction > 0 )
+        {
+            this.stamina -= reduction;
+            if ( this.stamina < 0.0 )
+            {
+                this.stamina = 0.0;
+            }
+        }
+    }
+
     /**
      * Increase the stamina level of the player.
-     * 
+     *
      * @param increase the amount of stamina increase
      */
     public void increaseStamina(double increase)
     {
-       if ( increase > 0 && isAlive() )
-       {         
-          this.stamina += increase;    
-       }
-       if ( stamina > maxStamina )
-       {
-           stamina = maxStamina;
-       }
+        if ( increase > 0 && isAlive() )
+        {
+            this.stamina += increase;
+        }
+        if ( stamina > maxStamina )
+        {
+            stamina = maxStamina;
+        }
     }
-    
+
     /**
      * Collect an item if it will fit in player's backpack.
-     * 
+     *
      * @param item to collect
      * @return true if item is placed in backpack.
      */
@@ -316,8 +316,8 @@ public class Player
             {
                 Tool tool = (Tool) item;
                 additionalTrap = (tool.isTrap() && this.hasTrap());
-            }       
-                   
+            }
+
             if ( enoughRoom && notTooHeavy && !additionalTrap)
             {
                 success = backpack.add(item);
@@ -331,10 +331,10 @@ public class Player
         }
         return success;
     }
-    
+
     /**
      * Drops an item if player is carrying it.
-     * 
+     *
      * @param item to drop
      * @return true if item dropped, false if not
      */
@@ -344,10 +344,10 @@ public class Player
     }
 
     public ImageHolder getImage(){ return image;}
-    
+
     /**
      * Moves the player over terrain to a new position.
-     * 
+     *
      * @param newPosition the new position of the player
      * @param terrain the terrain to move over
      */
@@ -357,7 +357,7 @@ public class Player
         {
             throw new IllegalArgumentException("Null parameters");
         }
-        
+
         if( hasStaminaToMove(terrain) )
         {
             this.position = newPosition;
