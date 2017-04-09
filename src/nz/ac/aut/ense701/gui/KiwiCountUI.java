@@ -19,11 +19,13 @@ public class KiwiCountUI extends JFrame implements GameEventListener {
     private JButton btnDrop;
     private JButton btnUse;
 
-    private JLabel txtKiwisCounted;
+    //private JLabel txtKiwisCounted;
     private JLabel txtPlayerName;
-    private JLabel txtPredatorsLeft;
-    private JLabel lblKiwisCounted;
-    private JLabel lblPredators;
+    //private JLabel txtPredatorsLeft;
+    //private JLabel lblKiwisCounted;
+    //private JLabel lblPredators;
+    private JLabel lblScore;
+    private JLabel txtScore;
 
     private JProgressBar progBackpackSize;
     private JProgressBar progBackpackWeight;
@@ -108,8 +110,8 @@ public class KiwiCountUI extends JFrame implements GameEventListener {
         progBackpackSize.setValue(playerValues[Game.SIZE_INDEX]);
 
         //Update Kiwi and Predator information
-        txtKiwisCounted.setText(Integer.toString(game.getKiwiCount()));
-        txtPredatorsLeft.setText(Integer.toString(game.getPredatorsRemaining()));
+        //txtKiwisCounted.setText(Integer.toString(game.getKiwiCount())); TODO : remove Kiwis Counted from GUI
+        //txtPredatorsLeft.setText(Integer.toString(game.getPredatorsRemaining())); TODO : remove Predators Left from GUI
 
         // update inventory list
         listInventory.setListData(game.getPlayerInventory());
@@ -147,10 +149,12 @@ public class KiwiCountUI extends JFrame implements GameEventListener {
         progBackpackWeight = new JProgressBar();
         JLabel lblBackpackSize = new JLabel();
         progBackpackSize = new JProgressBar();
-        lblPredators = new JLabel();
-        lblKiwisCounted = new JLabel();
-        txtKiwisCounted = new JLabel();
-        txtPredatorsLeft = new JLabel();
+        //lblPredators = new JLabel();
+        //lblKiwisCounted = new JLabel();
+        //txtKiwisCounted = new JLabel();
+        //txtPredatorsLeft = new JLabel();
+        lblScore = new JLabel();
+        txtScore = new JLabel();
 
         JPanel pnlInventory = new JPanel();
         JScrollPane scrlInventory = new JScrollPane();
@@ -258,6 +262,7 @@ public class KiwiCountUI extends JFrame implements GameEventListener {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
         pnlPlayerData.add(progBackpackSize, gridBagConstraints);
 
+        /*
         lblPredators.setText("Predators Left:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -265,6 +270,8 @@ public class KiwiCountUI extends JFrame implements GameEventListener {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlPlayerData.add(lblPredators, gridBagConstraints);
 
+
+        // Remove "Kiwis Counted" section from GUI
         lblKiwisCounted.setText("Kiwis Counted :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -272,6 +279,7 @@ public class KiwiCountUI extends JFrame implements GameEventListener {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlPlayerData.add(lblKiwisCounted, gridBagConstraints);
 
+        //Remove "Kiwis Counted" count from GUI
         txtKiwisCounted.setText("0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -279,12 +287,28 @@ public class KiwiCountUI extends JFrame implements GameEventListener {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlPlayerData.add(txtKiwisCounted, gridBagConstraints);
 
+        //Remove "Predators Left" count from GUI
         txtPredatorsLeft.setText("P");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlPlayerData.add(txtPredatorsLeft, gridBagConstraints);
+        */
+
+        lblScore.setText("Score :");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlPlayerData.add(lblScore, gridBagConstraints);
+
+        txtScore.setText("0");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlPlayerData.add(txtScore, gridBagConstraints);
 
         pnlPlayer.add(pnlPlayerData, java.awt.BorderLayout.WEST);
 
