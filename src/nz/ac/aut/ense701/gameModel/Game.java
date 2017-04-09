@@ -218,6 +218,13 @@ public class Game
     {
         return kiwiCount;
     }
+
+    /**
+     * Keeps track of total score
+     * @return score
+     */
+    public int getScore() { return score; }
+
     
     /**
      * How many predators are left?
@@ -487,6 +494,7 @@ public class Game
                 if (!kiwi.counted()) {
                     kiwi.count();
                     kiwiCount++;
+                    score++;
                 }
             }
         }
@@ -850,6 +858,7 @@ public class Game
     private Player player;
     private GameState state;
     private int kiwiCount; // Change to keep track of score instead
+    private int score;
     private int totalPredators;
     private int totalKiwis;
     private int predatorsTrapped;

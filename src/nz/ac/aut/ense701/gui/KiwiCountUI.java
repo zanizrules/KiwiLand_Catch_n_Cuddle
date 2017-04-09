@@ -113,6 +113,9 @@ public class KiwiCountUI extends JFrame implements GameEventListener {
         //txtKiwisCounted.setText(Integer.toString(game.getKiwiCount())); TODO : remove Kiwis Counted from GUI
         //txtPredatorsLeft.setText(Integer.toString(game.getPredatorsRemaining())); TODO : remove Predators Left from GUI
 
+        // Update score
+        txtScore.setText(Integer.toString(game.getScore()));
+
         // update inventory list
         listInventory.setListData(game.getPlayerInventory());
         listInventory.clearSelection();
@@ -262,7 +265,7 @@ public class KiwiCountUI extends JFrame implements GameEventListener {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
         pnlPlayerData.add(progBackpackSize, gridBagConstraints);
 
-        /*
+        /* Remove "Predators Left" from GUI
         lblPredators.setText("Predators Left:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
