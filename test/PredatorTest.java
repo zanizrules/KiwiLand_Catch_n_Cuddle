@@ -1,6 +1,6 @@
-
-package nz.ac.aut.ense701.gameModel;
-
+import gameModel.Island;
+import gameModel.Position;
+import gameModel.Predator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
