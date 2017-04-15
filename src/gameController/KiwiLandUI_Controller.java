@@ -168,7 +168,6 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
      */
     @Override
     public void gameStateChanged() {
-        System.out.println("Game state changed");
         update();
 
         // check for "game over" or "game won"
