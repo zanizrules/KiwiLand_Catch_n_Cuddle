@@ -1,6 +1,4 @@
-import gameModel.Island;
-import gameModel.Position;
-import gameModel.Tool;
+import gameModel.*;
 import org.junit.Test;
 
 /**
@@ -61,13 +59,13 @@ public class ToolTest extends junit.framework.TestCase
     
     @Test
     public void testIsTrap(){
-        assertTrue("Should  be trap", trap.isTrap());
+        assertTrue("Should  be trap", trap instanceof Trap);
     }
     
     @Test
     public void testIsScrewdriver(){
         Tool screwdriver = new Tool(position, "Screwdriver", "A useful screwdriver", 2.0, 3.0);
-        assertTrue("Should  be screwdriver", screwdriver.isScrewdriver());
+        assertTrue("Should  be screwdriver", screwdriver instanceof ScrewDriver);
     }
     
     @Test

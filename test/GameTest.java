@@ -161,7 +161,7 @@ public class GameTest extends junit.framework.TestCase
         //Trap can be used if there is a predator here
         Item valid = new Tool(playerPosition,"Trap", "A predator trap",1.0, 1.0);
         //Add predator
-        Predator rat = new Predator(playerPosition,"Rat", "A norway rat");
+        Predator rat = new Rat(playerPosition,"Rat", "A norway rat");
         island.addOccupant(playerPosition, rat);
         assertTrue("Should be able to use", game.canUse(valid));
     }
@@ -299,7 +299,7 @@ public class GameTest extends junit.framework.TestCase
         assertTrue("Player should have trap",player.hasItem(trap));
         
         // Can only use trap if there is a predator.
-        Predator predator = new Predator(playerPosition,"Rat", "Norway rat");
+        Predator predator = new Rat(playerPosition,"Rat", "Norway rat");
         island.addOccupant(playerPosition, predator);
         game.useItem(trap);
         assertTrue("Player should still have trap",player.hasItem(trap));
@@ -320,7 +320,7 @@ public class GameTest extends junit.framework.TestCase
         assertTrue("Player should have trap",player.hasItem(trap));
         
         // Can only use trap if there is a predator.
-        Predator predator = new Predator(playerPosition,"Rat", "Norway rat");
+        Predator predator = new Rat(playerPosition,"Rat", "Norway rat");
         island.addOccupant(playerPosition, predator);
         trap.setBroken();
         game.useItem(trap);

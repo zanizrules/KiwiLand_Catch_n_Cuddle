@@ -137,8 +137,9 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
     private void inventoryListValueChanged() {
         Item item = inventoryListView.getSelectionModel().getSelectedItem();
         System.out.println(item + " Selected!");
-        discardButton.setDisable(false);
         if (item != null) {
+            System.out.println("im looping......");
+            discardButton.setDisable(false);
             useButton.setDisable(!game.canUse(item));
             descriptionTextField.setText(game.getOccupantDescription(item));
         }

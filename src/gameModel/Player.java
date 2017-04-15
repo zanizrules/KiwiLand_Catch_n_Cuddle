@@ -192,7 +192,7 @@ public class Player {
         for (Item item : backpack) {
             if (item instanceof Tool) {
                 Tool tool = (Tool) item;
-                if (tool.isTrap()) {
+                if (tool instanceof Trap) {
                     found = true;
                 }
             }
@@ -206,12 +206,12 @@ public class Player {
      * @return trap or null if player has no trap
      */
     public Tool getTrap() {
-        Tool tool = null;
+        Tool tool;
         Tool trap = null;
         for (Item item : backpack) {
             if (item instanceof Tool) {
                 tool = (Tool) item;
-                if (tool.isTrap()) {
+                if (tool instanceof Trap) {
                     trap = tool;
                 }
             }
@@ -286,7 +286,7 @@ public class Player {
             boolean additionalTrap = false;
             if (item instanceof Tool) {
                 Tool tool = (Tool) item;
-                additionalTrap = (tool.isTrap() && this.hasTrap());
+                additionalTrap = (tool instanceof Trap && this.hasTrap());
             }
 
             if (enoughRoom && notTooHeavy && !additionalTrap) {

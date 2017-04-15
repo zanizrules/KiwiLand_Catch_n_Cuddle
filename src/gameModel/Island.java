@@ -4,6 +4,8 @@ import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * A class to represent an island in the world on which the game is played.
@@ -156,8 +158,9 @@ public class Island {
         Collection<Occupant> occupants = square.getOccupants();
         boolean isPredator = false;
         if (!occupants.isEmpty()) {
-            while (occupants.iterator().hasNext() && !isPredator) {
-                isPredator = occupants.iterator().next() instanceof Predator;
+            Iterator<Occupant> it = occupants.iterator();
+            while (it.hasNext() && !isPredator) {
+                isPredator = it.next() instanceof Predator;
             }
         }
         return isPredator;
@@ -255,8 +258,9 @@ public class Island {
         Collection<Occupant> occupants = square.getOccupants();
         Predator predator = null;
         if (!occupants.isEmpty()) {
-            while (occupants.iterator().hasNext() && predator == null) {
-                Occupant o = occupants.iterator().next();
+            Iterator<Occupant> it = occupants.iterator();
+            while (it.hasNext() && predator == null) {
+                Occupant o = it.next();
                 if (o instanceof Predator) {
                     predator = (Predator) o;
                 }

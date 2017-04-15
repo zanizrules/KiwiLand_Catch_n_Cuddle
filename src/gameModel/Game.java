@@ -185,7 +185,7 @@ public class Game {
         return result;
     }
 
-    public boolean canUse(Object itemToUse) {
+    public boolean canUse(Occupant itemToUse) {
         boolean result = (itemToUse != null) && (itemToUse instanceof Item);
         if (result) {
             //Food can always be used (though may be wasted) so no need to change result
@@ -193,12 +193,13 @@ public class Game {
             if (itemToUse instanceof Tool) {
                 Tool tool = (Tool) itemToUse;
                 //Traps can only be used if there is a predator to catch
-                if (tool.isTrap()) {
+                if (tool instanceof Trap) {
                     result = island.hasPredator(player.getPosition());
                 }
                 //Screwdriver can only be used if player has a broken trap
-                else
-                    result = tool.isScrewdriver() && player.hasTrap() && player.getTrap().isBroken();
+                else if(tool instanceof ScrewDriver) {
+                    result = player.hasTrap() && player.getTrap().isBroken();
+                }
             }
         }
         return result;
@@ -273,9 +274,9 @@ public class Game {
             notifyGameEventListeners();
         } else if (item instanceof Tool) {
             Tool tool = (Tool) item;
-            if (tool.isTrap() && !tool.isBroken()) {
+            if (tool instanceof Trap && !tool.isBroken()) {
                 success = trapPredator();
-            } else if (tool.isScrewdriver())// Use screwdriver (to fix trap)
+            } else if (tool instanceof ScrewDriver)// Use screwdriver (to fix trap)
             {
                 if (player.hasTrap()) {
                     Tool trap = player.getTrap();

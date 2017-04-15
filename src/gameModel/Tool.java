@@ -23,16 +23,6 @@ public class Tool extends Item {
         return broken;
     }
 
-    public boolean isTrap() {
-        String name = getName();
-        return name.equalsIgnoreCase("Trap");
-    }
-
-    public boolean isScrewdriver() {
-        String name = getName();
-        return name.equalsIgnoreCase("Screwdriver");
-    }
-
     @Override
     public String getStringRepresentation() {
         return "T";
