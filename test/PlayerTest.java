@@ -211,7 +211,7 @@ public class PlayerTest extends junit.framework.TestCase
     @Test
     public void testHasTrapWithTrap()
     {
-        Tool trap = new Tool(playerPosition, "Trap", "A predator trap", 1.0, 1.0);
+        Trap trap = new Trap(playerPosition, "Trap", "A predator trap", 1.0, 1.0);
         player.collect(trap);
         assertTrue(player.hasTrap());
     }
@@ -225,7 +225,7 @@ public class PlayerTest extends junit.framework.TestCase
     @Test
     public void testGetTrap()
     {
-        Tool trap = new Tool(playerPosition, "Trap", "A predator trap", 1.0, 1.0);
+        Trap trap = new Trap(playerPosition, "Trap", "A predator trap", 1.0, 1.0);
         player.collect(trap);
         assertEquals(player.getTrap(), trap);
     }
