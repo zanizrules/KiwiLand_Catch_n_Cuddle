@@ -29,6 +29,6 @@ public class Fauna extends Occupant
 
     @Override
     public void setImage() {
-        image = getClass().getResource("images/palmTree.png").toExternalForm();
+        image = getClass().getResource("images/robin.png").toExternalForm();
     }
 }
