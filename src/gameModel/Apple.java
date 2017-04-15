@@ -7,6 +7,6 @@ public class Apple extends Food {
 
     @Override
     public void setImage() {
-        image = getClass().getResource("").toExternalForm();
+        image = getClass().getResource("images/apple.png").toExternalForm();
     }
 }

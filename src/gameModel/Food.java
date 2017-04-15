@@ -46,6 +46,6 @@ public class Food extends Item {
 
     @Override
     public void setImage() {
-        image = getClass().getResource("images/food.png").toExternalForm();
+        image = getClass().getResource("images/mueslibar.png").toExternalForm();
     }
 }

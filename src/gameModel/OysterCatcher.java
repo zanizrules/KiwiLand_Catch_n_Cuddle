@@ -7,6 +7,6 @@ public class OysterCatcher extends Fauna{
 
     @Override
     public void setImage() {
-        image = getClass().getResource("").toExternalForm();
+        image = getClass().getResource("images/oystercatcher.png").toExternalForm();
     }
 }

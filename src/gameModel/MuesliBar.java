@@ -7,6 +7,6 @@ public class MuesliBar extends Food {
 
     @Override
     public void setImage() {
-        image = getClass().getResource("").toExternalForm();
+        image = getClass().getResource("images/mueslibar.png").toExternalForm();
     }
 }

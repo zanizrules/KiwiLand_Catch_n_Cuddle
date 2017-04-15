@@ -7,6 +7,6 @@ public class Robin extends Fauna {
 
     @Override
     public void setImage() {
-        image = getClass().getResource("").toExternalForm();
+        image = getClass().getResource("images/robin.png").toExternalForm();
     }
 }
