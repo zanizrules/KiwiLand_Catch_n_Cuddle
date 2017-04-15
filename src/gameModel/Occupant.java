@@ -84,7 +84,12 @@ public abstract class Occupant {
     public abstract String getStringRepresentation();
 
     public void setImage(String imageLoc) {
-        image = new Image(getClass().getResource(imageLoc).toExternalForm());
+        try {
+            image = new Image(getClass().getResource(imageLoc).toExternalForm());
+        } catch (RuntimeException e) {
+            System.out.println("Please initialise JavaFX unless this is a Unit Test");
+        }
+
     }
     public abstract void setImage();
 

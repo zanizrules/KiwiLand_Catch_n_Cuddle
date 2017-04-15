@@ -1,6 +1,8 @@
 import gameModel.Fauna;
 import gameModel.Island;
 import gameModel.Position;
+import javafx.application.Application;
+import javafx.stage.Stage;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -11,8 +13,7 @@ import static org.junit.Assert.*;
  */
 public class FaunaTest {
     
-    public FaunaTest() {
-    }
+    public FaunaTest() {}
 
     /**
      * Test of getStringRepresentation method, of class Fauna.
