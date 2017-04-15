@@ -1,8 +1,9 @@
-package nz.ac.aut.ense701.gameModel;
-
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
+import gameModel.*;
 import org.junit.Test;
 
 
@@ -151,9 +152,9 @@ public class GridSquareTest extends junit.framework.TestCase
         // Add a third occupant
         Predator possum = new Predator(position, "Possum", "A log tailed possum"); 
         occupiedSquare.addOccupant(possum);          
-        Occupant[] occupants = occupiedSquare.getOccupants();
-        assertEquals(3, occupants.length);    
-        Set<Occupant> occupantSet = new HashSet<Occupant>( Arrays.asList(occupants));
+        Collection<Occupant> occupants = occupiedSquare.getOccupants();
+        assertEquals(3, occupants.size());
+        Set<Occupant> occupantSet = new HashSet<>(occupants);
         assertTrue(occupantSet.contains(trap));
         assertTrue(occupantSet.contains(apple));
         assertTrue(occupantSet.contains(possum));

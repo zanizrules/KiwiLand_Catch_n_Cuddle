@@ -1,5 +1,4 @@
-package nz.ac.aut.ense701.gameModel;
-
+import gameModel.*;
 import org.junit.Test;
 
 /**
@@ -13,7 +12,7 @@ public class IslandTest extends junit.framework.TestCase
     Island testIsland;
     Position onIsland;
     Position notOnIsland;
-    Predator cat; 
+    Predator cat;
     /**
      * Default constructor for test class IslandTest
      */

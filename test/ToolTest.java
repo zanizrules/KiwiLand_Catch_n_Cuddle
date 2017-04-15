@@ -1,5 +1,6 @@
-package nz.ac.aut.ense701.gameModel;
-
+import gameModel.Island;
+import gameModel.Position;
+import gameModel.Tool;
 import org.junit.Test;
 
 /**

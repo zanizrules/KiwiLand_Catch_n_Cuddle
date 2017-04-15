@@ -1,5 +1,4 @@
-package nz.ac.aut.ense701.gameModel;
-
+import gameModel.*;
 import org.junit.Test;
 
 /**
@@ -10,9 +9,9 @@ import org.junit.Test;
  */
 public class GameTest extends junit.framework.TestCase
 {
-    Game       game;
-    Player     player;
-    Position   playerPosition;
+    private Game game;
+    private Player player;
+    private Position playerPosition;
     Island island ;
     
     /**

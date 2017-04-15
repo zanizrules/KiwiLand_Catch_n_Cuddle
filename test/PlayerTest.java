@@ -1,6 +1,6 @@
-package nz.ac.aut.ense701.gameModel;
-
 import java.util.Collection;
+
+import gameModel.*;
 import org.junit.Test;
 
 /**
