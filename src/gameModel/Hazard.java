@@ -60,6 +60,6 @@ public class Hazard extends Occupant {
 
     @Override
     public void setImage() {
-        image = getClass().getResource("images/warningSign.png").toExternalForm();
+        image = getClass().getResource("images/hazard.png").toExternalForm();
     }
 }

@@ -40,6 +40,6 @@ public class Tool extends Item {
 
     @Override
     public void setImage() {
-        image = ""; //TODO: set
+        image = getClass().getResource("images/crab.png").toExternalForm(); // TODO: set
     }
 }
