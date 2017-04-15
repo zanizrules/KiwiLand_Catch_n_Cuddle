@@ -10,11 +10,10 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 
-
 class GridSquarePanel extends Label {
-
     private Game game;
     private int row, column;
     private ImageView imageView;
@@ -39,10 +38,7 @@ class GridSquarePanel extends Label {
         imageView.setFitWidth(80);
     }
 
-    /**
-     * Updates the representation of the grid square panel.
-     */
-    void update() {
+    void update() { // Update the representation of the grid square panel
         // get the GridSquare object from the world
         Terrain terrain = game.getTerrain(row, column);
         boolean squareVisible = game.isVisible(row, column);
@@ -78,7 +74,7 @@ class GridSquarePanel extends Label {
             } else if (game.getOccupantImages(row, column) != null) {
                 ArrayList<String> imageList = game.getOccupantImages(row, column);
                 if (!imageList.isEmpty()) {
-                    if(!imageList.get(imageList.size() - 1).isEmpty()) {
+                    if (!imageList.get(imageList.size() - 1).isEmpty()) {
                         imageView.setImage(new Image(imageList.get(imageList.size() - 1)));
                     }
                 } else {
