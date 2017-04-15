@@ -86,10 +86,7 @@ public abstract class Occupant {
     public void setImage(String imageLoc) {
         try {
             image = new Image(getClass().getResource(imageLoc).toExternalForm());
-        } catch (RuntimeException e) {
-            System.out.println("Please initialise JavaFX unless this is a Unit Test");
-        }
-
+        } catch (RuntimeException ignore) {}
     }
     public abstract void setImage();
 
