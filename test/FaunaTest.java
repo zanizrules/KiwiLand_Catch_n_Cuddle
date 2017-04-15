@@ -1,5 +1,6 @@
 import gameModel.Fauna;
 import gameModel.Island;
+import gameModel.OysterCatcher;
 import gameModel.Position;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -22,7 +23,7 @@ public class FaunaTest {
     public void testGetStringRepresentation() {
         Island island = new Island(5,5);
         Position position = new Position(island, 4,4);
-        Fauna instance = new Fauna(position, "Oystercatcher", " A nesting oystercatcher");
+        Fauna instance = new OysterCatcher(position, "Oystercatcher", " A nesting oystercatcher");
         String expResult = "F";
         String result = instance.getStringRepresentation();
         assertEquals(expResult, result);

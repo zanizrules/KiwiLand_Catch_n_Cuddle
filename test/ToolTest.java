@@ -34,7 +34,7 @@ public class ToolTest extends junit.framework.TestCase
     {
         island = new Island(5,5);
         position = new Position(island, 2,3);
-        trap = new Tool(position, "Trap", "A predator trap", 2.0, 3.0);
+        trap = new Trap(position, "Trap", "A predator trap", 2.0, 3.0);
     }
 
     /**
@@ -64,7 +64,7 @@ public class ToolTest extends junit.framework.TestCase
     
     @Test
     public void testIsScrewdriver(){
-        Tool screwdriver = new Tool(position, "Screwdriver", "A useful screwdriver", 2.0, 3.0);
+        Tool screwdriver = new ScrewDriver(position, "Screwdriver", "A useful screwdriver", 2.0, 3.0);
         assertTrue("Should  be screwdriver", screwdriver instanceof ScrewDriver);
     }
     

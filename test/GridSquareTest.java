@@ -132,7 +132,7 @@ public class GridSquareTest extends junit.framework.TestCase
     @Test
     public void testGetOccupantStringRepresentationMultipleOccupants(){
         // Add another occupant
-        Tool trap = new Tool(position, "Trap", "A predator trap", 1.0, 2.0);
+        Tool trap = new Trap(position, "Trap", "A predator trap", 1.0, 2.0);
         occupiedSquare.addOccupant(trap); 
         // Add a third occupant
         Predator possum = new Possum(position, "Possum", "A log tailed possum");
@@ -147,7 +147,7 @@ public class GridSquareTest extends junit.framework.TestCase
     @Test
     public void testGetOccupants(){
         // Add another occupant
-        Tool trap = new Tool(position, "Trap", "A predator trap", 1.0, 2.0);
+        Tool trap = new Trap(position, "Trap", "A predator trap", 1.0, 2.0);
         occupiedSquare.addOccupant(trap); 
         // Add a third occupant
         Predator possum = new Possum(position, "Possum", "A log tailed possum");
@@ -163,7 +163,7 @@ public class GridSquareTest extends junit.framework.TestCase
         
     @Test
     public void testAddOccupantWhenNotFull() {
-        Tool trap = new Tool(position, "Trap", "A predator trap", 1.0, 2.0);        
+        Tool trap = new Trap(position, "Trap", "A predator trap", 1.0, 2.0);
         assertTrue(occupiedSquare.addOccupant(trap));        
         assertTrue(occupiedSquare.hasOccupant(trap));
     }
@@ -176,7 +176,7 @@ public class GridSquareTest extends junit.framework.TestCase
     @Test
     public void testAddOccupantWhenFull() {  
         // Add another occupant
-        Tool trap = new Tool(position, "Trap", "A predator trap", 1.0, 2.0);
+        Tool trap = new Trap(position, "Trap", "A predator trap", 1.0, 2.0);
         occupiedSquare.addOccupant(trap); 
         // Add a third occupant
         Predator possum = new Possum(position, "Possum", "A log tailed possum");

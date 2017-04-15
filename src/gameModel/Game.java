@@ -176,7 +176,7 @@ public class Game {
         return result;
     }
 
-    public boolean canCount(Object itemToCount) {
+    public boolean canCuddle(Object itemToCount) {
         boolean result = (itemToCount != null) && (itemToCount instanceof Kiwi);
         if (result) {
             Kiwi kiwi = (Kiwi) itemToCount;
@@ -296,7 +296,7 @@ public class Game {
                 island.removeOccupant(player.getPosition(), kiwi); // Remove kiwi
                 kiwi.count();
                 kiwiCount++;
-                score += 10;
+                addToScore(10);
             }
         }
         updateGameState();
@@ -383,11 +383,12 @@ public class Game {
             //Predator has been trapped so remove
             island.removeOccupant(current, occupant);
             predatorsTrapped++;
-            score += 10;
+            addToScore(10);
         }
 
         return hadPredator;
     }
+    private void addToScore(int amount) { score += amount; }
 
     private void checkForHazard() {
         //check if there are hazards

@@ -8,7 +8,7 @@ package gameModel;
  * @author AS
  * @version July 2011
  */
-public class Fauna extends Occupant
+public abstract class Fauna extends Occupant
 {
     /**
      * Constructor for objects of class Endangered
@@ -25,10 +25,5 @@ public class Fauna extends Occupant
     public String getStringRepresentation() 
     {
           return "F";
-    }
-
-    @Override
-    public void setImage() {
-        super.setImage("images/robin.png");
     }
 }

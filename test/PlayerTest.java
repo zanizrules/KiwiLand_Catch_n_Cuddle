@@ -167,7 +167,7 @@ public class PlayerTest extends junit.framework.TestCase
     {
        // reduce stamina so under four required for FOREST with full backpack
         player.reduceStamina(22.0);
-        Tool fullLoad = new Tool(playerPosition, "full", "A full load.", 14.5, 1.5);
+        Tool fullLoad = new Trap(playerPosition, "full", "A full load.", 14.5, 1.5);
         player.collect(fullLoad);
         assertFalse(player.hasStaminaToMove(Terrain.FOREST));
     }
@@ -177,7 +177,7 @@ public class PlayerTest extends junit.framework.TestCase
     {
        // reduce stamina so 50% backpack load takes over limit
         player.reduceStamina(23.0);
-        Tool partLoad = new Tool(playerPosition, "part", "A part load.", 7.5, 1.5);
+        Tool partLoad = new Trap(playerPosition, "part", "A part load.", 7.5, 1.5);
         player.collect(partLoad);
         assertFalse(player.hasStaminaToMove(Terrain.FOREST));
     }
@@ -233,7 +233,7 @@ public class PlayerTest extends junit.framework.TestCase
     @Test
     public void testGetInventory(){
         player.collect(sandwich);
-        Tool trap = new Tool(playerPosition, "Trap", "A predator trap", 1.0, 1.0);
+        Tool trap = new Trap(playerPosition, "Trap", "A predator trap", 1.0, 1.0);
         player.collect(trap);
         Collection inventory = player.getInventory();
         assertTrue(inventory.contains(trap));
@@ -261,7 +261,7 @@ public class PlayerTest extends junit.framework.TestCase
     @Test
     public void testCollectItemMaxWeight()
     {
-        Tool maxWeight = new Tool(playerPosition, "weight", "A very heavy weight", 15.0, 1.5);
+        Tool maxWeight = new Trap(playerPosition, "weight", "A very heavy weight", 15.0, 1.5);
         assertTrue(player.collect(maxWeight));
         assertTrue(player.hasItem(maxWeight));        
     }
@@ -269,7 +269,7 @@ public class PlayerTest extends junit.framework.TestCase
     @Test
     public void testCollectItemTooHeavy()
     {
-        Tool hugeWeight = new Tool(playerPosition, "weight", "A very heavy weight", 16.0, 1.5);
+        Tool hugeWeight = new Trap(playerPosition, "weight", "A very heavy weight", 16.0, 1.5);
         assertFalse(player.collect(hugeWeight));
         assertFalse(player.hasItem(hugeWeight));        
     }
@@ -277,7 +277,7 @@ public class PlayerTest extends junit.framework.TestCase
     @Test
     public void testCollectItemTooBig()
     {
-        Tool largeTool = new Tool(playerPosition, "large", "A very large tool", 1.0, 20.5);
+        Tool largeTool = new Trap(playerPosition, "large", "A very large tool", 1.0, 20.5);
         assertFalse(player.collect(largeTool));
         assertFalse(player.hasItem(largeTool));        
     }     

@@ -159,7 +159,7 @@ public class GameTest extends junit.framework.TestCase
     @Test
     public void testCanUseTrapValid(){
         //Trap can be used if there is a predator here
-        Item valid = new Tool(playerPosition,"Trap", "A predator trap",1.0, 1.0);
+        Item valid = new Trap(playerPosition,"Trap", "A predator trap",1.0, 1.0);
         //Add predator
         Predator rat = new Rat(playerPosition,"Rat", "A norway rat");
         island.addOccupant(playerPosition, rat);
@@ -169,7 +169,7 @@ public class GameTest extends junit.framework.TestCase
     @Test
     public void testCanUseTrapNoPredator(){
         //Trap can be used if there is a predator here
-        Item tool = new Tool(playerPosition,"Trap", "A predator trap",1.0, 1.0);
+        Item tool = new Trap(playerPosition,"Trap", "A predator trap",1.0, 1.0);
 
         assertFalse("Should not be able to use", game.canUse(tool));
     }
@@ -177,8 +177,8 @@ public class GameTest extends junit.framework.TestCase
     @Test
     public void testCanUseTool(){
         //Screwdriver can be used if player has a broken trap
-        Item tool = new Tool(playerPosition,"Screwdriver", "A good tool to fix a trap",1.0, 1.0);
-        Tool trap = new Tool(playerPosition,"Trap", "A predator trap",1.0, 1.0);
+        Item tool = new ScrewDriver(playerPosition,"Screwdriver", "A good tool to fix a trap",1.0, 1.0);
+        Tool trap = new Trap(playerPosition,"Trap", "A predator trap",1.0, 1.0);
         trap.setBroken();
         player.collect(trap);
 
@@ -188,8 +188,8 @@ public class GameTest extends junit.framework.TestCase
     @Test
     public void testCanUseToolNoTrap(){
         //Screwdriver can be used if player has a broken trap
-        Item tool = new Tool(playerPosition,"Screwdriver", "A good tool to fix a trap",1.0, 1.0);
-        Tool trap = new Tool(playerPosition,"Trap", "A predator trap",1.0, 1.0);
+        Item tool = new ScrewDriver(playerPosition,"Screwdriver", "A good tool to fix a trap",1.0, 1.0);
+        Tool trap = new Trap(playerPosition,"Trap", "A predator trap",1.0, 1.0);
         trap.setBroken();
 
         assertFalse("Should not be able to use", game.canUse(tool));
@@ -198,8 +198,8 @@ public class GameTest extends junit.framework.TestCase
     @Test
     public void testCanUseToolTrapNotBroken(){
         //Screwdriver can be used if player has a broken trap
-        Item tool = new Tool(playerPosition,"Screwdriver", "A good tool to fix a trap",1.0, 1.0);
-        Tool trap = new Tool(playerPosition,"Trap", "A predator trap",1.0, 1.0);
+        Item tool = new ScrewDriver(playerPosition,"Screwdriver", "A good tool to fix a trap",1.0, 1.0);
+        Tool trap = new Trap(playerPosition,"Trap", "A predator trap",1.0, 1.0);
         player.collect(trap);
 
         assertFalse("Should not be able to use", game.canUse(tool));
@@ -256,9 +256,9 @@ public class GameTest extends junit.framework.TestCase
         assertTrue("Player should have food",player.hasItem(food));
         
         //Positions can have at most three occupants
-        Item dummy = new Tool(playerPosition,"Trap", "An extra occupant", 1.0, 1.0);
-        Item dummy2 = new Tool(playerPosition,"Trap", "An extra occupant", 1.0, 1.0);
-        Item dummy3 = new Tool(playerPosition,"Trap", "An extra occupant", 1.0, 1.0);
+        Item dummy = new Trap(playerPosition,"Trap", "An extra occupant", 1.0, 1.0);
+        Item dummy2 = new Trap(playerPosition,"Trap", "An extra occupant", 1.0, 1.0);
+        Item dummy3 = new Trap(playerPosition,"Trap", "An extra occupant", 1.0, 1.0);
         island.addOccupant(playerPosition, dummy);
         island.addOccupant(playerPosition, dummy2);
         island.addOccupant(playerPosition, dummy3);
@@ -294,7 +294,7 @@ public class GameTest extends junit.framework.TestCase
     
     @Test
     public void testUseItemTrap(){
-        Item trap = new Tool(playerPosition,"Trap", "Rat trap",1.0, 1.0);
+        Item trap = new Trap(playerPosition,"Trap", "Rat trap",1.0, 1.0);
         player.collect(trap);
         assertTrue("Player should have trap",player.hasItem(trap));
         
@@ -315,7 +315,7 @@ public class GameTest extends junit.framework.TestCase
     
     @Test
     public void testUseItemBrokenTrap(){
-        Tool trap = new Tool(playerPosition,"Trap", "Rat trap",1.0, 1.0);
+        Tool trap = new Trap(playerPosition,"Trap", "Rat trap",1.0, 1.0);
         player.collect(trap);
         assertTrue("Player should have trap",player.hasItem(trap));
         
@@ -330,11 +330,11 @@ public class GameTest extends junit.framework.TestCase
     
     @Test
     public void testUseItemToolFixTrap(){
-        Tool trap = new Tool(playerPosition,"Trap", "Rat trap",1.0, 1.0);
+        Tool trap = new Trap(playerPosition,"Trap", "Rat trap",1.0, 1.0);
         trap.setBroken();
         player.collect(trap);
         assertTrue("Player should have trap",player.hasItem(trap));
-        Tool screwdriver = new Tool(playerPosition,"Screwdriver", "Useful screwdriver",1.0, 1.0);
+        Tool screwdriver = new ScrewDriver(playerPosition,"Screwdriver", "Useful screwdriver",1.0, 1.0);
         player.collect(screwdriver);
         assertTrue("Player should have screwdriver",player.hasItem(screwdriver));
         
@@ -432,7 +432,7 @@ public class GameTest extends junit.framework.TestCase
     private boolean trapAllPredators()
     {
         //Firstly player needs a trap
-        Tool trap = new Tool(playerPosition,"Trap", "A predator trap",1.0, 1.0);
+        Tool trap = new Trap(playerPosition,"Trap", "A predator trap",1.0, 1.0);
         game.collectItem(trap);
         
         //Now player needs to trap all predators

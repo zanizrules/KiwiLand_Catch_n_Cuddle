@@ -128,7 +128,7 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
         System.out.println(occupant + " Selected!");
         if (occupant != null) {
             collectButton.setDisable(!game.canCollect(occupant));
-            cuddleButton.setDisable(!game.canCount(occupant));
+            cuddleButton.setDisable(!game.canCuddle(occupant));
             descriptionTextField.setText(game.getOccupantDescription(occupant));
         }
     }
