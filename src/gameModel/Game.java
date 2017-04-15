@@ -495,12 +495,24 @@ public class Game {
             if (occType.equals("T")) {
                 double weight = input.nextDouble();
                 double size = input.nextDouble();
-                occupant = new Tool(occPos, occName, occDesc, weight, size);
+                if(occName.equalsIgnoreCase("Screwdriver")) {
+                    occupant = new ScrewDriver(occPos, occName, occDesc, weight, size);
+                } else if(occName.equalsIgnoreCase("Trap")) {
+                    occupant = new Trap(occPos, occName, occDesc, weight, size);
+                }
             } else if (occType.equals("E")) {
                 double weight = input.nextDouble();
                 double size = input.nextDouble();
                 double energy = input.nextDouble();
-                occupant = new Food(occPos, occName, occDesc, weight, size, energy);
+                if(occName.equalsIgnoreCase("Sandwich")) {
+                    occupant = new Sandwich(occPos, occName, occDesc, weight, size, energy);
+                } else if(occName.equalsIgnoreCase("Muesli Bar")) {
+                    occupant = new MuesliBar(occPos, occName, occDesc, weight, size, energy);
+                } else if(occName.equalsIgnoreCase("Apple")) {
+                    occupant = new Apple(occPos, occName, occDesc, weight, size, energy);
+                } else if(occName.equalsIgnoreCase("Orange Juice")) {
+                    occupant = new OrangeJuice(occPos, occName, occDesc, weight, size, energy);
+                }
             } else if (occType.equals("H")) {
                 double impact = input.nextDouble();
                 occupant = new Hazard(occPos, occName, occDesc, impact);
@@ -508,12 +520,32 @@ public class Game {
                 occupant = new Kiwi(occPos, occName, occDesc);
                 totalKiwis++;
             } else if (occType.equals("P")) {
-                
-
-                occupant = new Predator(occPos, occName, occDesc);
+                if(occName.equalsIgnoreCase("Rat")) {
+                    occupant = new Rat(occPos, occName, occDesc);
+                } else if(occName.equalsIgnoreCase("Kiore")) {
+                    occupant = new Kiore(occPos, occName, occDesc);
+                } else if(occName.equalsIgnoreCase("Cat")) {
+                    occupant = new Cat(occPos, occName, occDesc);
+                } else if(occName.equalsIgnoreCase("Stoat")) {
+                    occupant = new Stoat(occPos, occName, occDesc);
+                } else if(occName.equalsIgnoreCase("Possum")) {
+                    occupant = new Possum(occPos, occName, occDesc);
+                }
                 totalPredators++;
             } else if (occType.equals("F")) {
-                occupant = new Fauna(occPos, occName, occDesc);
+                if(occName.equalsIgnoreCase("Oystercatcher")) {
+                    occupant = new OysterCatcher(occPos, occName, occDesc);
+                } else if(occName.equalsIgnoreCase("Crab")) {
+                    occupant = new Crab(occPos, occName, occDesc);
+                } else if(occName.equalsIgnoreCase("Fernbird")) {
+                    occupant = new FernBird(occPos, occName, occDesc);
+                } else if(occName.equalsIgnoreCase("Heron")) {
+                    occupant = new Heron(occPos, occName, occDesc);
+                } else if(occName.equalsIgnoreCase("Robin")) {
+                    occupant = new Robin(occPos, occName, occDesc);
+                } else if(occName.equalsIgnoreCase("Tui")) {
+                    occupant = new Tui(occPos, occName, occDesc);
+                }
             }
             if (occupant != null) island.addOccupant(occPos, occupant);
         }
