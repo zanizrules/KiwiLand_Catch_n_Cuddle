@@ -1,8 +1,5 @@
 package gameModel;
 
-/**
- * Created by michelemiller on 15/04/17.
- */
 public class Rat extends Predator {
 
 

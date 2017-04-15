@@ -508,6 +508,8 @@ public class Game {
                 occupant = new Kiwi(occPos, occName, occDesc);
                 totalKiwis++;
             } else if (occType.equals("P")) {
+                
+
                 occupant = new Predator(occPos, occName, occDesc);
                 totalPredators++;
             } else if (occType.equals("F")) {
