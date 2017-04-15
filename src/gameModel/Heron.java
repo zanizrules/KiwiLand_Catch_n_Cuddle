@@ -1,6 +1,6 @@
 package gameModel;
 
-public class Heron extends Predator {
+public class Heron extends Fauna {
     public Heron(Position pos, String name, String description){
         super(pos,name,description);
     }

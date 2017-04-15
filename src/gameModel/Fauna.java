@@ -1,8 +1,6 @@
 
 package gameModel;
 
-import javafx.scene.image.Image;
-
 /**
  * Fauna at this point represents any species that is not a kiwi or a predator on the island.
  * If we need additional endangered species this class should have descendant classes created.
