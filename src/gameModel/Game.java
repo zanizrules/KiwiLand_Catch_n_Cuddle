@@ -382,6 +382,7 @@ public class Game {
             //Predator has been trapped so remove
             island.removeOccupant(current, occupant);
             predatorsTrapped++;
+            score += 10;
         }
 
         return hadPredator;
@@ -497,22 +498,22 @@ public class Game {
             if (occType.equals("T")) {
                 double weight = input.nextDouble();
                 double size = input.nextDouble();
-                if(occName.equalsIgnoreCase("Screwdriver")) {
+                if (occName.equalsIgnoreCase("Screwdriver")) {
                     occupant = new ScrewDriver(occPos, occName, occDesc, weight, size);
-                } else if(occName.equalsIgnoreCase("Trap")) {
+                } else if (occName.equalsIgnoreCase("Trap")) {
                     occupant = new Trap(occPos, occName, occDesc, weight, size);
                 }
             } else if (occType.equals("E")) {
                 double weight = input.nextDouble();
                 double size = input.nextDouble();
                 double energy = input.nextDouble();
-                if(occName.equalsIgnoreCase("Sandwich")) {
+                if (occName.equalsIgnoreCase("Sandwich")) {
                     occupant = new Sandwich(occPos, occName, occDesc, weight, size, energy);
-                } else if(occName.equalsIgnoreCase("Muesli Bar")) {
+                } else if (occName.equalsIgnoreCase("Muesli Bar")) {
                     occupant = new MuesliBar(occPos, occName, occDesc, weight, size, energy);
-                } else if(occName.equalsIgnoreCase("Apple")) {
+                } else if (occName.equalsIgnoreCase("Apple")) {
                     occupant = new Apple(occPos, occName, occDesc, weight, size, energy);
-                } else if(occName.equalsIgnoreCase("Orange Juice")) {
+                } else if (occName.equalsIgnoreCase("Orange Juice")) {
                     occupant = new OrangeJuice(occPos, occName, occDesc, weight, size, energy);
                 }
             } else if (occType.equals("H")) {
@@ -522,30 +523,30 @@ public class Game {
                 occupant = new Kiwi(occPos, occName, occDesc);
                 totalKiwis++;
             } else if (occType.equals("P")) {
-                if(occName.equalsIgnoreCase("Rat")) {
+                if (occName.equalsIgnoreCase("Rat")) {
                     occupant = new Rat(occPos, occName, occDesc);
-                } else if(occName.equalsIgnoreCase("Kiore")) {
+                } else if (occName.equalsIgnoreCase("Kiore")) {
                     occupant = new Kiore(occPos, occName, occDesc);
-                } else if(occName.equalsIgnoreCase("Cat")) {
+                } else if (occName.equalsIgnoreCase("Cat")) {
                     occupant = new Cat(occPos, occName, occDesc);
-                } else if(occName.equalsIgnoreCase("Stoat")) {
+                } else if (occName.equalsIgnoreCase("Stoat")) {
                     occupant = new Stoat(occPos, occName, occDesc);
-                } else if(occName.equalsIgnoreCase("Possum")) {
+                } else if (occName.equalsIgnoreCase("Possum")) {
                     occupant = new Possum(occPos, occName, occDesc);
                 }
                 totalPredators++;
             } else if (occType.equals("F")) {
-                if(occName.equalsIgnoreCase("Oystercatcher")) {
+                if (occName.equalsIgnoreCase("Oystercatcher")) {
                     occupant = new OysterCatcher(occPos, occName, occDesc);
-                } else if(occName.equalsIgnoreCase("Crab")) {
+                } else if (occName.equalsIgnoreCase("Crab")) {
                     occupant = new Crab(occPos, occName, occDesc);
-                } else if(occName.equalsIgnoreCase("Fernbird")) {
+                } else if (occName.equalsIgnoreCase("Fernbird")) {
                     occupant = new FernBird(occPos, occName, occDesc);
-                } else if(occName.equalsIgnoreCase("Heron")) {
+                } else if (occName.equalsIgnoreCase("Heron")) {
                     occupant = new Heron(occPos, occName, occDesc);
-                } else if(occName.equalsIgnoreCase("Robin")) {
+                } else if (occName.equalsIgnoreCase("Robin")) {
                     occupant = new Robin(occPos, occName, occDesc);
-                } else if(occName.equalsIgnoreCase("Tui")) {
+                } else if (occName.equalsIgnoreCase("Tui")) {
                     occupant = new Tui(occPos, occName, occDesc);
                 }
             }
