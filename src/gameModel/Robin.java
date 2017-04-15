@@ -1,5 +1,7 @@
 package gameModel;
 
+import javafx.scene.image.Image;
+
 public class Robin extends Fauna {
     public Robin(Position pos, String name, String description){
         super(pos,name,description);
@@ -7,6 +9,6 @@ public class Robin extends Fauna {
 
     @Override
     public void setImage() {
-        image = getClass().getResource("images/robin.png").toExternalForm();
+        super.setImage("images/robin.png");
     }
 }

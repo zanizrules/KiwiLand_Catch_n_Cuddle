@@ -7,6 +7,6 @@ public class FernBird extends Fauna {
 
     @Override
     public void setImage() {
-        image = getClass().getResource("images/fernbird.png").toExternalForm();
+        super.setImage("images/fernbird.png");
     }
 }

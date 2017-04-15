@@ -7,6 +7,6 @@ public class ScrewDriver extends Tool {
 
     @Override
     public void setImage() {
-        image = getClass().getResource("images/tool.png").toExternalForm();
+        super.setImage("images/tool.png");
     }
 }

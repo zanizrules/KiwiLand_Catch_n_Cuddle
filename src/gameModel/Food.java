@@ -7,7 +7,7 @@ package gameModel;
  * @author AS
  * @version July 2011
  */
-public class Food extends Item {
+public abstract class Food extends Item {
     private double energy;
 
     /**
@@ -42,10 +42,5 @@ public class Food extends Item {
     @Override
     public String getStringRepresentation() {
         return "E";
-    }
-
-    @Override
-    public void setImage() {
-        image = getClass().getResource("images/mueslibar.png").toExternalForm();
     }
 }

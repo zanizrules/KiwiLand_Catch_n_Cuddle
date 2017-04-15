@@ -7,6 +7,6 @@ public class Kiore extends Predator {
 
     @Override
     public void setImage() {
-        image = getClass().getResource("images/rat.png").toExternalForm();
+        super.setImage("images/rat.png");
     }
 }

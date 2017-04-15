@@ -1,5 +1,7 @@
 package gameModel;
 
+import javafx.scene.image.Image;
+
 /**
  * Predator represents a predator on the island.
  * If more specific behaviour is required for particular predators, descendants
@@ -23,7 +25,7 @@ public class Predator extends Fauna {
 
     @Override
     public void setImage() {
-        image = getClass().getResource("images/rat.png").toExternalForm();
+        super.setImage("images/rat.png");
     }
 
     @Override

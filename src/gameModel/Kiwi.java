@@ -1,6 +1,8 @@
 
 package gameModel;
 
+import javafx.scene.image.Image;
+
 /**
  * Kiwi represents a kiwi living on the island
  *
@@ -40,7 +42,7 @@ public class Kiwi extends Fauna {
 
     @Override
     public void setImage() {
-        image = getClass().getResource("images/kiwi.png").toExternalForm();
+        super.setImage("images/kiwi.png");
     }
 
     @Override

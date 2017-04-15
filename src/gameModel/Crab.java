@@ -7,6 +7,6 @@ public class Crab extends Fauna {
 
     @Override
     public void setImage() {
-        image = getClass().getResource("images/crab.png").toExternalForm();
+        super.setImage("images/crab.png");
     }
 }

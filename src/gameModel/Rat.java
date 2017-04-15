@@ -9,6 +9,6 @@ public class Rat extends Predator {
 
     @Override
     public void setImage() {
-        image = getClass().getResource("images/rat2.png").toExternalForm();
+        super.setImage("images/rat2.png");
     }
 }

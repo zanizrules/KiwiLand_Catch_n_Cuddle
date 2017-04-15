@@ -1,5 +1,7 @@
 package gameModel;
 
+import javafx.scene.image.Image;
+
 /**
  * Abstract base class for occupants that inhabit Kiwi Island.
  *
@@ -10,8 +12,7 @@ public abstract class Occupant {
     private Position position;
     private final String name;
     private final String description;
-    protected String image;
-
+    protected Image image;
 
     /**
      * Construct an occupant for a known position & name.
@@ -82,9 +83,12 @@ public abstract class Occupant {
      */
     public abstract String getStringRepresentation();
 
+    public void setImage(String imageLoc) {
+        image = new Image(getClass().getResource(imageLoc).toExternalForm());
+    }
     public abstract void setImage();
 
-    public String getImage() {
+    public Image getImage() {
         return image;
     }
 }

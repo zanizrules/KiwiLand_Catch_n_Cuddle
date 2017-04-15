@@ -1,5 +1,7 @@
 package gameModel;
 
+import javafx.scene.image.Image;
+
 public class OysterCatcher extends Fauna{
     public OysterCatcher(Position pos, String name, String description){
         super(pos,name,description);
@@ -7,6 +9,6 @@ public class OysterCatcher extends Fauna{
 
     @Override
     public void setImage() {
-        image = getClass().getResource("images/oystercatcher.png").toExternalForm();
+        super.setImage("images/oystercatcher.png");
     }
 }

@@ -7,6 +7,6 @@ public class Stoat extends Fauna {
 
     @Override
     public void setImage() {
-        image = getClass().getResource("").toExternalForm();
+        super.setImage("images/stoat.png");
     }
 }

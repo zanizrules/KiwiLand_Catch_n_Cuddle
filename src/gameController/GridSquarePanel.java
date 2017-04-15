@@ -77,11 +77,9 @@ class GridSquarePanel extends Label {
                     game.getPlayer().getPosition().getColumn() == column) {
                 imageView.setImage(playerImage);
             } else if (game.getOccupantImages(row, column) != null) {
-                ArrayList<String> imageList = game.getOccupantImages(row, column);
+                ArrayList<Image> imageList = game.getOccupantImages(row, column);
                 if (!imageList.isEmpty()) {
-                    if (!imageList.get(imageList.size() - 1).isEmpty()) {
-                        imageView.setImage(new Image(imageList.get(imageList.size() - 1)));
-                    }
+                    imageView.setImage(imageList.get(imageList.size() - 1));
                 } else {
                     imageView.setImage(null); // No image
                 }

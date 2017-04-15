@@ -7,6 +7,6 @@ public class Sandwich extends Food {
 
     @Override
     public void setImage() {
-        image = getClass().getResource("images/sandwhich.png").toExternalForm();
+        super.setImage("images/sandwhich.png");
     }
 }

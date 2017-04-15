@@ -7,6 +7,6 @@ public class Trap extends Tool {
 
     @Override
     public void setImage() {
-        image = getClass().getResource("images/trap.png").toExternalForm();
+        super.setImage("images/trap.png");
     }
 }

@@ -1,5 +1,7 @@
 package gameModel;
 
+import javafx.scene.image.Image;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -138,7 +140,7 @@ public class Island {
         return square.getOccupantStringRepresentation();
     }
 
-    ArrayList<String> getOccupantImage(Position position) {
+    ArrayList<Image> getOccupantImage(Position position) {
         GridSquare square = getGridSquare(position);
         return square.getOccupantImages();
     }

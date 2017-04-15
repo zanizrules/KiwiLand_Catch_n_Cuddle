@@ -40,7 +40,7 @@ public class GridSquareTest extends junit.framework.TestCase
         occupiedSquare = new GridSquare(Terrain.FOREST);
         island = new Island(5,5);
         position = new Position(island, 0,0);
-        apple = new Food(position, "apple", "A juicy red apple", 1.0, 2.0, 1.5);
+        apple = new Apple(position, "apple", "A juicy red apple", 1.0, 2.0, 1.5);
         occupiedSquare.addOccupant(apple);
     }
 

@@ -1,5 +1,7 @@
 package gameModel;
 
+import javafx.scene.image.Image;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -116,7 +118,7 @@ public class Game {
         return island.getOccupantStringRepresentation(new Position(island, row, column));
     }
 
-    public ArrayList<String> getOccupantImages(int row, int column) {
+    public ArrayList<Image> getOccupantImages(int row, int column) {
         return island.getOccupantImage(new Position(island, row, column));
     }
 

@@ -1,5 +1,7 @@
 package gameModel;
 
+import javafx.scene.image.Image;
+
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -91,8 +93,8 @@ public class GridSquare {
         return result;
     }
 
-    public ArrayList<String> getOccupantImages() {
-        ArrayList<String> result = new ArrayList<>();
+    public ArrayList<Image> getOccupantImages() {
+        ArrayList<Image> result = new ArrayList<>();
         for (Occupant occupant : occupants) {
             result.add(occupant.getImage());
         }

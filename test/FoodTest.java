@@ -1,3 +1,4 @@
+import gameModel.Apple;
 import gameModel.Food;
 import gameModel.Island;
 import gameModel.Position;
@@ -31,7 +32,7 @@ public class FoodTest extends junit.framework.TestCase
     {
         island = new Island(5,5);
         position = new Position(island, 4,4);
-        apple = new Food(position, "apple", "A juicy red apple", 1.0, 2.0, 1.5);
+        apple = new Apple(position, "apple", "A juicy red apple", 1.0, 2.0, 1.5);
     }
 
     /**
@@ -79,7 +80,7 @@ public class FoodTest extends junit.framework.TestCase
     
     @Test
     public void testIsOkToCarryCannotCarry(){
-        Food tooBig = new Food(position, "Roast pig", "A roasted giant pig", 1.0, 0.0, 1.0);
+        Food tooBig = new Apple(position, "Roast pig apple", "A roasted giant pig apple", 1.0, 0.0, 1.0);
         assertFalse("Shouldn't be carrable.", tooBig.isOkToCarry());
     }        
     
