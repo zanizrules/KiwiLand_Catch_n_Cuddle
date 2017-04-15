@@ -43,7 +43,7 @@
                              <Font size="14.0" />
                          </font>
                      </Label>
-                     <ListView fx:id="inventoryListView" onEditStart="#inventoryListValueChanged" prefHeight="276.0" prefWidth="380.0" />
+                     <ListView fx:id="inventoryListView" onMouseClicked="#inventoryListValueChanged" prefHeight="276.0" prefWidth="380.0" />
                      <HBox prefHeight="4.0" prefWidth="149.0" spacing="5.0">
                          <padding>
                              <Insets left="1.0" right="1.0" />
@@ -58,7 +58,7 @@
                              <Font size="14.0" />
                          </font>
                      </Label>
-                     <ListView fx:id="objectListView" onEditStart="#objectListValueChanged" prefHeight="290.0" prefWidth="380.0" />
+                     <ListView fx:id="objectListView" onMouseClicked="#objectListValueChanged" prefHeight="290.0" prefWidth="380.0" />
                      <HBox prefHeight="10.0" prefWidth="149.0" spacing="5.0">
                          <padding>
                              <Insets left="1.0" right="1.0" />
