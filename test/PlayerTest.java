@@ -1,7 +1,7 @@
-import java.util.Collection;
-
 import gameModel.*;
 import org.junit.Test;
+
+import java.util.Collection;
 
 /**
  * The test class PlayerTest.
