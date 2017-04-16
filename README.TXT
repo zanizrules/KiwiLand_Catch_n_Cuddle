@@ -2,8 +2,8 @@
 This is the project README file.
 ------------------------------------------------------------------------
 
-PROJECT TITLE: Kiwi Island
-PURPOSE OF PROJECT: Programming Assignment
-VERSION or DATE: Version 2 2011
-AUTHORS: SB, KM, VJ, TO'S
+PROJECT TITLE: KiwiLand Catch n Cuddle
+PURPOSE OF PROJECT: SE Group Assignment
+VERSION or DATE: Version 2 2017
+AUTHORS: Shane B, Keith M, VJ C, Troy O'S
 
