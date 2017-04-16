@@ -6,9 +6,7 @@ package gameModel;
  * Valid positions include somewhere on the island or surrounding sea,
  * or the NotOnIsland position which is used for such things as in the player's backpack.
  */
-
-public class Position
-{
+public class Position {
     private int row;
     private int column;
     private Island island;
@@ -22,8 +20,7 @@ public class Position
     /**
      * Constructs a position that is not on the island (e.g., player's backpack).
      */
-    private Position()
-    {
+    private Position() {
         this.island = null;
         this.row    = 0;
         this.column = 0;
@@ -64,8 +61,7 @@ public class Position
      * Row part of position
      * @return row,  
      */
-    public int getRow()
-    {
+    public int getRow() {
        return this.row;
     }
     
@@ -75,8 +71,7 @@ public class Position
      * 
      * @return the column address
      */
-    public int getColumn()
-    {
+    public int getColumn() {
        return this.column;
     }
     
@@ -84,8 +79,7 @@ public class Position
     /**
      * Sets the position as "not on the island".
      */
-    public void removeFromIsland()
-    {
+    public void removeFromIsland() {
         this.island = null;
         this.row    = 0;
         this.column = 0;
@@ -97,8 +91,7 @@ public class Position
      * 
      * @return true if this address is on the island
      */
-    public boolean isOnIsland()
-    {
+    public boolean isOnIsland() {
         return (this.island != null);
     } 
 
@@ -113,37 +106,29 @@ public class Position
      * @return new position if this is a valid direction, otherwise null
      * @throws IllegalArgumentException if direction is null
      */
-    public Position getNewPosition(MoveDirection direction)
-    {
-        if ( direction == null )
-        {
+    public Position getNewPosition(MoveDirection direction) {
+        if ( direction == null ) {
             throw new IllegalArgumentException(
                     "Direction parameter cannot be null");
         }
         
         Position newPosition = null;
-        if ( isOnIsland() )
-        {
-            if ( (direction == MoveDirection.NORTH) && (row > 0) )
-            {
+        if ( isOnIsland() ) {
+            if ( (direction == MoveDirection.NORTH) && (row > 0) ) {
                 newPosition = new Position(island, row-1, column);
             }
             else if ( (direction == MoveDirection.EAST) &&
-                      (column < island.getNumColumns() - 1) )
-            {
+                      (column < island.getNumColumns() - 1) ) {
                 newPosition = new Position(island, row, column + 1);
             }
             else if ( (direction == MoveDirection.SOUTH) &&
-                      (row < island.getNumRows() -1) )
-            {
+                      (row < island.getNumRows() -1) ) {
                 newPosition = new Position(island, row+1, column);
             }
-            else if ( (direction == MoveDirection.WEST) && (column > 0) )
-            {
+            else if ( (direction == MoveDirection.WEST) && (column > 0) ) {
                 newPosition = new Position(island, row, column-1);
             }
         }
         return newPosition;
     }
-  
 }

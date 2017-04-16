@@ -1,22 +1,20 @@
 package gameModel;
 
 import javafx.scene.image.Image;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
- * This is the class that knows the Kiwi Island game rules and state
- * and enforces those rules.
+ * The Game class holds player statistics, and is the connection between Player and Island classes.
+ * The functionality to read in a game text file and set up a game is within this class.
  */
-
 public class Game {
     private Island island;
     private Player player;
     private GameState state;
-    private int kiwiCount; // Change to keep track of score instead
+    private int kiwiCount;
     private int score;
     private int totalPredators;
     private int totalKiwis;
@@ -39,7 +37,6 @@ public class Game {
 
     public Game() {
         eventListeners = new HashSet<>();
-
         createNewGame();
     }
 
@@ -133,7 +130,6 @@ public class Game {
         playerValues[SIZE_INDEX] = (int) player.getCurrentBackpackSize();
 
         return playerValues;
-
     }
 
     public int getKiwiCount() {
@@ -236,7 +232,6 @@ public class Game {
         if (success) {
             // player has picked up an item: remove from grid square
             island.removeOccupant(player.getPosition(), (Item) item);
-
 
             // everybody has to know about the change
             notifyGameEventListeners();
@@ -372,14 +367,12 @@ public class Game {
     private boolean playerCanMove() {
         return (isPlayerMovePossible(MoveDirection.NORTH) || isPlayerMovePossible(MoveDirection.SOUTH)
                 || isPlayerMovePossible(MoveDirection.EAST) || isPlayerMovePossible(MoveDirection.WEST));
-
     }
 
     private boolean trapPredator() {
         Position current = player.getPosition();
         boolean hadPredator = island.hasPredator(current);
-        if (hadPredator) //can trap it
-        {
+        if (hadPredator) { //can trap it
             Occupant occupant = island.getPredator(current);
             //Predator has been trapped so remove
             island.removeOccupant(current, occupant);

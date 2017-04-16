@@ -1,10 +1,8 @@
-
 package gameModel;
 
 /**
  * This class represents a hazard that can be found on the island
  */
-
 public class Hazard extends Occupant {
     
     private final double impact;
@@ -18,7 +16,6 @@ public class Hazard extends Occupant {
      * @param impact on player
      */
     public Hazard(Position position, String name, String description, double impact) {
-        
         super(position, name, description);
         this.impact = impact;
     }
@@ -35,8 +32,7 @@ public class Hazard extends Occupant {
      * Checks if fatal impact
      * @return true if fatal
      */
-    public boolean isFatal()
-    {
+    public boolean isFatal() {
         return impact == FATAL_IMPACT;
     }
     
@@ -44,8 +40,7 @@ public class Hazard extends Occupant {
      * Checks if this is broken trap hazard
      * @return true if this is broken trap hazard
      */
-    public boolean isBreakTrap() 
-    {
+    public boolean isBreakTrap() {
         String name = this.getName();
         return name.equalsIgnoreCase("Broken trap");
     }

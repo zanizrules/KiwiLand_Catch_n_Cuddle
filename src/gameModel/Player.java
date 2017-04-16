@@ -1,6 +1,5 @@
 package gameModel;
 
-import javax.swing.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
@@ -13,7 +12,7 @@ import java.util.HashSet;
  * @version July 2011
  */
 public class Player {
-    public static final double MOVE_STAMINA = 1.0;
+    private static final double MOVE_STAMINA = 1.0;
 
     private Position position;
     private final String name;
@@ -46,10 +45,6 @@ public class Player {
         this.backpack = new HashSet<>();
         image = getClass().getResource("images/player.png").toExternalForm();
     }
-
-    /*****************************************************************************************************
-     * Accessor methods
-     ****************************************************************************************************/
 
     /**
      * Gets the name of the player.
@@ -103,7 +98,7 @@ public class Player {
      * @param terrain the terrain to move in
      * @return the amount of stamina needed for the next move
      */
-    public double getStaminaNeededToMove(Terrain terrain) {
+    private double getStaminaNeededToMove(Terrain terrain) {
         double staminaNeeded = MOVE_STAMINA;
         double load = getCurrentBackpackWeight() / maxBackpackWeight;
         // Twice as much is needed when the backpack is full
@@ -227,10 +222,6 @@ public class Player {
     public Collection<Item> getInventory() {
         return Collections.unmodifiableCollection(backpack);
     }
-
-    /*************************************************************************************************************
-     * Mutator methods
-     ****************************************************************************************************************/
 
     /**
      * Kills the Player

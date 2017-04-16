@@ -62,6 +62,5 @@ public enum Terrain
         }
         return terrain;
     }
-    
 }
 

@@ -4,9 +4,6 @@ import javafx.scene.image.Image;
 
 /**
  * Abstract base class for occupants that inhabit Kiwi Island.
- *
- * @author AS
- * @version 2.0 - October 2011 - AS - added toString
  */
 public abstract class Occupant {
     private Position position;
@@ -88,6 +85,7 @@ public abstract class Occupant {
             image = new Image(getClass().getResource(imageLoc).toExternalForm());
         } catch (RuntimeException ignore) {}
     }
+
     public abstract void setImage();
 
     public Image getImage() {

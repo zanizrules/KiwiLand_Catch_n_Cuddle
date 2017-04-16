@@ -1,12 +1,7 @@
 package gameModel;
 
-import javafx.scene.image.Image;
-
 /**
  * Kiwi represents a kiwi living on the island
- *
- * @author AS
- * @version July 2011d
  */
 public class Kiwi extends Fauna {
     private boolean cuddled;

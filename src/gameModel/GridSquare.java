@@ -1,19 +1,13 @@
 package gameModel;
 
 import javafx.scene.image.Image;
-
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.SynchronousQueue;
 
 /**
  * Class to represent a grid square on the island.
  */
-
 public class GridSquare {
     private static final int MAX_OCCUPANTS = 3;
     private Terrain terrain;
@@ -36,9 +30,6 @@ public class GridSquare {
 
     }
 
-    /**************************************************************************************************
-     * Accessor methods
-     **************************************************************************************************/
     /**
      * Gets the terrain of the grid square.
      *
@@ -92,7 +83,7 @@ public class GridSquare {
         return result;
     }
 
-    public ArrayList<Image> getOccupantImages() {
+    ArrayList<Image> getOccupantImages() {
         ArrayList<Image> result = new ArrayList<>();
         for (Occupant occupant : occupants) {
             result.add(occupant.getImage());
@@ -128,9 +119,6 @@ public class GridSquare {
         return occupants;
     }
 
-    /***************************************************************************************************
-     * Mutator methods
-     ***************************************************************************************************/
     /**
      * Sets the terrain of the grid square.
      *
@@ -185,7 +173,6 @@ public class GridSquare {
         return success;
     }
 
-
     /**
      * Removes an occupant if it is on that GridSquare.
      *
@@ -201,5 +188,4 @@ public class GridSquare {
         }
         return success;
     }
-
 }

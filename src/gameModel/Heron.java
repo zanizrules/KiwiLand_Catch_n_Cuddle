@@ -1,4 +1,5 @@
 package gameModel;
+
 /**
 * Subclass designed to provide a different image for a heron
 */

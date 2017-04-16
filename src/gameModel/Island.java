@@ -3,10 +3,8 @@ package gameModel;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.SynchronousQueue;
 
 /**
  * A class to represent an island in the world on which the game is played.
@@ -77,7 +75,6 @@ public class Island {
     /**
      * Is this square visible
      *
-     * @param position
      * @return true if visible
      */
     public boolean isVisible(Position position) {
@@ -88,7 +85,6 @@ public class Island {
     /**
      * Is this square explored
      *
-     * @param position
      * @return true if explored
      */
     public boolean isExplored(Position position) {
@@ -99,7 +95,6 @@ public class Island {
     /**
      * Is player in this position?
      *
-     * @param position
      * @return true if player in this position
      */
     boolean hasPlayer(Position position) {
@@ -132,7 +127,6 @@ public class Island {
     /**
      * Get string for occupants of this position
      *
-     * @param position
      * @return string representing occupants
      */
     String getOccupantStringRepresentation(Position position) {
@@ -177,8 +171,6 @@ public class Island {
 
     /**
      * Update the grid and the explored & visible state of the grid to reflect new position of player.
-     *
-     * @param player
      */
     public void updatePlayerPosition(Player player) {
         // the grid square with the player on it is now explored...
@@ -202,7 +194,6 @@ public class Island {
         previousPlayerPos = position;
     }
 
-
     /**
      * Attempts to add an occupant to a specified position on the island.
      *
@@ -216,14 +207,11 @@ public class Island {
             GridSquare gridSquare = getGridSquare(position);
             success = gridSquare.addOccupant(occupant);
         }
-        if (success) // Can fail if square already full or occupant already there
-        {
-            //update the occupants address
-            occupant.setPosition(position);
+        if (success) {  // Can fail if square already full or occupant already there
+            occupant.setPosition(position); //update the occupants address
         }
         return success;
     }
-
 
     /**
      * Attempts to remove an occupant from a specified position on the island.
@@ -350,5 +338,4 @@ public class Island {
         }
         return result;
     }
-
 }

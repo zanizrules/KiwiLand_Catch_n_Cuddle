@@ -69,7 +69,7 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
     public void initialize(URL location, ResourceBundle resources) {
         // This method is called AFTER the constructor of this class
 
-        // Add all things here, e.g. player name, grid data etc
+        // All things to be added is done here, e.g. player name, grid data etc
 
         // Single selection lists
         inventoryListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -89,7 +89,7 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
         update();
     }
 
-    private void setUpKeys() {
+    private void setUpKeys() { // Set up the key mappings
         keyMappings.put(KeyCode.W, "north");
         keyMappings.put(KeyCode.A, "west");
         keyMappings.put(KeyCode.S, "south");
@@ -97,37 +97,37 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
     }
 
     @FXML
-    private void processKeyPressed(KeyEvent keyEvent){
+    private void processKeyPressed(KeyEvent keyEvent){ // Called when a key is pressed
         if(keyMappings.containsKey(keyEvent.getCode())) {
+            // If the keycode has a stored mapping then execute the associated function
             completeKeyboardAction(keyMappings.get(keyEvent.getCode()));
         }
     }
 
     @FXML
-    private void collectButtonClick() {
+    private void collectButtonClick() { // Called when collect button is clicked
         Occupant occupant = objectListView.getSelectionModel().getSelectedItem();
         game.collectItem(occupant);
     }
 
     @FXML
-    private void discardButtonClick() {
+    private void discardButtonClick() { // Called when discard button is clicked
         game.dropItem(inventoryListView.getSelectionModel().getSelectedItem());
     }
 
     @FXML
-    private void useButtonClick() {
+    private void useButtonClick() { // Called when use button is clicked
         game.useItem(inventoryListView.getSelectionModel().getSelectedItem());
     }
 
     @FXML
-    private void cuddleButtonClick() {
+    private void cuddleButtonClick() { // Called when cuddle button is clicked
         game.countKiwi();
     }
 
     @FXML
-    private void objectListValueChanged() {
+    private void objectListValueChanged() { // Called when an item is selected in the object list
         Occupant occupant = objectListView.getSelectionModel().getSelectedItem();
-        System.out.println(occupant + " Selected!");
         if (occupant != null) {
             collectButton.setDisable(!game.canCollect(occupant));
             cuddleButton.setDisable(!game.canCuddle(occupant));
@@ -136,11 +136,9 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
     }
 
     @FXML
-    private void inventoryListValueChanged() {
+    private void inventoryListValueChanged() { // Called when an item is selected in the inventory list
         Item item = inventoryListView.getSelectionModel().getSelectedItem();
-        System.out.println(item + " Selected!");
         if (item != null) {
-            System.out.println("im looping......");
             discardButton.setDisable(false);
             useButton.setDisable(!game.canUse(item));
             descriptionTextField.setText(game.getOccupantDescription(item));
@@ -148,6 +146,7 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
     }
 
     private void completeKeyboardAction(String command) {
+        // Based on the command past in determines which way the player should move
         switch (command) {
             case "north":
                 game.playerMove(MoveDirection.NORTH);
@@ -161,16 +160,20 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
             case "east":
                 game.playerMove(MoveDirection.EAST);
                 break;
+            // Do nothing if invalid command
         }
     }
 
     /**
      * This method is called by the game model every time something changes.
-     * Trigger an update.
+     * It triggers an update.
+     * TODO: Change the functionality of this function to implement new game states (Sprint 2)
      */
     @Override
     public void gameStateChanged() {
         update();
+
+        // TODO: Use our own message boxes as JOptionPanes DO NOT WORK ON MAC MACHINES (sprint 2)
 
         // check for "game over" or "game won"
         if (game.getState() == GameState.LOST) {
@@ -199,7 +202,7 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
     private void update() {
         descriptionTextField.setText(""); // Clear description
         ObservableList<Node> nodes = islandGrid.getChildren();
-        for (Node n : nodes) {
+        for (Node n : nodes) { // update all grid squares on the island
             if(n instanceof GridSquarePanel) {
                 GridSquarePanel panel = (GridSquarePanel) n;
                 panel.update();

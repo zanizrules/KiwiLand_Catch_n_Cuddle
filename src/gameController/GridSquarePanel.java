@@ -1,7 +1,6 @@
 package gameController;
 
 import gameModel.Game;
-import gameModel.GridSquare;
 import gameModel.Terrain;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -12,11 +11,18 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
+/**
+ * This class is used to represent a single grid square within the island grid.
+ * A grid square can contain a terrain, and images of the occupants on that square.
+ * Author: Shane Birdsall
+ */
 class GridSquarePanel extends Label {
     private Game game;
     private int row, column;
     private ImageView imageView;
     private static Image playerImage = null;
+
+    // Terrain Images
     private static final Image DEFAULT_TERRAIN = new Image(GridSquarePanel.class.getResource("../gameModel/images/wetland.png").toExternalForm());
     private static final Image WETLAND_TERRAIN = DEFAULT_TERRAIN;
     private static final Image SCRUB_TERRAIN = new Image(GridSquarePanel.class.getResource("../gameModel/images/scrub.png").toExternalForm());
@@ -35,11 +41,11 @@ class GridSquarePanel extends Label {
     }
 
     private void initComponents() {
-        setMaxWidth(86);
+        setMaxWidth(86); // Set size of grid square
         setMaxHeight(86);
-        setStyle("-fx-border-color: white");
+        setStyle("-fx-border-color: white"); // Set border of grid to white
         imageView = new ImageView();
-        imageView.setFitHeight(80);
+        imageView.setFitHeight(80); // (Images resized based on this)
         imageView.setFitWidth(80);
     }
 
@@ -51,7 +57,7 @@ class GridSquarePanel extends Label {
 
         Image terrainImage;
 
-        switch (terrain) {
+        switch (terrain) { // Set image depending on the terrain for this grid square
             case SAND:
                 terrainImage = SAND_TERRAIN;
                 break;
@@ -72,6 +78,7 @@ class GridSquarePanel extends Label {
                 break;
         }
 
+        // Show images if the square is explored and visible
         if (squareExplored || squareVisible) {
             if (game.getPlayer().getPosition().getRow() == row &&
                     game.getPlayer().getPosition().getColumn() == column) {
