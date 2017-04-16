@@ -27,6 +27,7 @@
                                    <Label text="Player: " />
                                    <Label text="Stamina:" />
                                    <Label text="Bag Weight:" />
+                              <Label text="Bag Size:" />
                                </children>
                             </VBox>
                             <VBox prefHeight="94.0" prefWidth="155.0" spacing="5.0">
@@ -34,6 +35,7 @@
                                    <Label fx:id="nameLabel" text="Shane" />
                                    <ProgressBar fx:id="staminaProgressBar" prefHeight="18.0" prefWidth="160.0" progress="0.0" />
                                    <ProgressBar fx:id="weightProgressBar" prefWidth="200.0" progress="0.0" />
+                              <ProgressBar fx:id="sizeProgressBar" prefWidth="200.0" progress="0.0" />
                                </children>
                             </VBox>
                         </children>

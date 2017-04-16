@@ -417,8 +417,7 @@ public class GameTest extends junit.framework.TestCase
     }
 
     @Test
-    public void testCountKiwi()
-    {
+    public void testCountKiwi() {
         //Need to move to a place where there is a kiwi
         Kiwi kiwi = new Kiwi(player.getPosition(), "kiwi","kiwi");
         island.addOccupant(player.getPosition(), kiwi);

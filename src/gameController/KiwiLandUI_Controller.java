@@ -39,6 +39,8 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
     @FXML
     private ProgressBar staminaProgressBar;
     @FXML
+    private ProgressBar sizeProgressBar;
+    @FXML
     private ListView<Item> inventoryListView;
     @FXML
     private ListView<Occupant> objectListView;
@@ -207,12 +209,14 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
         // update player information
         int[] playerValues = game.getPlayerValues();
         nameLabel.setText(game.getPlayerName());
-        staminaProgressBar.setProgress(playerValues[Game.STAMINA_INDEX]/100f);
-        weightProgressBar.setProgress(playerValues[Game.WEIGHT_INDEX]/100f);
+        float stamina = (float) playerValues[Game.STAMINA_INDEX]/(float) playerValues[Game.MAXSTAMINA_INDEX];
+        staminaProgressBar.setProgress(stamina);
+        float weight = (float) playerValues[Game.WEIGHT_INDEX]/(float) playerValues[Game.MAXWEIGHT_INDEX];
+        weightProgressBar.setProgress(weight);
+        float size = (float) playerValues[Game.SIZE_INDEX]/(float) playerValues[Game.MAXSIZE_INDEX];
+        sizeProgressBar.setProgress(size);
         scoreLabel.setText("Score: " + Integer.toString(game.getScore()));
-
-//        progPlayerStamina.setMaximum(playerValues[Game.MAXSTAMINA_INDEX]);
-//        progBackpackWeight.setMaximum(playerValues[Game.MAXWEIGHT_INDEX]);
+        // NOTE: Math used to calculate the value between 0 and 1 to be used on progress bar
 
         // update inventory list
         ObservableList<Item> inventoryItems = FXCollections.observableArrayList(game.getPlayerInventory());
