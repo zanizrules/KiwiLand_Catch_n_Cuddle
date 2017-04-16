@@ -12,9 +12,6 @@ import java.util.concurrent.SynchronousQueue;
 
 /**
  * Class to represent a grid square on the island.
- *
- * @author AS
- * @version 2.0 - August 2011 - Extended for Stage 2. AS
  */
 
 public class GridSquare {

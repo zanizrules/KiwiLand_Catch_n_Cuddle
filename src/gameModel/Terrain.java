@@ -2,12 +2,6 @@ package gameModel;
 
 /**
  * Enumeration class Terrain - represents terrain types on Kiwi Island.
- * 
- * @author AS
- * @version July 2011
- * 
- * Maintenance History
- * Representation strings changed Anne July 2011
  */
 public enum Terrain
 {

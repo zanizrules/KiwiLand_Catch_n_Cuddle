@@ -1,5 +1,7 @@
 package gameModel;
-
+/**
+* Subclass designed to provide a different image for an oystercatcher
+*/
 public class OysterCatcher extends Fauna{
     public OysterCatcher(Position pos, String name, String description){
         super(pos,name,description);

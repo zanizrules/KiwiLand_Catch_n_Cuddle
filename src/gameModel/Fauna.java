@@ -4,9 +4,6 @@ package gameModel;
 /**
  * Fauna at this point represents any species that is not a kiwi or a predator on the island.
  * If we need additional endangered species this class should have descendant classes created.
- * 
- * @author AS
- * @version July 2011
  */
 public abstract class Fauna extends Occupant
 {

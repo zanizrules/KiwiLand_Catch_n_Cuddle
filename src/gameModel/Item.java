@@ -1,6 +1,5 @@
 package gameModel;
 
-
 /**
  * This class represents an item that can be found on the island.
  */

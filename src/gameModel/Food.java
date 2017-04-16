@@ -3,9 +3,6 @@ package gameModel;
 /**
  * This class represents food that can be found on the island
  * and supplies energy when being consumed (used) by the player.
- *
- * @author AS
- * @version July 2011
  */
 public abstract class Food extends Item {
     private double energy;

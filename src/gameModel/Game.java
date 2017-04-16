@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * This is the class that knows the Kiwi Island game rules and state
  * and enforces those rules.
  */
-// TODO: re comment
+
 public class Game {
     private Island island;
     private Player player;

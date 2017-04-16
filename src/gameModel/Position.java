@@ -5,9 +5,6 @@ package gameModel;
  * Positions must always be valid for the particular game.
  * Valid positions include somewhere on the island or surrounding sea,
  * or the NotOnIsland position which is used for such things as in the player's backpack.
- *
- * @author AS
- * @version 2.0 - created July 2011
  */
 
 public class Position

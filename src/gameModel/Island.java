@@ -10,9 +10,6 @@ import java.util.concurrent.SynchronousQueue;
 
 /**
  * A class to represent an island in the world on which the game is played.
- *
- * @author AS
- * @version Stage 1
  */
 public class Island {
     private final int numRows;

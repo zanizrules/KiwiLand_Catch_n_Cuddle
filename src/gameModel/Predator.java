@@ -4,9 +4,6 @@ package gameModel;
  * Predator represents a predator on the island.
  * If more specific behaviour is required for particular predators, descendants
  * for this class should be created
- *
- * @author AS
- * @version July 2011
  */
 public abstract class Predator extends Fauna {
 

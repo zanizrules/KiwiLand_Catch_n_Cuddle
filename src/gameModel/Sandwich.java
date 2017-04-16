@@ -1,5 +1,7 @@
 package gameModel;
-
+/**
+* Subclass designed to provide a different image for a sandwhich
+*/
 public class Sandwich extends Food {
     public Sandwich(Position pos, String name, String description, double weight, double size, double energy){
         super(pos,name,description, weight, size, energy);

@@ -1,4 +1,3 @@
-
 package gameModel;
 
 import javafx.scene.image.Image;

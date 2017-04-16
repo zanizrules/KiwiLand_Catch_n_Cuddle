@@ -3,9 +3,6 @@ package gameModel;
 
 /**
  * This class represents a hazard that can be found on the island
- *  
- * @author AS
- * @version July 2011
  */
 
 public class Hazard extends Occupant {
