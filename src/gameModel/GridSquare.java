@@ -4,6 +4,8 @@ import javafx.scene.image.Image;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Class to represent a grid square on the island.
@@ -14,7 +16,7 @@ public class GridSquare {
     private boolean visible;
     private boolean explored;
     private Player player;
-    private ConcurrentLinkedQueue<Occupant> occupants;
+    private CopyOnWriteArraySet<Occupant> occupants;
 
     /**
      * Creates a new GridSquare instance.
@@ -25,7 +27,7 @@ public class GridSquare {
         this.terrain = terrain;
         this.explored = false;
         this.visible = false;
-        this.occupants = new ConcurrentLinkedQueue<>();
+        this.occupants = new CopyOnWriteArraySet<>();
         this.player = null;
 
     }
@@ -115,7 +117,7 @@ public class GridSquare {
      *
      * @return the occupants of the grid square as an array
      */
-    public ConcurrentLinkedQueue<Occupant> getOccupants() {
+    public CopyOnWriteArraySet<Occupant> getOccupants() {
         return occupants;
     }
 

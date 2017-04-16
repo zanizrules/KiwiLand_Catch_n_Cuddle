@@ -4,11 +4,13 @@ import javafx.scene.image.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * The Game class holds player statistics, and is the connection between Player and Island classes.
- * The functionality to read in a game text file and set up a game is within this class.
+ * The functionality to read in a game
  */
 public class Game {
     private Island island;
@@ -108,7 +110,7 @@ public class Game {
         return island.isExplored(new Position(island, row, column));
     }
 
-    public ConcurrentLinkedQueue<Occupant> getOccupantsPlayerPosition() {
+    public CopyOnWriteArraySet<Occupant> getOccupantsPlayerPosition() {
         return island.getOccupants(player.getPosition());
     }
 

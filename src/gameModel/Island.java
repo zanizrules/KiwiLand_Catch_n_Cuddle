@@ -5,6 +5,8 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * A class to represent an island in the world on which the game is played.
@@ -120,7 +122,7 @@ public class Island {
      * @param position to use
      * @return the occupants of this position
      */
-    ConcurrentLinkedQueue<Occupant> getOccupants(Position position) {
+    CopyOnWriteArraySet<Occupant> getOccupants(Position position) {
         return getGridSquare(position).getOccupants();
     }
 
@@ -147,7 +149,7 @@ public class Island {
      */
     public boolean hasPredator(Position position) {
         GridSquare square = getGridSquare(position);
-        ConcurrentLinkedQueue<Occupant> occupants = square.getOccupants();
+        CopyOnWriteArraySet<Occupant> occupants = square.getOccupants();
         boolean isPredator = false;
         if (!occupants.isEmpty()) {
             Iterator<Occupant> it = occupants.iterator();
@@ -241,7 +243,7 @@ public class Island {
      */
     public Predator getPredator(Position position) {
         GridSquare square = getGridSquare(position);
-        ConcurrentLinkedQueue<Occupant> occupants = square.getOccupants();
+        CopyOnWriteArraySet<Occupant> occupants = square.getOccupants();
         Predator predator = null;
         if (!occupants.isEmpty()) {
             Iterator<Occupant> it = occupants.iterator();
