@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * This is the class that knows the Kiwi Island game rules and state
@@ -110,7 +111,7 @@ public class Game {
         return island.isExplored(new Position(island, row, column));
     }
 
-    public Collection<Occupant> getOccupantsPlayerPosition() {
+    public ConcurrentLinkedQueue<Occupant> getOccupantsPlayerPosition() {
         return island.getOccupants(player.getPosition());
     }
 

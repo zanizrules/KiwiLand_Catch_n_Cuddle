@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.SynchronousQueue;
 
 /**
  * Class to represent a grid square on the island.
@@ -21,7 +23,7 @@ public class GridSquare {
     private boolean visible;
     private boolean explored;
     private Player player;
-    private Set<Occupant> occupants;
+    private ConcurrentLinkedQueue<Occupant> occupants;
 
     /**
      * Creates a new GridSquare instance.
@@ -32,7 +34,7 @@ public class GridSquare {
         this.terrain = terrain;
         this.explored = false;
         this.visible = false;
-        this.occupants = new HashSet<>();
+        this.occupants = new ConcurrentLinkedQueue<>();
         this.player = null;
 
     }
@@ -125,7 +127,7 @@ public class GridSquare {
      *
      * @return the occupants of the grid square as an array
      */
-    public Collection<Occupant> getOccupants() {
+    public ConcurrentLinkedQueue<Occupant> getOccupants() {
         return occupants;
     }
 
