@@ -22,6 +22,7 @@ public class Game {
     private int totalKiwis;
     private int predatorsTrapped;
     private Set<GameEventListener> eventListeners;
+    private HashMap<String, String> conservationFacts;
 
     private final double MIN_REQUIRED_CATCH = 0.8;
 
@@ -39,6 +40,7 @@ public class Game {
 
     public Game() {
         eventListeners = new HashSet<>();
+        conservationFacts = new HashMap<>();
         createNewGame();
     }
 
@@ -488,9 +490,12 @@ public class Game {
             String occType = input.next();
             String occName = input.next();
             String occDesc = input.next();
-            int occRow = input.nextInt();
-            int occCol = input.nextInt();
-            Position occPos = new Position(island, occRow, occCol);
+            Position occPos = null;
+            if(!occType.equals("I")) {
+                int occRow = input.nextInt();
+                int occCol = input.nextInt();
+                occPos = new Position(island, occRow, occCol);
+            }
             Occupant occupant = null;
 
             if (occType.equals("T")) {
@@ -547,8 +552,10 @@ public class Game {
                 } else if (occName.equalsIgnoreCase("Tui")) {
                     occupant = new Tui(occPos, occName, occDesc);
                 }
+            } else if (occType.equals("I")) { // Add fact using a name to description mapping
+                conservationFacts.put(occName, occDesc);
             }
-            if (occupant != null) island.addOccupant(occPos, occupant);
+            if (occupant != null && !occType.equals("I")) island.addOccupant(occPos, occupant);
         }
     }
 }

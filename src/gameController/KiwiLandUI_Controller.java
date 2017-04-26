@@ -1,5 +1,6 @@
 package gameController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -9,8 +10,11 @@ import gameModel.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +23,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 /**
  * Main Game Screen/UI for KiwiLand Catch n Cuddle.
@@ -54,6 +59,10 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
     private Button discardButton;
     @FXML
     private Button useButton;
+    @FXML
+    private Button exitButton;
+    @FXML
+    private Button restartButton;
 
     private Game game;
     private HashMap<KeyCode, String> keyMappings;
@@ -102,6 +111,20 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
             // If the keycode has a stored mapping then execute the associated function
             completeKeyboardAction(keyMappings.get(keyEvent.getCode()));
         }
+    }
+
+    @FXML
+    private void exitButtonClick() throws IOException { // Called when exit button is clicked
+            Stage stage = (Stage) exitButton.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("../gameView/mainMenuUI.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+    }
+
+    @FXML
+    private void restartButtonClick() { // Called when restart button is clicked
+        game.createNewGame();
     }
 
     @FXML

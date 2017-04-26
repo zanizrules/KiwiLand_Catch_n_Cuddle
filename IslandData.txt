@@ -49,3 +49,9 @@ H,Sunburn,Too much sun has given you bad sunburn and,5,0,0.3,
 H,Fall,Tripping on roots hurt your ankle and,1,4,0.5,
 H,Cliff,A fall down a small cliff,6,5,0.3,
 H,Broken trap,Your predator trap has broken,7,6,0.0,
+I,Kiwi,This is information about a kiwi to be displayed to the user
+I,Rat,This is information about a rat to be displayed to the user
+I,Kiore,This is information about a kiore to be displayed to the user
+I,Cat,This is information about a cat to be displayed to the user
+I,Possum,This is information about a possum to be displayed to the user
+I,Stoat,This is information about a stoat to be displayed to the user
