@@ -124,14 +124,14 @@ public class Game {
         return island.getOccupantImage(new Position(island, row, column));
     }
 
-    public int[] getPlayerValues() {
-        int[] playerValues = new int[6];
-        playerValues[STAMINA_INDEX] = (int) player.getStaminaLevel();
-        playerValues[MAXSTAMINA_INDEX] = (int) player.getMaximumStaminaLevel();
-        playerValues[MAXWEIGHT_INDEX] = (int) player.getMaximumBackpackWeight();
-        playerValues[WEIGHT_INDEX] = (int) player.getCurrentBackpackWeight();
-        playerValues[MAXSIZE_INDEX] = (int) player.getMaximumBackpackSize();
-        playerValues[SIZE_INDEX] = (int) player.getCurrentBackpackSize();
+    public double[] getPlayerValues() {
+        double[] playerValues = new double[6];
+        playerValues[STAMINA_INDEX] = player.getStaminaLevel();
+        playerValues[MAXSTAMINA_INDEX] = player.getMaximumStaminaLevel();
+        playerValues[MAXWEIGHT_INDEX] = player.getMaximumBackpackWeight();
+        playerValues[WEIGHT_INDEX] = player.getCurrentBackpackWeight();
+        playerValues[MAXSIZE_INDEX] = player.getMaximumBackpackSize();
+        playerValues[SIZE_INDEX] = player.getCurrentBackpackSize();
 
         return playerValues;
     }

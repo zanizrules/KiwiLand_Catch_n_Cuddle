@@ -114,13 +114,13 @@ public class GameTest extends junit.framework.TestCase
     
     @Test
     public void testGetPlayerValues(){
-        int[] values = game.getPlayerValues();
-        assertEquals("Check Max backpack size.", values[Game.MAXSIZE_INDEX], 5);    
-        assertEquals("Check max stamina.", values[Game.MAXSTAMINA_INDEX], 100);
-        assertEquals("Check max backpack weight.", values[Game.MAXWEIGHT_INDEX], 10);
-        assertEquals("Check initialstamina", values[Game.STAMINA_INDEX], 100);
-        assertEquals("Check initial backpack weight.", values[Game.WEIGHT_INDEX], 0);
-        assertEquals("Check initial backp[ack size.", values[Game.SIZE_INDEX], 0);
+        double[] values = game.getPlayerValues();
+        assertEquals("Check Max backpack size.", values[Game.MAXSIZE_INDEX], 5.0);
+        assertEquals("Check max stamina.", values[Game.MAXSTAMINA_INDEX], 100.0);
+        assertEquals("Check max backpack weight.", values[Game.MAXWEIGHT_INDEX], 10.0);
+        assertEquals("Check initialstamina", values[Game.STAMINA_INDEX], 100.0);
+        assertEquals("Check initial backpack weight.", values[Game.WEIGHT_INDEX], 0.0);
+        assertEquals("Check initial backp[ack size.", values[Game.SIZE_INDEX], 0.0);
     }
     
     @Test
