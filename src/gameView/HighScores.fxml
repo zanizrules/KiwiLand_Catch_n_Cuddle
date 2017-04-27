@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1050.0" prefWidth="1512.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="1513.0" text="KiwiLand Catch n Cuddle">
+               <font>
+                  <Font size="64.0" />
+               </font>
+               <padding>
+                  <Insets top="45.0" />
+               </padding>
+            </Label>
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="1512.0" text="High-Scores" textFill="#000000cc">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <HBox prefHeight="561.0" prefWidth="1512.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="130.0" text="Rank">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="220.0" text="Name">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="200.0" text="Kiwi's Cuddled">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="200.0" text="Predators Caught">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="170.0" text="Score">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets top="50.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="21.0" prefWidth="130.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0" text="1">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin></Label>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="201.0" text="2">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin></Label>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="164.0" text="3">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="149.0" text="4">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="135.0" text="5">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="187.0" text="6">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="181.0" text="7">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="162.0" text="8">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="191.0" text="9">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="157.0" text="10">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="highScoreNamesList" prefHeight="610.0" prefWidth="220.0">
+                     <children>
+                        <Label fx:id="rankFirstName" alignment="CENTER" prefHeight="27.0" prefWidth="316.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankSecondName" alignment="CENTER" prefHeight="17.0" prefWidth="191.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankThirdName" alignment="CENTER" prefHeight="27.0" prefWidth="270.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankFourthName" alignment="CENTER" prefHeight="17.0" prefWidth="181.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankFifthName" alignment="CENTER" prefHeight="17.0" prefWidth="187.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankSixthName" alignment="CENTER" prefHeight="27.0" prefWidth="214.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankSeventhName" alignment="CENTER" prefHeight="27.0" prefWidth="229.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankEighthName" alignment="CENTER" prefHeight="27.0" prefWidth="288.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankNinethName" alignment="CENTER" prefHeight="17.0" prefWidth="201.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankTenthName" alignment="CENTER" prefHeight="17.0" prefWidth="372.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="highScoreCuddledList" prefHeight="610.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="rankFirstCuddled" alignment="CENTER" prefHeight="17.0" prefWidth="372.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankSecondCuddled" alignment="CENTER" prefHeight="17.0" prefWidth="201.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankThirdCuddled" alignment="CENTER" prefHeight="27.0" prefWidth="288.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankFourthCuddled" alignment="CENTER" prefHeight="27.0" prefWidth="229.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankFithCuddled" alignment="CENTER" prefHeight="27.0" prefWidth="214.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankSitxhCuddled" alignment="CENTER" prefHeight="17.0" prefWidth="187.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankSeventhCuddled" alignment="CENTER" prefHeight="17.0" prefWidth="181.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankEighthCuddled" alignment="CENTER" prefHeight="27.0" prefWidth="270.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankNinethCuddled" alignment="CENTER" prefHeight="17.0" prefWidth="191.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankTenthCuddled" alignment="CENTER" prefHeight="27.0" prefWidth="316.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="highScoreCaughtList" prefHeight="610.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="rankFirstCaught" alignment="CENTER" prefHeight="27.0" prefWidth="316.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankSecondCaught" alignment="CENTER" prefHeight="17.0" prefWidth="191.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankThirdCaught" alignment="CENTER" prefHeight="27.0" prefWidth="270.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankFourthCaught" alignment="CENTER" prefHeight="17.0" prefWidth="181.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankFifthCaught" alignment="CENTER" prefHeight="17.0" prefWidth="187.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankSixthCaught" alignment="CENTER" prefHeight="27.0" prefWidth="214.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankSeventhCaught" alignment="CENTER" prefHeight="27.0" prefWidth="229.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankEighthCaught" alignment="CENTER" prefHeight="27.0" prefWidth="288.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankNinethCaught" alignment="CENTER" prefHeight="17.0" prefWidth="201.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankTenthCaught" alignment="CENTER" prefHeight="17.0" prefWidth="372.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="highScoreTotalList" prefHeight="610.0" prefWidth="170.0">
+                     <children>
+                        <Label fx:id="rankTenthCaught1" alignment="CENTER" prefHeight="17.0" prefWidth="372.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankNinethCaught1" alignment="CENTER" prefHeight="17.0" prefWidth="201.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankEighthCaught1" alignment="CENTER" prefHeight="27.0" prefWidth="288.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankSeventhCaught1" alignment="CENTER" prefHeight="27.0" prefWidth="229.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankSixthCaught1" alignment="CENTER" prefHeight="27.0" prefWidth="214.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankFifthCaught1" alignment="CENTER" prefHeight="17.0" prefWidth="187.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankFourthCaught1" alignment="CENTER" prefHeight="17.0" prefWidth="181.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankThirdCaught1" alignment="CENTER" prefHeight="27.0" prefWidth="270.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankSecondCaught1" alignment="CENTER" prefHeight="17.0" prefWidth="191.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="rankFirstCaught1" alignment="CENTER" prefHeight="27.0" prefWidth="316.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="17.0" left="1.0" right="17.0" top="17.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <bottom>
+      <Button fx:id="returnButton" alignment="CENTER" mnemonicParsing="false" prefHeight="62.0" prefWidth="126.0" text="Return" BorderPane.alignment="BOTTOM_RIGHT">
+         <BorderPane.margin>
+            <Insets bottom="20.0" right="20.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+</BorderPane>
