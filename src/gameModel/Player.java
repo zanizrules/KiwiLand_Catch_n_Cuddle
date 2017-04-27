@@ -272,7 +272,7 @@ public class Player {
             double addedWeight = getCurrentBackpackWeight() + item.getWeight();
             //Will weight fit in backpack?
             boolean notTooHeavy = (addedWeight <= this.maxBackpackWeight);
-            System.out.println("not too heavy: "+notTooHeavy + ", enoughRoom: " +enoughRoom + "size: "+item.getSize());
+            System.out.println("not too heavy: "+notTooHeavy + ", enoughRoom: " +enoughRoom + " size: "+item.getSize());
             //Player can only carry one trap at a time.
             //Is this an addtional trap?
             boolean additionalTrap = false;
