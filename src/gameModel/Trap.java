@@ -7,8 +7,27 @@ public class Trap extends Tool {
         super(pos,name,description, weight, size);
     }
 
+    public Trap(Position pos, String name, String description, double weight, double size, boolean broken){
+        this(pos,name,description, weight, size);
+        if(broken) {
+            setBroken();
+        }
+    }
+    @Override
+    public void setBroken() {
+        super.setBroken();
+        description = "A broken predator trap";
+    }
+    @Override
+    public void fix() {
+        super.fix();
+        description = "A trap for predators";
+    }
+
     @Override
     public void setImage() {
-        super.setImage("images/trap.png");
+        if(isBroken()) {
+            super.setImage("images/broken_trap.png");
+        } else super.setImage("images/trap.png");
     }
 }

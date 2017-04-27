@@ -4,8 +4,6 @@ import javafx.scene.image.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
@@ -30,7 +28,7 @@ public class Game {
     private String loseMessage = "";
     private String playerMessage = "";
 
-    //Constants shared with UI to provide player data
+    // Constants shared with UI to provide player data
     public static final int STAMINA_INDEX = 0;
     public static final int MAXSTAMINA_INDEX = 1;
     public static final int MAXWEIGHT_INDEX = 2;
@@ -504,7 +502,7 @@ public class Game {
                 if (occName.equalsIgnoreCase("Screwdriver")) {
                     occupant = new ScrewDriver(occPos, occName, occDesc, weight, size);
                 } else if (occName.equalsIgnoreCase("Trap")) {
-                    occupant = new Trap(occPos, occName, occDesc, weight, size);
+                    occupant = new Trap(occPos, occName, occDesc, weight, size, occDesc.contains("broken"));
                 }
             } else if (occType.equals("E")) {
                 double weight = input.nextDouble();

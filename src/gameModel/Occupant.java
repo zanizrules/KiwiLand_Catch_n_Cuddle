@@ -7,8 +7,8 @@ import javafx.scene.image.Image;
  */
 public abstract class Occupant {
     private Position position;
-    private final String name;
-    private final String description;
+    private String name;
+    protected String description;
     protected Image image;
 
     /**

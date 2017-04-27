@@ -18,6 +18,7 @@ E,Orange Juice,A bottle of juice, 8, 2, 3.0, 3.0, 60.0,
 T,Trap,A trap for predators, 0, 4, 1.0, 1.0,
 T,Trap,A trap for predators, 3, 0, 1.0, 1.0,
 T,Trap,A trap for predators, 7, 8, 1.0, 1.0,
+T,Trap,A broken predator trap,7, 6, 1.0, 1.0,
 T,Screwdriver,A screwdriver that is useful for fixing traps, 5, 3, 1.0, 1.0,
 F,Oystercatcher,A variable oystercatcher sitting on sand, 0, 3,
 F,Crab,A scuttling crab, 4, 0,
@@ -48,7 +49,6 @@ H,Rock,A large falling rock,3,5,1.0,
 H,Sunburn,Too much sun has given you bad sunburn and,5,0,0.3,
 H,Fall,Tripping on roots hurt your ankle and,1,4,0.5,
 H,Cliff,A fall down a small cliff,6,5,0.3,
-H,Broken trap,Your predator trap has broken,7,6,0.0,
 I,Kiwi,This is information about a kiwi to be displayed to the user
 I,Rat,This is information about a rat to be displayed to the user
 I,Kiore,This is information about a kiore to be displayed to the user

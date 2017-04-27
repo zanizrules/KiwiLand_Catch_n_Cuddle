@@ -8,15 +8,18 @@ public abstract class Tool extends Item {
 
     public Tool(Position pos, String name, String description, double weight, double size) {
         super(pos, name, description, weight, size);
-        this.broken = false;
-    }
-
-    public void setBroken() {
-        broken = true;
-    }
-
-    public void fix() {
         broken = false;
+    }
+
+    private void setBroken(boolean value) {
+        broken = value;
+        setImage();
+    }
+    public void setBroken() {
+        setBroken(true);
+    }
+    public void fix() {
+        setBroken(false);
     }
 
     public boolean isBroken() {
