@@ -33,8 +33,7 @@ public class mainMenuUI_Controller {
         } else if(event.getSource() == highscoresButton) {
             loadFXML("../gameView/HighScoresUI.fxml");
         } else if(event.getSource() == instructionsButton) {
-            // TODO: link to instructions
-            loadFXML("../gameView/");
+            loadFXML("../gameView/InstructionsUI.fxml");
         }
     }
 
