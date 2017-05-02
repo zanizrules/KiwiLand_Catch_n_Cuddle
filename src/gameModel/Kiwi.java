@@ -19,10 +19,14 @@ public class Kiwi extends Fauna {
     }
 
     /**
-     * Count this kiwi
+     * Cuddle this kiwi
      */
-    public void count() {
+    public void cuddle() {
         cuddled = true;
+    }
+
+    public void reset() {
+        cuddled = false;
     }
 
     /**
@@ -30,7 +34,7 @@ public class Kiwi extends Fauna {
      *
      * @return true if cuddled.
      */
-    public boolean counted() {
+    public boolean cuddled() {
         return cuddled;
     }
 

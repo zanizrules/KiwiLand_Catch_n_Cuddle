@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
@@ -14,11 +15,19 @@ public class Game {
     private Island island;
     private Player player;
     private GameState state;
-    private int kiwiCount;
+    private int turnCount;
+    private int kiwisCuddled;
     private int score;
     private int totalPredators;
     private int totalKiwis;
+    private int totalFood;
     private int predatorsTrapped;
+
+    private ConcurrentLinkedQueue<Predator> predatorQueue;
+    private ConcurrentLinkedQueue<Food> foodQueue;
+    private ConcurrentLinkedQueue<Kiwi> kiwiQueue;
+
+
     private Set<GameEventListener> eventListeners;
     private HashMap<String, String> conservationFacts;
 
@@ -35,6 +44,49 @@ public class Game {
     public static final int WEIGHT_INDEX = 3;
     public static final int MAXSIZE_INDEX = 4;
     public static final int SIZE_INDEX = 5;
+    private static final int MIN_NUM_OF_KIWIS_ON_BOARD = 10;
+    private static final int MIN_NUM_OF_FOOD_ON_BOARD = 5;
+    private static final int MIN_NUM_OF_PREDATOR_ON_BOARD = 7;
+    private static final int SPAWN_LOOP_TIMEOUT_LIMIT = 6;
+    private static final int TURNS_BETWEEN_SPAWNS = 4;
+
+
+    private void spawnOccupants() {
+        if(totalKiwis < MIN_NUM_OF_KIWIS_ON_BOARD) {
+            if(!kiwiQueue.isEmpty()) {
+                spawnItem(kiwiQueue.poll());
+            }
+        }
+        if(totalPredators < MIN_NUM_OF_PREDATOR_ON_BOARD) {
+            if(!predatorQueue.isEmpty()) {
+                spawnItem(predatorQueue.poll());
+            }
+        }
+        if(totalFood < MIN_NUM_OF_FOOD_ON_BOARD) {
+            if(!foodQueue.isEmpty()) {
+                spawnItem(foodQueue.poll());
+            }
+        }
+    }
+
+    private void spawnItem(Occupant occupant) {
+        Random rand = new Random();
+        int row, col;
+        Position randomPosition;
+        int count = 0;
+        do {
+            row = rand.nextInt(island.getNumRows());
+            col = rand.nextInt(island.getNumColumns());
+            System.out.println("Iteration: " + count + ", Row: " +row + ", Col: " + col);
+            randomPosition = new Position(island, row, col);
+            count++;
+        } while(island.hasOccupantWithinArea(randomPosition, occupant) && count < SPAWN_LOOP_TIMEOUT_LIMIT);
+
+        if(count < SPAWN_LOOP_TIMEOUT_LIMIT) {
+            System.out.println("Spawning " + occupant.getName() + " at " + row + ", " + col);
+            island.addOccupant(randomPosition, occupant);
+        }
+    }
 
     public Game() {
         eventListeners = new HashSet<>();
@@ -43,11 +95,16 @@ public class Game {
     }
 
     public void createNewGame() {
+        kiwiQueue = new ConcurrentLinkedQueue<>();
+        foodQueue = new ConcurrentLinkedQueue<>();
+        predatorQueue = new ConcurrentLinkedQueue<>();
+        turnCount = 0;
         score = 0;
         totalPredators = 0;
         totalKiwis = 0;
+        totalFood = 0;
         predatorsTrapped = 0;
-        kiwiCount = 0;
+        kiwisCuddled = 0;
         initialiseIslandFromFile("IslandData.txt");
         drawIsland();
         state = GameState.PLAYING;
@@ -134,8 +191,8 @@ public class Game {
         return playerValues;
     }
 
-    public int getKiwiCount() {
-        return kiwiCount;
+    public int getKiwisCuddled() {
+        return kiwisCuddled;
     }
 
     public int getScore() {
@@ -179,7 +236,7 @@ public class Game {
         boolean result = (itemToCount != null) && (itemToCount instanceof Kiwi);
         if (result) {
             Kiwi kiwi = (Kiwi) itemToCount;
-            result = !kiwi.counted();
+            result = !kiwi.cuddled();
         }
         return result;
     }
@@ -234,6 +291,9 @@ public class Game {
         if (success) {
             // player has picked up an item: remove from grid square
             island.removeOccupant(player.getPosition(), (Item) item);
+            if(item instanceof Food) {
+                foodQueue.offer((Food) item);
+            }
 
             // everybody has to know about the change
             notifyGameEventListeners();
@@ -286,15 +346,18 @@ public class Game {
         return success;
     }
 
-    public void countKiwi() {
+    public void cuddleKiwi() {
         //check if there are any kiwis here
         for (Occupant occupant : island.getOccupants(player.getPosition())) {
             if (occupant instanceof Kiwi) {
                 Kiwi kiwi = (Kiwi) occupant;
                 island.removeOccupant(player.getPosition(), kiwi); // Remove kiwi
-                kiwi.count();
-                kiwiCount++;
+                kiwi.cuddle();
+                kiwisCuddled++;
+                totalKiwis--;
                 addToScore(10);
+                kiwi.reset();
+                kiwiQueue.offer(kiwi);
             }
         }
         updateGameState();
@@ -310,6 +373,10 @@ public class Game {
             // move the player to new position
             player.moveToPosition(newPosition, terrain);
             island.updatePlayerPosition(player);
+            turnCount++;
+            if(turnCount % TURNS_BETWEEN_SPAWNS == 0) {
+                spawnOccupants();
+            }
             successfulMove = true;
 
             // Is there a hazard?
@@ -342,10 +409,10 @@ public class Game {
             state = GameState.WON;
             message = "You win! You have done an excellent job and trapped all the predators.";
             this.setWinMessage(message);
-        } else if (kiwiCount == totalKiwis) {
+        } else if (kiwisCuddled == totalKiwis) {
             if (predatorsTrapped >= totalPredators * MIN_REQUIRED_CATCH) {
                 state = GameState.WON;
-                message = "You win! You have counted all the kiwi and trapped at least 80% of the predators.";
+                message = "You win! You have cuddled all the kiwi and trapped at least 80% of the predators.";
                 this.setWinMessage(message);
             }
         }
@@ -375,10 +442,12 @@ public class Game {
         Position current = player.getPosition();
         boolean hadPredator = island.hasPredator(current);
         if (hadPredator) { //can trap it
-            Occupant occupant = island.getPredator(current);
+            Predator predator = island.getPredator(current);
             //Predator has been trapped so remove
-            island.removeOccupant(current, occupant);
+            island.removeOccupant(current, predator);
+            predatorQueue.offer(predator);
             predatorsTrapped++;
+            totalPredators--;
             addToScore(10);
         }
 
@@ -505,6 +574,7 @@ public class Game {
                     occupant = new Trap(occPos, occName, occDesc, weight, size, occDesc.contains("broken"));
                 }
             } else if (occType.equals("E")) {
+                totalFood++;
                 double weight = input.nextDouble();
                 double size = input.nextDouble();
                 double energy = input.nextDouble();

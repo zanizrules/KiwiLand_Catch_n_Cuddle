@@ -208,7 +208,7 @@ public class GameTest extends junit.framework.TestCase
     @Test
     public void testGetKiwiCountInitial()
     {
-       assertEquals("Shouldn't have counted any kiwis yet",game.getKiwiCount(),0);
+       assertEquals("Shouldn't have cuddled any kiwis yet",game.getKiwisCuddled(),0);
     }
     /**
      * Test for mutator methods
@@ -422,9 +422,9 @@ public class GameTest extends junit.framework.TestCase
         Kiwi kiwi = new Kiwi(player.getPosition(), "kiwi","kiwi");
         island.addOccupant(player.getPosition(), kiwi);
         int score = game.getScore() + 10;
-        game.countKiwi();
+        game.cuddleKiwi();
         int scoreAfterKiwi = game.getScore();
-        assertEquals("Wrong count", game.getKiwiCount(), 1);
+        assertEquals("Wrong cuddle", game.getKiwisCuddled(), 1);
         assertEquals("Wrong score", score, scoreAfterKiwi);
     }
 
@@ -434,8 +434,8 @@ public class GameTest extends junit.framework.TestCase
         Kiwi kiwi = new Kiwi(player.getPosition(), "kiwi","kiwi");
         island.addOccupant(player.getPosition(), rat);
         island.addOccupant(player.getPosition(), kiwi);
-        game.countKiwi();
-        assertEquals("Wrong count", game.getKiwiCount(), 1);
+        game.cuddleKiwi();
+        assertEquals("Wrong cuddle", game.getKiwisCuddled(), 1);
     }
 
 

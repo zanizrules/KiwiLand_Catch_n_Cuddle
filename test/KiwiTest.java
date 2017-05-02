@@ -36,14 +36,14 @@ public class KiwiTest {
 
     @Test
     public void testCountedNotCounted() {
-        assertFalse("Should not be counted", kiwi.counted());
+        assertFalse("Should not be cuddled", kiwi.cuddled());
     }
     
     @Test
     public void testCountedIsCounted() {
-        assertFalse("Should not be counted", kiwi.counted());
-        kiwi.count();
-        assertTrue("Should  be counted", kiwi.counted());
+        assertFalse("Should not be cuddled", kiwi.cuddled());
+        kiwi.cuddle();
+        assertTrue("Should  be cuddled", kiwi.cuddled());
     }
 
     /**

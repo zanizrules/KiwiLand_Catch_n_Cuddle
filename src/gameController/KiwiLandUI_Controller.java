@@ -145,7 +145,7 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
 
     @FXML
     private void cuddleButtonClick() { // Called when cuddle button is clicked
-        game.countKiwi();
+        game.cuddleKiwi();
     }
 
     @FXML

@@ -1,5 +1,6 @@
 package gameModel;
 
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -114,6 +115,29 @@ public class Island {
     public boolean hasOccupant(Position position, Occupant occupant) {
         GridSquare square = getGridSquare(position);
         return square.hasOccupant(occupant);
+    }
+
+    public boolean hasOccupantWithinArea(Position centrePosition, Occupant occupant) {
+        boolean hasOccupant;
+        int rowStart = centrePosition.getRow() - 1;
+        int rowEnd = centrePosition.getRow() + 1;
+        int colStart = centrePosition.getColumn()-1;
+        int colEnd = centrePosition.getColumn()+1;
+
+        if(rowStart < 0) { rowStart = 0; }
+        if(colStart < 0) { colStart = 0; }
+        if(rowEnd > numRows) { rowEnd = numRows -1; }
+        if(colEnd > numColumns) { colEnd = numColumns -1; }
+
+        for(int i = rowStart; i < rowEnd; i++) {
+            for(int j = colStart; j < colEnd; j++) {
+                Position pos = new Position(this, i, j);
+                hasOccupant = getGridSquare(pos).hasOccupant(occupant);
+                if(hasOccupant) {
+                    return true; // hasOccupant = TRUE
+                }
+            }
+        } return false; // hasOccupant = FALSE
     }
 
     /**
