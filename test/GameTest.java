@@ -310,7 +310,8 @@ public class GameTest extends junit.framework.TestCase
     public void testUseItemTrapFinalPredator(){
 
         assertTrue("Check player moves", trapAllPredators());
-        assertTrue("Game should be won", game.getState()== GameState.WON);
+        // TODO: Remove this as we no longer have a win condition
+       // assertTrue("Game should be won", game.getState()== GameState.WON);
     }
 
     @Test
