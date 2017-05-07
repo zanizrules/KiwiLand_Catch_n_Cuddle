@@ -76,6 +76,7 @@ public class Game {
         Position randomPosition;
         int count = 0;
         do {
+
             row = rand.nextInt(island.getNumRows());
             col = rand.nextInt(island.getNumColumns());
             System.out.println("Iteration: " + count + ", Row: " +row + ", Col: " + col);
