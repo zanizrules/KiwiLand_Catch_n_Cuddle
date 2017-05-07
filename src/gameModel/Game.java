@@ -27,6 +27,7 @@ public class Game {
     private ConcurrentLinkedQueue<Food> foodQueue;
     private ConcurrentLinkedQueue<Kiwi> kiwiQueue;
 
+    private HighScoresHandler highScores = new HighScoresHandler();
 
     private Set<GameEventListener> eventListeners;
     private HashMap<String, String> conservationFacts;
