@@ -128,7 +128,7 @@ public class Island {
         if(colStart < 0) { colStart = 0; }
         if(rowEnd > numRows) { rowEnd = numRows -1; }
         if(colEnd > numColumns) { colEnd = numColumns -1; }
-
+        if(hasHazardOnPosition(centrePosition) == true){return true;}
         for(int i = rowStart; i < rowEnd; i++) {
             for(int j = colStart; j < colEnd; j++) {
                 Position pos = new Position(this, i, j);
@@ -138,6 +138,17 @@ public class Island {
                 }
             }
         } return false; // hasOccupant = FALSE
+    }
+
+    public boolean hasHazardOnPosition(Position pos){
+        String occupantString = getGridSquare(pos).getOccupantStringRepresentation();
+        if(occupantString == "H") {
+            System.out.println("Space had a hazard");
+            return true;
+        }else{
+            System.out.println("No Hazard");
+            return false;
+        }
     }
 
     /**

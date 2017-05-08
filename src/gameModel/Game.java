@@ -27,6 +27,7 @@ public class Game {
     private ConcurrentLinkedQueue<Food> foodQueue;
     private ConcurrentLinkedQueue<Kiwi> kiwiQueue;
 
+    private HighScoresHandler highScores = new HighScoresHandler();
 
     private Set<GameEventListener> eventListeners;
     private HashMap<String, String> conservationFacts;
@@ -75,6 +76,7 @@ public class Game {
         Position randomPosition;
         int count = 0;
         do {
+
             row = rand.nextInt(island.getNumRows());
             col = rand.nextInt(island.getNumColumns());
             System.out.println("Iteration: " + count + ", Row: " +row + ", Col: " + col);
