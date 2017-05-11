@@ -4,9 +4,9 @@ package gameModel;
  * This class represents a hazard that can be found on the island
  */
 public class Hazard extends Occupant {
-    
+
     private final double impact;
-    private final double FATAL_IMPACT = 1.0;
+    private final static double FATAL_IMPACT = 1.0;
 
     /**
      * Create a hazard on the island

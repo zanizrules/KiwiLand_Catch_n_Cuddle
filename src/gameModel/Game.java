@@ -1,8 +1,16 @@
 package gameModel;
 
+import gameController.InformationPopUpUI_Controller;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -27,12 +35,7 @@ public class Game {
     private ConcurrentLinkedQueue<Food> foodQueue;
     private ConcurrentLinkedQueue<Kiwi> kiwiQueue;
 
-    private HighScoresHandler highScores = new HighScoresHandler();
-
-    private Set<GameEventListener> eventListeners;
-    private HashMap<String, String> conservationFacts;
-
-    private final double MIN_REQUIRED_CATCH = 0.8;
+    private final Set<GameEventListener> eventListeners;
 
     private String winMessage = "";
     private String loseMessage = "";
@@ -92,7 +95,6 @@ public class Game {
 
     public Game() {
         eventListeners = new HashSet<>();
-        conservationFacts = new HashMap<>();
         createNewGame();
     }
 
@@ -149,7 +151,7 @@ public class Game {
         if ((newPosition != null) && newPosition.isOnIsland()) {
             // what is the terrain at that new position?
             Terrain newTerrain = island.getTerrain(newPosition);
-            // can the playuer do it?
+            // can the player do it?
             isMovePossible = player.hasStaminaToMove(newTerrain) &&
                     player.isAlive();
         }
@@ -171,10 +173,6 @@ public class Game {
 
     public CopyOnWriteArraySet<Occupant> getOccupantsPlayerPosition() {
         return island.getOccupants(player.getPosition());
-    }
-
-    public String getOccupantStringRepresentation(int row, int column) {
-        return island.getOccupantStringRepresentation(new Position(island, row, column));
     }
 
     public ArrayList<Image> getOccupantImages(int row, int column) {
@@ -199,10 +197,6 @@ public class Game {
 
     public int getScore() {
         return score;
-    }
-
-    public int getPredatorsRemaining() {
-        return totalPredators - predatorsTrapped;
     }
 
     public Collection<Item> getPlayerInventory() {
@@ -286,9 +280,8 @@ public class Game {
      * Ignores any objects that are not items as they cannot be picked up
      *
      * @param item the item to pick up
-     * @return true if item was picked up, false if not
      */
-    public boolean collectItem(Object item) {
+    public void collectItem(Object item) {
         boolean success = (item instanceof Item) && (player.collect((Item) item));
         if (success) {
             // player has picked up an item: remove from grid square
@@ -300,10 +293,9 @@ public class Game {
             // everybody has to know about the change
             notifyGameEventListeners();
         }
-        return success;
     }
 
-    public boolean dropItem(Object what) {
+    public void dropItem(Object what) {
         boolean success = player.drop((Item) what);
         if (success) {
             // player has dropped an what: try to add to grid square
@@ -317,7 +309,6 @@ public class Game {
                 player.collect(item);
             }
         }
-        return success;
     }
 
     public boolean useItem(Object item) {
@@ -360,9 +351,28 @@ public class Game {
                 addToScore(10);
                 kiwi.reset();
                 kiwiQueue.offer(kiwi);
+                showPopUpFact(kiwi.getImage(), "You Cuddled: " + kiwi.getDescription(), kiwi.getKiwiFact());
             }
         }
         updateGameState();
+    }
+
+    private void showPopUpFact(Image image, String name, String description) {
+        try {
+            InformationPopUpUI_Controller.setValues(image, name, description);
+            Parent root = FXMLLoader.load(getClass().getResource("/gameView/InformationPopUpUI.fxml"));
+            Stage newStage = new Stage();
+            Scene scene = new Scene(root);
+            newStage.setScene(scene);
+            newStage.initModality(Modality.APPLICATION_MODAL);
+            newStage.setTitle(name);
+            newStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ExceptionInInitializerError | NoClassDefFoundError ignore) {
+            // Method is used without user interface.
+        }
     }
 
     public boolean playerMove(MoveDirection direction) {
@@ -407,23 +417,9 @@ public class Game {
             state = GameState.LOST;
             message = "Sorry, you have lost the game. You do not have sufficient stamina to move.";
             this.setLoseMessage(message);
-        } else if (predatorsTrapped == totalPredators) {
-            state = GameState.WON;
-            message = "You win! You have done an excellent job and trapped all the predators.";
-            this.setWinMessage(message);
-        } else if (kiwisCuddled == totalKiwis) {
-            if (predatorsTrapped >= totalPredators * MIN_REQUIRED_CATCH) {
-                state = GameState.WON;
-                message = "You win! You have cuddled all the kiwi and trapped at least 80% of the predators.";
-                this.setWinMessage(message);
-            }
         }
         // notify listeners about changes
         notifyGameEventListeners();
-    }
-
-    private void setWinMessage(String message) {
-        winMessage = message;
     }
 
     private void setLoseMessage(String message) {
@@ -451,6 +447,7 @@ public class Game {
             predatorsTrapped++;
             totalPredators--;
             addToScore(10);
+            showPopUpFact(predator.getImage(), "You Captured: " + predator.getDescription(), predator.getPredatorFact());
         }
 
         return hadPredator;
@@ -559,73 +556,85 @@ public class Game {
             String occType = input.next();
             String occName = input.next();
             String occDesc = input.next();
-            Position occPos = null;
-            if(!occType.equals("I")) {
-                int occRow = input.nextInt();
-                int occCol = input.nextInt();
-                occPos = new Position(island, occRow, occCol);
+
+            int occRow = input.nextInt();
+            int occCol = input.nextInt();
+            Position occPos = new Position(island, occRow, occCol);
+
+            String fact = "";
+
+            if(occType.equals("K") || occType.equals("P")) {
+                fact = input.next();
             }
+
             Occupant occupant = null;
 
-            if (occType.equals("T")) {
-                double weight = input.nextDouble();
-                double size = input.nextDouble();
-                if (occName.equalsIgnoreCase("Screwdriver")) {
-                    occupant = new ScrewDriver(occPos, occName, occDesc, weight, size);
-                } else if (occName.equalsIgnoreCase("Trap")) {
-                    occupant = new Trap(occPos, occName, occDesc, weight, size, occDesc.contains("broken"));
+            switch (occType) {
+                case "T": {
+                    double weight = input.nextDouble();
+                    double size = input.nextDouble();
+                    if (occName.equalsIgnoreCase("Screwdriver")) {
+                        occupant = new ScrewDriver(occPos, occName, occDesc, weight, size);
+                    } else if (occName.equalsIgnoreCase("Trap")) {
+                        occupant = new Trap(occPos, occName, occDesc, weight, size, occDesc.contains("broken"));
+                    }
+                    break;
                 }
-            } else if (occType.equals("E")) {
-                totalFood++;
-                double weight = input.nextDouble();
-                double size = input.nextDouble();
-                double energy = input.nextDouble();
-                if (occName.equalsIgnoreCase("Sandwich")) {
-                    occupant = new Sandwich(occPos, occName, occDesc, weight, size, energy);
-                } else if (occName.equalsIgnoreCase("Muesli Bar")) {
-                    occupant = new MuesliBar(occPos, occName, occDesc, weight, size, energy);
-                } else if (occName.equalsIgnoreCase("Apple")) {
-                    occupant = new Apple(occPos, occName, occDesc, weight, size, energy);
-                } else if (occName.equalsIgnoreCase("Orange Juice")) {
-                    occupant = new OrangeJuice(occPos, occName, occDesc, weight, size, energy);
+                case "E": {
+                    totalFood++;
+                    double weight = input.nextDouble();
+                    double size = input.nextDouble();
+                    double energy = input.nextDouble();
+                    if (occName.equalsIgnoreCase("Sandwich")) {
+                        occupant = new Sandwich(occPos, occName, occDesc, weight, size, energy);
+                    } else if (occName.equalsIgnoreCase("Muesli Bar")) {
+                        occupant = new MuesliBar(occPos, occName, occDesc, weight, size, energy);
+                    } else if (occName.equalsIgnoreCase("Apple")) {
+                        occupant = new Apple(occPos, occName, occDesc, weight, size, energy);
+                    } else if (occName.equalsIgnoreCase("Orange Juice")) {
+                        occupant = new OrangeJuice(occPos, occName, occDesc, weight, size, energy);
+                    }
+                    break;
                 }
-            } else if (occType.equals("H")) {
-                double impact = input.nextDouble();
-                occupant = new Hazard(occPos, occName, occDesc, impact);
-            } else if (occType.equals("K")) {
-                occupant = new Kiwi(occPos, occName, occDesc);
-                totalKiwis++;
-            } else if (occType.equals("P")) {
-                if (occName.equalsIgnoreCase("Rat")) {
-                    occupant = new Rat(occPos, occName, occDesc);
-                } else if (occName.equalsIgnoreCase("Kiore")) {
-                    occupant = new Kiore(occPos, occName, occDesc);
-                } else if (occName.equalsIgnoreCase("Cat")) {
-                    occupant = new Cat(occPos, occName, occDesc);
-                } else if (occName.equalsIgnoreCase("Stoat")) {
-                    occupant = new Stoat(occPos, occName, occDesc);
-                } else if (occName.equalsIgnoreCase("Possum")) {
-                    occupant = new Possum(occPos, occName, occDesc);
-                }
-                totalPredators++;
-            } else if (occType.equals("F")) {
-                if (occName.equalsIgnoreCase("Oystercatcher")) {
-                    occupant = new OysterCatcher(occPos, occName, occDesc);
-                } else if (occName.equalsIgnoreCase("Crab")) {
-                    occupant = new Crab(occPos, occName, occDesc);
-                } else if (occName.equalsIgnoreCase("Fernbird")) {
-                    occupant = new FernBird(occPos, occName, occDesc);
-                } else if (occName.equalsIgnoreCase("Heron")) {
-                    occupant = new Heron(occPos, occName, occDesc);
-                } else if (occName.equalsIgnoreCase("Robin")) {
-                    occupant = new Robin(occPos, occName, occDesc);
-                } else if (occName.equalsIgnoreCase("Tui")) {
-                    occupant = new Tui(occPos, occName, occDesc);
-                }
-            } else if (occType.equals("I")) { // Add fact using a name to description mapping
-                conservationFacts.put(occName, occDesc);
+                case "H":
+                    double impact = input.nextDouble();
+                    occupant = new Hazard(occPos, occName, occDesc, impact);
+                    break;
+                case "K":
+                    occupant = new Kiwi(occPos, occName, occDesc, fact);
+                    totalKiwis++;
+                    break;
+                case "P":
+                    if (occName.equalsIgnoreCase("Rat")) {
+                        occupant = new Rat(occPos, occName, occDesc, fact);
+                    } else if (occName.equalsIgnoreCase("Kiore")) {
+                        occupant = new Kiore(occPos, occName, occDesc, fact);
+                    } else if (occName.equalsIgnoreCase("Cat")) {
+                        occupant = new Cat(occPos, occName, occDesc, fact);
+                    } else if (occName.equalsIgnoreCase("Stoat")) {
+                        occupant = new Stoat(occPos, occName, occDesc, fact);
+                    } else if (occName.equalsIgnoreCase("Possum")) {
+                        occupant = new Possum(occPos, occName, occDesc, fact);
+                    }
+                    totalPredators++;
+                    break;
+                case "F":
+                    if (occName.equalsIgnoreCase("Oystercatcher")) {
+                        occupant = new OysterCatcher(occPos, occName, occDesc);
+                    } else if (occName.equalsIgnoreCase("Crab")) {
+                        occupant = new Crab(occPos, occName, occDesc);
+                    } else if (occName.equalsIgnoreCase("Fernbird")) {
+                        occupant = new FernBird(occPos, occName, occDesc);
+                    } else if (occName.equalsIgnoreCase("Heron")) {
+                        occupant = new Heron(occPos, occName, occDesc);
+                    } else if (occName.equalsIgnoreCase("Robin")) {
+                        occupant = new Robin(occPos, occName, occDesc);
+                    } else if (occName.equalsIgnoreCase("Tui")) {
+                        occupant = new Tui(occPos, occName, occDesc);
+                    }
+                    break;
             }
-            if (occupant != null && !occType.equals("I")) island.addOccupant(occPos, occupant);
+            if (occupant != null) island.addOccupant(occPos, occupant);
         }
     }
 }

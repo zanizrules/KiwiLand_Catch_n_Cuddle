@@ -5,6 +5,7 @@ package gameModel;
  */
 public class Kiwi extends Fauna {
     private boolean cuddled;
+    private final String kiwiFact;
 
     /**
      * Constructor for objects of class Kiwi
@@ -13,9 +14,10 @@ public class Kiwi extends Fauna {
      * @param name        the name of the kiwi object
      * @param description a longer description of the kiwi
      */
-    public Kiwi(Position pos, String name, String description) {
+    public Kiwi(Position pos, String name, String description, String fact) {
         super(pos, name, description);
         cuddled = false;
+        kiwiFact = fact;
     }
 
     /**
@@ -25,8 +27,12 @@ public class Kiwi extends Fauna {
         cuddled = true;
     }
 
-    public void reset() {
+    void reset() {
         cuddled = false;
+    }
+
+    String getKiwiFact() {
+        return kiwiFact;
     }
 
     /**

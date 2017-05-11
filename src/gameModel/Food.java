@@ -2,10 +2,10 @@ package gameModel;
 
 /**
  * This class represents food that can be found on the island
- * and supplies energy when being consumed (used) by the player.
+ * and supplies ENERGY when being consumed (used) by the player.
  */
 public abstract class Food extends Item {
-    private double energy;
+    private final double ENERGY;
 
     /**
      * Construct a food object with known attributes.
@@ -18,19 +18,19 @@ public abstract class Food extends Item {
      * @param energy      stamina contribution of the food object
      *                    when the player uses the object
      */
-    public Food(Position pos, String name, String description, double weight, double size, double energy) {
+    Food(Position pos, String name, String description, double weight, double size, double energy) {
         super(pos, name, description, weight, size);
-        this.energy = energy;
+        this.ENERGY = energy;
     }
 
 
     /**
-     * Gets the energy of the food.
+     * Gets the ENERGY of the food.
      *
-     * @return the energy of the food
+     * @return the ENERGY of the food
      */
     public double getEnergy() {
-        return this.energy;
+        return this.ENERGY;
     }
 
     /**

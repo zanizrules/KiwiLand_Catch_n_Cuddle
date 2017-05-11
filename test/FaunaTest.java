@@ -2,8 +2,6 @@ import gameModel.Fauna;
 import gameModel.Island;
 import gameModel.OysterCatcher;
 import gameModel.Position;
-import javafx.application.Application;
-import javafx.stage.Stage;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

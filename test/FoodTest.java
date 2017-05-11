@@ -2,6 +2,9 @@ import gameModel.Apple;
 import gameModel.Food;
 import gameModel.Island;
 import gameModel.Position;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -10,8 +13,7 @@ import org.junit.Test;
  * @author  AS
  * @version 2011
  */
-public class FoodTest extends junit.framework.TestCase
-{
+public class FoodTest {
     private Food apple;
     private Position position;
     private Island island;
@@ -27,8 +29,8 @@ public class FoodTest extends junit.framework.TestCase
      *
      * Called before every test case method.
      */
-    @Override
-    protected void setUp()
+    @Before
+    public void setUp()
     {
         island = new Island(5,5);
         position = new Position(island, 4,4);
@@ -40,8 +42,8 @@ public class FoodTest extends junit.framework.TestCase
      *
      * Called after every test case method.
      */
-    @Override
-    protected void tearDown()
+    @After
+    public void tearDown()
     {
         apple = null;
         island = null;
@@ -51,12 +53,12 @@ public class FoodTest extends junit.framework.TestCase
     @Test
     public void testGetEnergy()
     {
-        assertEquals(1.5, apple.getEnergy(), 0.01);
+        Assert.assertEquals(1.5, apple.getEnergy(), 0.01);
     }
     
     @Test
     public void testGetStringRepresentation() {
-        assertEquals("E",apple.getStringRepresentation());
+        Assert.assertEquals("E", apple.getStringRepresentation());
     }
     
     // Tests for methods in herited from Item
@@ -64,24 +66,24 @@ public class FoodTest extends junit.framework.TestCase
     @Test   
     public void testGetWeight()
     {
-        assertEquals(1.0, apple.getWeight(), 0.01);
+        Assert.assertEquals(1.0, apple.getWeight(), 0.01);
     }
 
     @Test
     public void testGetSize()
     {
-        assertEquals(2.0, apple.getSize(), 0.01);
+        Assert.assertEquals(2.0, apple.getSize(), 0.01);
     }
 
     @Test
     public void testIsOkToCarryCanCarry(){
-        assertTrue("Should be carrable.", apple.isOkToCarry());
+        Assert.assertTrue("Should be carrable.", apple.isOkToCarry());
     }
     
     @Test
     public void testIsOkToCarryCannotCarry(){
         Food tooBig = new Apple(position, "Roast pig apple", "A roasted giant pig apple", 1.0, 0.0, 1.0);
-        assertFalse("Shouldn't be carrable.", tooBig.isOkToCarry());
+        Assert.assertFalse("Shouldn't be carrable.", tooBig.isOkToCarry());
     }        
     
 

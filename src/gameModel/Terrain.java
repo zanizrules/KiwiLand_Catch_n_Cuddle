@@ -20,7 +20,7 @@ public enum Terrain
      * @param stringRep the string representation of the terrain.
      * @param difficulty the difficulty of the terrain
      */
-    private Terrain(String stringRep, double difficulty)
+    Terrain(String stringRep, double difficulty)
     {
         this.stringRep  = stringRep;
         this.difficulty = difficulty;

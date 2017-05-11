@@ -3,8 +3,8 @@ package gameModel;
 * Subclass designed to provide a different image for a cat
 */
 public class Cat extends Predator {
-    public Cat(Position pos, String name, String description){
-        super(pos,name,description);
+    public Cat(Position pos, String name, String description, String fact){
+        super(pos,name,description, fact);
     }
 
     @Override

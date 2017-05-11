@@ -1,4 +1,7 @@
 import gameModel.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -11,11 +14,10 @@ import org.junit.Test;
 
 
 
-public class ToolTest extends junit.framework.TestCase
-{
-    Tool trap;
-    Position position;
-    Island island;
+public class ToolTest {
+    private Tool trap;
+    private Position position;
+    private Island island;
 /**
      * Default constructor for test class ToolTest
      */
@@ -29,8 +31,8 @@ public class ToolTest extends junit.framework.TestCase
      *
      * Called before every test case method.
      */
-    @Override
-    protected void setUp()
+    @Before
+    public void setUp()
     {
         island = new Island(5,5);
         position = new Position(island, 2,3);
@@ -42,8 +44,8 @@ public class ToolTest extends junit.framework.TestCase
      *
      * Called after every test case method.
      */
-    @Override
-    protected void tearDown()
+    @After
+    public void tearDown()
     {
         trap = null;
         island = null;
@@ -52,28 +54,22 @@ public class ToolTest extends junit.framework.TestCase
     
     @Test
     public void testIsBrokenandBreak(){
-        assertFalse("Should not be broken", trap.isBroken());
+        Assert.assertFalse("Should not be broken", trap.isBroken());
         trap.setBroken();
-        assertTrue("Should  be broken", trap.isBroken());
+        Assert.assertTrue("Should  be broken", trap.isBroken());
     }
     
     @Test
     public void testIsTrap(){
-        assertTrue("Should  be trap", trap instanceof Trap);
+        Assert.assertTrue("Should  be trap", trap instanceof Trap);
     }
-    
-    @Test
-    public void testIsScrewdriver(){
-        Tool screwdriver = new ScrewDriver(position, "Screwdriver", "A useful screwdriver", 2.0, 3.0);
-        assertTrue("Should  be screwdriver", screwdriver instanceof ScrewDriver);
-    }
-    
+
     @Test
     public void testFix(){
         trap.setBroken();
-        assertTrue("Should  be broken", trap.isBroken());
+        Assert.assertTrue("Should  be broken", trap.isBroken());
         trap.fix();
-        assertFalse("Should  not be broken", trap.isBroken());
+        Assert.assertFalse("Should  not be broken", trap.isBroken());
     }
     
     /**
@@ -81,6 +77,6 @@ public class ToolTest extends junit.framework.TestCase
      */
     @Test
     public void testGetStringRepresentation() {
-        assertEquals("T",trap.getStringRepresentation());
+        Assert.assertEquals("T", trap.getStringRepresentation());
     }
 }

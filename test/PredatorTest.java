@@ -25,7 +25,7 @@ public class PredatorTest {
     public void setUp() {
         island = new Island(5,5);
         position = new Position(island, 4,4);
-        rat = new Rat(position, "Rat", "A norway rat");
+        rat = new Rat(position, "Rat", "A norway rat", "Random rat fact");
     }
     
     @After

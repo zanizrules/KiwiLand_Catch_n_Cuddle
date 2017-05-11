@@ -3,58 +3,55 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gameController.instructionsUI_Controller">
-   <children>
-   <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-      <top>
-         <Label text="Instructions" BorderPane.alignment="CENTER">
-            <font>
-               <Font name="System Bold" size="36.0" />
-            </font>
-         </Label>
-      </top>
-      <bottom>
-         <Button fx:id="returnButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#returnButtonClick" prefHeight="53.0" prefWidth="106.0" text="Return" BorderPane.alignment="BOTTOM_RIGHT">
-            <BorderPane.margin>
-               <Insets bottom="20.0" right="20.0" />
-            </BorderPane.margin>
-            </Button>
-      </bottom>
-         <center>
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gameController.InstructionsUI_Controller">
+    <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0"
+                prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8"
+                xmlns:fx="http://javafx.com/fxml/1">
+        <top>
+            <Label text="Instructions" BorderPane.alignment="CENTER">
+                <font>
+                    <Font name="System Bold" size="36.0"/>
+                </font>
+            </Label>
+        </top>
+        <bottom>
+            <Button fx:id="returnButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+                    onAction="#returnButtonClick" prefHeight="53.0" prefWidth="106.0" text="Return"
+                    BorderPane.alignment="BOTTOM_RIGHT">
+                <BorderPane.margin>
+                    <Insets bottom="20.0" right="20.0"/>
+                </BorderPane.margin>
+             </Button>
+        </bottom>
+        <center>
             <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-              <tabs>
                 <Tab fx:id="objectivesButton" text="Objectives">
-                  <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TextArea layoutX="14.0" layoutY="14.0" prefHeight="775.0" prefWidth="1251.0" text="Objective:&#10;&#10; The objective of the game is to cuddle kiwis and trap predators&#10;&#10; Each kiwi cuddled and predator trapped will earn you 10 points that will add to your total score&#10;&#10; Each movement to another terrain will drain your stamina, pick up food and eat them to increase your stamina so that you can continue your journey&#10;&#10; There is no time limit to when the game ends&#10;&#10; There are no limits to how many kiwis can be cuddled, or how many predators caught. The game is primarily scored-based.&#10;&#10; The game will end once you have no more stamina or when you choose to manually end the game&#10;&#10; Towards the end of the game, the number of kiwis cuddled will be recorded in the High Scores section, where the top players 10 high scores will be displayed" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="14.0">
-                                 <font>
-                                    <Font name="Arial Black" size="12.0" />
-                                 </font>
-                              </TextArea>
-                           </children>
-                        </AnchorPane>
-                  </content>
+                        <TextArea layoutX="14.0" layoutY="14.0" prefHeight="775.0" prefWidth="1251.0"
+                                  text="Objective:&#10;&#10; The objective of the game is to cuddle kiwis and trap predators&#10;&#10; Each kiwi cuddled and predator trapped will earn you 10 points that will add to your total score&#10;&#10; Each movement to another terrain will drain your stamina, pick up food and eat them to increase your stamina so that you can continue your journey&#10;&#10; There is no time limit to when the game ends&#10;&#10; There are no limits to how many kiwis can be cuddled, or how many predators caught. The game is primarily scored-based.&#10;&#10; The game will end once you have no more stamina or when you choose to manually end the game&#10;&#10; Towards the end of the game, the number of kiwis cuddled will be recorded in the High Scores section, where the top players 10 high scores will be displayed"
+                                  AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="14.0"
+                                  AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="14.0">
+                            <font>
+                                <Font name="Arial Black" size="12.0"/>
+                            </font>
+                        </TextArea>
+                    </AnchorPane>
                 </Tab>
                 <Tab fx:id="howToButton" closable="false" text="How to play?">
-                  <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TextArea layoutX="14.0" layoutY="14.0" prefHeight="776.0" prefWidth="1248.0" text="How to play:&#10;&#10; Press W, S, E, A to move North, South, East, and West along the gird of the map respectively, where each grid will have a specific terrain&#10;&#10; Each terrain will either:&#10;                      o Be empty&#10;                      o Have a kiwi – Can be cuddled&#10;                      o Have food – Used to increase your stamina&#10;                      o Have a screwdriver – Used to fix broken traps&#10;                      o Have a trap – Used to trap predators&#10;                      o Have a predator – Can be trapped with traps&#10;                      o Contain a Hazard – Reduce your stamina&#10;&#10; Cuddle button is used to cuddle kiwis. You will receive 10 points for each kiwi cuddled&#10;&#10; Collect button is used to collect:&#10;                      o Food&#10;                      o Trap&#10;                      o Screwdriver&#10;&#10; Use button can be used for:&#10;                      o Food – Increases your stamina&#10;                      o Trap – Traps predators for. You will receive 10 points for each predator trapped&#10;                      o Screwdriver – Fixes broken traps&#10;&#10; Discard button is used to drop items on the terrain that you are currently on&#10;&#10; Bag weight indicates how heavy your bag is / max capacity it can carry&#10;&#10; Bag size indicates how much room your bag has / max capacity it can store&#10;&#10; Each movement will decrease your stamina. More stamina will be used if you have more items in your bag&#10;&#10; You must have a trap available in your bag to be able to trap a predator&#10;&#10; Items can be discarded only if there are no more than 3 items already in the terrain which you are wanting to drop your item&#10;&#10; You can consume your food at any given time of the game, given that you have food available in&#10;&#10;your backpack. The amount of stamina increased will depend on what food is consumed&#10;&#10; When you move to a terrain which contains a hazard, your stamina will reduce by a significant amount&#10;&#10; You lose the game once you have no more stamina">
-                                 <font>
-                                    <Font name="Arial Black" size="12.0" />
-                                 </font>
-                              </TextArea>
-                           </children>
-                        </AnchorPane>
-                  </content>
+                        <TextArea layoutX="14.0" layoutY="14.0" prefHeight="776.0" prefWidth="1248.0"
+                                  text="How to play:&#10;&#10; Press W, S, E, A to move North, South, East, and West along the gird of the map respectively, where each grid will have a specific terrain&#10;&#10; Each terrain will either:&#10;                      o Be empty&#10;                      o Have a kiwi – Can be cuddled&#10;                      o Have food – Used to increase your stamina&#10;                      o Have a screwdriver – Used to fix broken traps&#10;                      o Have a trap – Used to trap predators&#10;                      o Have a predator – Can be trapped with traps&#10;                      o Contain a Hazard – Reduce your stamina&#10;&#10; Cuddle button is used to cuddle kiwis. You will receive 10 points for each kiwi cuddled&#10;&#10; Collect button is used to collect:&#10;                      o Food&#10;                      o Trap&#10;                      o Screwdriver&#10;&#10; Use button can be used for:&#10;                      o Food – Increases your stamina&#10;                      o Trap – Traps predators for. You will receive 10 points for each predator trapped&#10;                      o Screwdriver – Fixes broken traps&#10;&#10; Discard button is used to drop items on the terrain that you are currently on&#10;&#10; Bag weight indicates how heavy your bag is / max capacity it can carry&#10;&#10; Bag size indicates how much room your bag has / max capacity it can store&#10;&#10; Each movement will decrease your stamina. More stamina will be used if you have more items in your bag&#10;&#10; You must have a trap available in your bag to be able to trap a predator&#10;&#10; Items can be discarded only if there are no more than 3 items already in the terrain which you are wanting to drop your item&#10;&#10; You can consume your food at any given time of the game, given that you have food available in&#10;&#10;your backpack. The amount of stamina increased will depend on what food is consumed&#10;&#10; When you move to a terrain which contains a hazard, your stamina will reduce by a significant amount&#10;&#10; You lose the game once you have no more stamina">
+                            <font>
+                                <Font name="Arial Black" size="12.0"/>
+                            </font>
+                        </TextArea>
+                    </AnchorPane>
                 </Tab>
-              </tabs>
             </TabPane>
-         </center>
-   </BorderPane>
-   </children>
+        </center>
+    </BorderPane>
 </AnchorPane>

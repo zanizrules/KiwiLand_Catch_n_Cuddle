@@ -13,14 +13,14 @@ public abstract class Fauna extends Occupant
      * @param name the name of the kiwi
      * @param description a longer description of the kiwi
      */
-    public Fauna(Position pos, String name, String description) 
+    Fauna(Position pos, String name, String description)
     {
         super(pos, name, description);
-    } 
+    }
 
     @Override
-    public String getStringRepresentation() 
+    public String getStringRepresentation()
     {
-          return "F";
+        return "F";
     }
 }

@@ -15,9 +15,9 @@ import java.io.IOException;
  * Date: 27/04/2017.
  *
  */
-public class instructionsUI_Controller {
+public class InstructionsUI_Controller {
     @FXML
-    Button returnButton;
+    private Button returnButton;
 
     @FXML
     public void returnButtonClick() throws IOException { // Called when return button is clicked

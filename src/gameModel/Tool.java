@@ -6,7 +6,7 @@ package gameModel;
 public abstract class Tool extends Item {
     private boolean broken;
 
-    public Tool(Position pos, String name, String description, double weight, double size) {
+    Tool(Position pos, String name, String description, double weight, double size) {
         super(pos, name, description, weight, size);
         broken = false;
     }

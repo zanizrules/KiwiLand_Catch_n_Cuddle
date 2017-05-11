@@ -16,9 +16,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -61,11 +58,9 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
     private Button useButton;
     @FXML
     private Button exitButton;
-    @FXML
-    private Button restartButton;
 
-    private Game game;
-    private HashMap<KeyCode, String> keyMappings;
+    private final Game game;
+    private final HashMap<KeyCode, String> keyMappings;
 
     public KiwiLandUI_Controller() {
         // Default constructor is the first thing to be called.
@@ -200,8 +195,10 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
 
         // check for "game over" or "game won"
         if (game.getState() == GameState.LOST) {
+
             JOptionPane.showMessageDialog(null, game.getLoseMessage(), "Game over!",
                     JOptionPane.INFORMATION_MESSAGE);
+
             game.createNewGame();
         } else if (game.getState() == GameState.WON) {
             JOptionPane.showMessageDialog(

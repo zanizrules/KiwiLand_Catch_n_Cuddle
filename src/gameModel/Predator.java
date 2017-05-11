@@ -6,7 +6,7 @@ package gameModel;
  * for this class should be created
  */
 public abstract class Predator extends Fauna {
-
+    private final String predatorFact;
     /**
      * Constructor for objects of class Predator
      *
@@ -14,8 +14,13 @@ public abstract class Predator extends Fauna {
      * @param name        the name of the predator object
      * @param description a longer description of the predator object
      */
-    public Predator(Position pos, String name, String description) {
+    Predator(Position pos, String name, String description, String fact) {
         super(pos, name, description);
+        predatorFact = fact;
+    }
+
+    String getPredatorFact() {
+        return predatorFact;
     }
 
     @Override

@@ -1,12 +1,10 @@
 package gameModel;
 
-import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
@@ -128,7 +126,7 @@ public class Island {
         if(colStart < 0) { colStart = 0; }
         if(rowEnd > numRows) { rowEnd = numRows -1; }
         if(colEnd > numColumns) { colEnd = numColumns -1; }
-        if(hasHazardOnPosition(centrePosition) == true){return true;}
+        if(hasHazardOnPosition(centrePosition)){return true;}
         for(int i = rowStart; i < rowEnd; i++) {
             for(int j = colStart; j < colEnd; j++) {
                 Position pos = new Position(this, i, j);
@@ -140,9 +138,9 @@ public class Island {
         } return false; // hasOccupant = FALSE
     }
 
-    public boolean hasHazardOnPosition(Position pos){
+    private boolean hasHazardOnPosition(Position pos){
         String occupantString = getGridSquare(pos).getOccupantStringRepresentation();
-        if(occupantString == "H") {
+        if(Objects.equals(occupantString, "H")) {
             System.out.println("Space had a hazard");
             return true;
         }else{
@@ -300,34 +298,34 @@ public class Island {
         final int CELL_SIZE = 4;
 
         // create the horizontal line as a string
-        String horizontalLine = "-";
+        StringBuilder horizontalLine = new StringBuilder("-");
         for (int col = 0; col < this.numColumns; col++) {
             for (int i = 0; i < CELL_SIZE; i++) {
-                horizontalLine += "-";
+                horizontalLine.append("-");
             }
-            horizontalLine += "-";
+            horizontalLine.append("-");
         }
 
         // print the content
         for (int row = 0; row < this.numRows; row++) {
-            String rowOccupant = "|";
-            String rowTerrain = "|";
+            StringBuilder rowOccupant = new StringBuilder("|");
+            StringBuilder rowTerrain = new StringBuilder("|");
             for (int col = 0; col < this.numColumns; col++) {
                 GridSquare g = islandGrid[row][col];
                 // create string with occupants
-                String cellOccupant = g.hasPlayer() ? "@" : " ";
-                cellOccupant += g.getOccupantStringRepresentation();
+                StringBuilder cellOccupant = new StringBuilder(g.hasPlayer() ? "@" : " ");
+                cellOccupant.append(g.getOccupantStringRepresentation());
                 for (int i = cellOccupant.length(); i < CELL_SIZE; i++) {
-                    cellOccupant += " ";
+                    cellOccupant.append(" ");
                 }
-                rowOccupant += cellOccupant + "|";
+                rowOccupant.append(cellOccupant).append("|");
 
                 // create string with terrain
-                String cellTerrain = "";
+                StringBuilder cellTerrain = new StringBuilder();
                 for (int i = 0; i < CELL_SIZE; i++) {
-                    cellTerrain += g.getTerrainStringRepresentation();
+                    cellTerrain.append(g.getTerrainStringRepresentation());
                 }
-                rowTerrain += cellTerrain + "|";
+                rowTerrain.append(cellTerrain).append("|");
             }
             System.out.println(horizontalLine);
             System.out.println(rowOccupant);

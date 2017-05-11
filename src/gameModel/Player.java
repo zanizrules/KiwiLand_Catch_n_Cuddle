@@ -19,10 +19,10 @@ public class Player {
     private final double maxStamina;
     private double stamina;
     private boolean alive;
-    private Set<Item> backpack;
+    private final Set<Item> backpack;
     private final double maxBackpackWeight;
     private final double maxBackpackSize;
-    private String image;
+    private final String image;
 
     /**
      * Constructs a new player object.

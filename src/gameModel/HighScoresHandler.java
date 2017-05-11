@@ -4,8 +4,12 @@ import java.io.*;
 import java.util.*;
 
 public class HighScoresHandler {
-    String fileName = "HighScores.txt";
-    ArrayList<SingleHighScore> highScores = new ArrayList<>();
+    private String fileName = "HighScores.txt";
+    private ArrayList<SingleHighScore> highScores = new ArrayList<>();
+
+    public ArrayList<SingleHighScore> getHighScores() {
+        return highScores;
+    }
 
     public HighScoresHandler() {
         getHighScoresFromFile(fileName);
@@ -34,27 +38,27 @@ public class HighScoresHandler {
     }
 
     //Updates the text file based on the map.
-    public void sortHighScores() {
+    private void sortHighScores() {
         Collections.sort(highScores);
         rewriteTextFile();
     }
 
     //Rewrites the text file so that next time the program is opened it stays in order.
-    public void rewriteTextFile(){
+    private void rewriteTextFile() {
         int numberOfHighScores = highScores.size();
         SingleHighScore score;
-        String singleScore = String.valueOf(numberOfHighScores) + ", \n";
-        for(int i = 0; i < numberOfHighScores; i++){
-            score = highScores.get(i);
-            singleScore += score.name + ", ";
-            singleScore += score.totalScore + ", ";
-            singleScore += score.kiwisCuddled + ", ";
-            singleScore += score.predatorsCaptured + ", \n";
+        StringBuilder singleScore = new StringBuilder(String.valueOf(numberOfHighScores) + ", \n");
+        for (SingleHighScore highScore : highScores) {
+            score = highScore;
+            singleScore.append(score.getName()).append(", ");
+            singleScore.append(score.getTotalScore()).append(", ");
+            singleScore.append(score.getKiwisCuddled()).append(", ");
+            singleScore.append(score.getPredatorsCaptured()).append(", \n");
             //Print this to the document
         }
         WriteFile writer = new WriteFile(fileName);
         try {
-            writer.writeToFile(singleScore);
+            writer.writeToFile(singleScore.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,7 +66,7 @@ public class HighScoresHandler {
     }
 
     //Intially sets up the highscores based on the text file
-    public void setUpHighScores(Scanner input) {
+    private void setUpHighScores(Scanner input) {
         int numberOfScores = input.nextInt();
         for (int i = 0; i < numberOfScores; i++) {
             String name = input.next();
@@ -76,30 +80,27 @@ public class HighScoresHandler {
     }
 
     //Used for testing purposes
-    public void printHighScoresToConsole() {
+    private void printHighScoresToConsole() {
         for (int i = 0; i < highScores.size(); i++) {
             System.out.println("Rank " + (i + 1) + " : " + highScores.get(i).toString());
         }
 
     }
 
-}
+    class WriteFile {
+        private String path;
+        private boolean append = false;
 
-class WriteFile{
-    private String path;
-    private boolean append = false;
+        WriteFile(String pathway) {
+            this.path = pathway;
+        }
 
-    public WriteFile(String pathway){
-        this.path = pathway;
-    }
-
-    public void writeToFile(String textLine) throws IOException {
-        FileWriter writer = new FileWriter(path, append);
-        PrintWriter print_line = new PrintWriter( writer);
-        print_line.printf(textLine);
-        print_line.close();
-
+        void writeToFile(String textLine) throws IOException {
+            FileWriter writer = new FileWriter(path, append);
+            PrintWriter print_line = new PrintWriter(writer);
+            print_line.printf(textLine);
+            print_line.close();
+        }
     }
 }
-
 

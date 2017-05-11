@@ -17,8 +17,8 @@ import java.util.ArrayList;
  * Author: Shane Birdsall
  */
 class GridSquarePanel extends Label {
-    private Game game;
-    private int row, column;
+    private final Game game;
+    private final int row, column;
     private ImageView imageView;
     private static Image playerImage = null;
 

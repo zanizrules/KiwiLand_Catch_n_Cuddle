@@ -4,42 +4,42 @@ package gameModel;
  * This class represents an item that can be found on the island.
  */
 public abstract class Item extends Occupant {
-    private double weight;
-    private double size;
+    private final double WEIGHT;
+    private final double SIZE;
 
     Item(Position pos, String name, String description, double weight, double size) {
         super(pos, name, description);
-        this.weight = weight;
-        this.size = size;
+        this.WEIGHT = weight;
+        this.SIZE = size;
     }
 
     /**
-     * Gets the weight of the item
+     * Gets the WEIGHT of the item
      *
-     * @return the weight of the item
+     * @return the WEIGHT of the item
      */
     public double getWeight() {
-        return this.weight;
+        return this.WEIGHT;
     }
 
     /**
-     * Gets the size of the item
+     * Gets the SIZE of the item
      *
-     * @return the size of the item
+     * @return the SIZE of the item
      */
     public double getSize() {
-        return this.size;
+        return this.SIZE;
     }
 
 
     /**
      * Is it OK to pick up and carry this item?
-     * Items with size > 0 can be carried.
+     * Items with SIZE > 0 can be carried.
      *
      * @return true if item can be carried, false if not
      */
     public boolean isOkToCarry() {
-        return size > 0;
+        return SIZE > 0;
     }
 
 }

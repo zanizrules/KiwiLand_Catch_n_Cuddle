@@ -1,6 +1,9 @@
 import gameModel.Island;
 import gameModel.MoveDirection;
 import gameModel.Position;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -9,11 +12,10 @@ import org.junit.Test;
  * @author AS
  * @version 2011
  */
-public class PositionTest extends junit.framework.TestCase
-{
-    Position onIsland;
-    Position notOnIsland;
-    Island island;
+public class PositionTest {
+    private Position onIsland;
+    private Position notOnIsland;
+    private Island island;
     /**
      * Default constructor for test class PositionTest
      */
@@ -26,8 +28,8 @@ public class PositionTest extends junit.framework.TestCase
      *
      * Called before every test case method.
      */
-    @Override
-    protected void setUp()
+    @Before
+    public void setUp()
     {
         island = new Island(5,5);
         onIsland = new Position(island, 1,2) ;
@@ -39,8 +41,8 @@ public class PositionTest extends junit.framework.TestCase
      *
      * Called after every test case method.
      */
-    @Override
-    protected void tearDown()
+    @After
+    public void tearDown()
     {
         island = null;
         onIsland = null;
@@ -50,13 +52,13 @@ public class PositionTest extends junit.framework.TestCase
     @Test
     public void testPositionValidParametersOnIsland()
     {
-        assertTrue(onIsland.isOnIsland());
+        Assert.assertTrue(onIsland.isOnIsland());
     }
 
     @Test
     public void testPositionValidParameterNotOnIsland()
     {
-        assertFalse(notOnIsland.isOnIsland());
+        Assert.assertFalse(notOnIsland.isOnIsland());
     }
 
     @Test
@@ -64,11 +66,11 @@ public class PositionTest extends junit.framework.TestCase
         try 
         {
             Position invalidPosition = new Position(null,0,0);
-            fail("No exception thrown when island null.");
+            Assert.fail("No exception thrown when island null.");
         }
         catch (IllegalArgumentException expected) 
         {
-            assertTrue("Not expected exception message", expected.getMessage().contains("Island"));
+            Assert.assertTrue("Not expected exception message", expected.getMessage().contains("Island"));
         }
         
     }
@@ -78,11 +80,11 @@ public class PositionTest extends junit.framework.TestCase
         try 
         {
             Position invalidPosition = new Position(island,-1,0);
-            fail("No exception thrown when row negative.");
+            Assert.fail("No exception thrown when row negative.");
         }
         catch (IllegalArgumentException expected) 
         {
-            assertTrue("Not expected exception message", expected.getMessage().contains("Invalid row"));
+            Assert.assertTrue("Not expected exception message", expected.getMessage().contains("Invalid row"));
         }
         
     }
@@ -92,11 +94,11 @@ public class PositionTest extends junit.framework.TestCase
         try 
         {
             Position invalidPosition = new Position(island,5,0);
-            fail("No exception thrown when row too large.");
+            Assert.fail("No exception thrown when row too large.");
         }
         catch (IllegalArgumentException expected) 
         {
-            assertTrue("Not expected exception message", expected.getMessage().contains("Invalid row"));
+            Assert.assertTrue("Not expected exception message", expected.getMessage().contains("Invalid row"));
         }
         
     } 
@@ -106,11 +108,11 @@ public class PositionTest extends junit.framework.TestCase
         try 
         {
             Position invalidPosition = new Position(island,1,-1);
-            fail("No exception thrown when column negative.");
+            Assert.fail("No exception thrown when column negative.");
         }
         catch (IllegalArgumentException expected) 
         {
-            assertTrue("Not expected exception message", expected.getMessage().contains("Invalid column"));
+            Assert.assertTrue("Not expected exception message", expected.getMessage().contains("Invalid column"));
         }
         
     }
@@ -120,11 +122,11 @@ public class PositionTest extends junit.framework.TestCase
         try 
         {
             Position invalidPosition = new Position(island,0,5);
-            fail("No exception thrown when column too large.");
+            Assert.fail("No exception thrown when column too large.");
         }
         catch (IllegalArgumentException expected) 
         {
-            assertTrue("Not expected exception message", expected.getMessage().contains("Invalid column"));
+            Assert.assertTrue("Not expected exception message", expected.getMessage().contains("Invalid column"));
         }
         
     }
@@ -132,20 +134,20 @@ public class PositionTest extends junit.framework.TestCase
     @Test
     public void testGetColumn()
     {
-        assertEquals(2, onIsland.getColumn());
+        Assert.assertEquals(2, onIsland.getColumn());
     }    
 
     @Test
     public void testGetRow()
     {
-        assertEquals(1, onIsland.getRow());
+        Assert.assertEquals(1, onIsland.getRow());
     } 
 
     @Test
     public void testRemoveFromIsland()
     {
         onIsland.removeFromIsland();
-        assertFalse(onIsland.isOnIsland());
+        Assert.assertFalse(onIsland.isOnIsland());
     }
     
     @Test
@@ -153,24 +155,24 @@ public class PositionTest extends junit.framework.TestCase
         try 
         {
             Position newPosition = onIsland.getNewPosition(null);
-            fail("No exception thrown when direction null.");
+            Assert.fail("No exception thrown when direction null.");
         }
         catch (IllegalArgumentException expected) 
         {
-            assertTrue("Not expected exception message", expected.getMessage().contains("Direction parameter"));
+            Assert.assertTrue("Not expected exception message", expected.getMessage().contains("Direction parameter"));
         }    
     }
     
     @Test
     public void testGetNewPositionNotOnIsland() {
-        assertEquals(notOnIsland.getNewPosition(MoveDirection.NORTH), null);
+        Assert.assertEquals(notOnIsland.getNewPosition(MoveDirection.NORTH), null);
     }
     
     @Test
     public void testGetNewPositionValidDirection() {
         Position newPosition = onIsland.getNewPosition(MoveDirection.WEST);
-        assertEquals(newPosition.getRow(), 1);
-        assertEquals(newPosition.getColumn(), 1);
+        Assert.assertEquals(newPosition.getRow(), 1);
+        Assert.assertEquals(newPosition.getColumn(), 1);
     }
 
 }
