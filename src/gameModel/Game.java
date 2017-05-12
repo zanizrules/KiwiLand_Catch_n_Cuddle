@@ -561,7 +561,6 @@ public class Game {
             Position occPos = new Position(island, occRow, occCol);
 
             String fact = "";
-
             if(occType.equals("K") || occType.equals("P")) {
                 fact = input.next();
             }
