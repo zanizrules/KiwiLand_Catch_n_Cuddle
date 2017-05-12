@@ -226,9 +226,9 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
         // update player information
         double[] playerValues = game.getPlayerValues();
         nameLabel.setText(game.getPlayerName());
-        staminaProgressBar.setProgress(playerValues[Game.STAMINA_INDEX]/playerValues[Game.MAXSTAMINA_INDEX]);
-        weightProgressBar.setProgress(playerValues[Game.WEIGHT_INDEX]/playerValues[Game.MAXWEIGHT_INDEX]);
-        sizeProgressBar.setProgress(playerValues[Game.SIZE_INDEX]/playerValues[Game.MAXSIZE_INDEX]);
+        staminaProgressBar.setProgress(playerValues[Game.STAMINA_INDEX]/playerValues[Game.MAX_STAMINA_INDEX]);
+        weightProgressBar.setProgress(playerValues[Game.WEIGHT_INDEX]/playerValues[Game.MAX_WEIGHT_INDEX]);
+        sizeProgressBar.setProgress(playerValues[Game.SIZE_INDEX]/playerValues[Game.MAX_SIZE_INDEX]);
         scoreLabel.setText("Score: " + Integer.toString(game.getScore()));
         // NOTE: Math used to calculate the value between 0 and 1 to be used on progress bar
 

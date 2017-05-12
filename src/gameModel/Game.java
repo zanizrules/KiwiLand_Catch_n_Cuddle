@@ -44,54 +44,16 @@ public class Game {
 
     // Constants shared with UI to provide player data
     public static final int STAMINA_INDEX = 0;
-    public static final int MAXSTAMINA_INDEX = 1;
-    public static final int MAXWEIGHT_INDEX = 2;
+    public static final int MAX_STAMINA_INDEX = 1;
+    public static final int MAX_WEIGHT_INDEX = 2;
     public static final int WEIGHT_INDEX = 3;
-    public static final int MAXSIZE_INDEX = 4;
+    public static final int MAX_SIZE_INDEX = 4;
     public static final int SIZE_INDEX = 5;
     private static final int MIN_NUM_OF_KIWIS_ON_BOARD = 10;
     private static final int MIN_NUM_OF_FOOD_ON_BOARD = 5;
     private static final int MIN_NUM_OF_PREDATOR_ON_BOARD = 7;
     private static final int SPAWN_LOOP_TIMEOUT_LIMIT = 6;
     private static final int TURNS_BETWEEN_SPAWNS = 4;
-
-
-    private void spawnOccupants() {
-        if(totalKiwis < MIN_NUM_OF_KIWIS_ON_BOARD) {
-            if(!kiwiQueue.isEmpty()) {
-                spawnItem(kiwiQueue.poll());
-            }
-        }
-        if(totalPredators < MIN_NUM_OF_PREDATOR_ON_BOARD) {
-            if(!predatorQueue.isEmpty()) {
-                spawnItem(predatorQueue.poll());
-            }
-        }
-        if(totalFood < MIN_NUM_OF_FOOD_ON_BOARD) {
-            if(!foodQueue.isEmpty()) {
-                spawnItem(foodQueue.poll());
-            }
-        }
-    }
-
-    private void spawnItem(Occupant occupant) {
-        Random rand = new Random();
-        int row, col;
-        Position randomPosition;
-        int count = 0;
-        do {
-
-            row = rand.nextInt(island.getNumRows());
-            col = rand.nextInt(island.getNumColumns());
-            System.out.println("Iteration: " + count + ", Row: " +row + ", Col: " + col);
-            randomPosition = new Position(island, row, col);
-            count++;
-        } while(island.hasOccupantWithinArea(randomPosition, occupant) && count < SPAWN_LOOP_TIMEOUT_LIMIT);
-
-        if(count < SPAWN_LOOP_TIMEOUT_LIMIT) {
-            island.addOccupant(randomPosition, occupant);
-        }
-    }
 
     public Game() {
         eventListeners = new HashSet<>();
@@ -181,10 +143,10 @@ public class Game {
     public double[] getPlayerValues() {
         double[] playerValues = new double[6];
         playerValues[STAMINA_INDEX] = player.getStaminaLevel();
-        playerValues[MAXSTAMINA_INDEX] = player.getMaximumStaminaLevel();
-        playerValues[MAXWEIGHT_INDEX] = player.getMaximumBackpackWeight();
+        playerValues[MAX_STAMINA_INDEX] = player.getMaximumStaminaLevel();
+        playerValues[MAX_WEIGHT_INDEX] = player.getMaximumBackpackWeight();
         playerValues[WEIGHT_INDEX] = player.getCurrentBackpackWeight();
-        playerValues[MAXSIZE_INDEX] = player.getMaximumBackpackSize();
+        playerValues[MAX_SIZE_INDEX] = player.getMaximumBackpackSize();
         playerValues[SIZE_INDEX] = player.getCurrentBackpackSize();
 
         return playerValues;
@@ -351,6 +313,7 @@ public class Game {
                 kiwi.reset();
                 kiwiQueue.offer(kiwi);
                 showPopUpFact(kiwi.getImage(), "You Cuddled: " + kiwi.getDescription(), kiwi.getKiwiFact());
+                break;
             }
         }
         updateGameState();
@@ -398,12 +361,46 @@ public class Game {
         return successfulMove;
     }
 
-    public void addGameEventListener(GameEventListener listener) {
-        eventListeners.add(listener);
+    private void spawnOccupants() {
+        if(totalKiwis < MIN_NUM_OF_KIWIS_ON_BOARD) {
+            if(!kiwiQueue.isEmpty()) {
+                spawnItem(kiwiQueue.poll());
+            }
+        }
+        if(totalPredators < MIN_NUM_OF_PREDATOR_ON_BOARD) {
+            if(!predatorQueue.isEmpty()) {
+                spawnItem(predatorQueue.poll());
+            }
+        }
+        if(totalFood < MIN_NUM_OF_FOOD_ON_BOARD) {
+            if(!foodQueue.isEmpty()) {
+                spawnItem(foodQueue.poll());
+            }
+        }
     }
 
-    public void removeGameEventListener(GameEventListener listener) {
-        eventListeners.remove(listener);
+    // Random spawning functions
+
+    private void spawnItem(Occupant occupant) {
+        Random rand = new Random();
+        int row, col;
+        Position randomPosition;
+        int count = 0;
+        do {
+            row = rand.nextInt(island.getNumRows());
+            col = rand.nextInt(island.getNumColumns());
+            System.out.println("Iteration: " + count + ", Row: " +row + ", Col: " + col);
+            randomPosition = new Position(island, row, col);
+            count++;
+        } while(island.hasOccupantWithinArea(randomPosition, occupant) && count < SPAWN_LOOP_TIMEOUT_LIMIT);
+
+        if(count < SPAWN_LOOP_TIMEOUT_LIMIT) {
+            island.addOccupant(randomPosition, occupant);
+        }
+    }
+
+    public void addGameEventListener(GameEventListener listener) {
+        eventListeners.add(listener);
     }
 
     private void updateGameState() {
@@ -427,7 +424,6 @@ public class Game {
 
     private void setPlayerMessage(String message) {
         playerMessage = message;
-
     }
 
     private boolean playerCanMove() {

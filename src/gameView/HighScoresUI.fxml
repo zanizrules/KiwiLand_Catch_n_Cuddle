@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -11,460 +13,355 @@
                prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
       <top>
          <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="1513.0"
-                   text="KiwiLand Catch n Cuddle">
-               <font>
-                  <Font size="64.0"/>
-               </font>
-               <padding>
-                  <Insets top="45.0"/>
-               </padding>
-            </Label>
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="1512.0" text="High-Scores" textFill="#000000cc">
-               <font>
-                  <Font size="36.0"/>
-               </font>
-            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <VBox prefHeight="197.0" prefWidth="1168.0">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="138.0" prefWidth="1051.0"
+                         text="KiwiLand Catch n Cuddle">
+                     <font>
+                        <Font size="64.0"/>
+                     </font>
+                     <padding>
+                        <Insets top="45.0"/>
+                     </padding>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="53.0" prefWidth="1248.0" text="High-Scores"
+                         textFill="#000000cc">
+                     <font>
+                        <Font size="36.0"/>
+                     </font>
+                  </Label>
+               </VBox>
+               <ImageView fitHeight="177.0" fitWidth="187.0" pickOnBounds="true" preserveRatio="true">
+                  <HBox.margin>
+                     <Insets left="50.0" right="40.0" top="20.0"/>
+                  </HBox.margin>
+                  <Image url="@../gameModel/gameObjects/images/kiwi.png"/>
+               </ImageView>
+            </HBox>
             <HBox prefHeight="561.0" prefWidth="1512.0">
                <padding>
                   <Insets top="50.0"/>
                </padding>
-               <Label alignment="CENTER" prefHeight="35.0" prefWidth="130.0" text="Rank">
+               <Label alignment="CENTER" prefHeight="35.0" prefWidth="151.0" text="RANK">
                   <font>
                      <Font name="System Bold" size="24.0"/>
                   </font>
                </Label>
-               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="220.0" text="Name">
+               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="230.0" text="NAME">
                   <font>
                      <Font name="System Bold" size="24.0"/>
                   </font>
                </Label>
-               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="200.0"
-                      text="Kiwi's Cuddled">
+               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="300.0"
+                      text="CUDDLE COUNT">
                   <font>
                      <Font name="System Bold" size="24.0"/>
                   </font>
                </Label>
-               <Label alignment="CENTER" prefHeight="35.0" prefWidth="200.0" text="Predators Caught">
+               <Label alignment="CENTER" prefHeight="35.0" prefWidth="300.0" text="PREDATORS CAUGHT">
                   <font>
                      <Font name="System Bold" size="24.0"/>
                   </font>
                </Label>
-               <Label alignment="CENTER" prefHeight="35.0" prefWidth="170.0" text="Score">
+               <Label alignment="CENTER" prefHeight="35.0" prefWidth="300.0" text="SCORE">
                   <font>
                      <Font name="System Bold" size="24.0"/>
                   </font>
                </Label>
             </HBox>
+            <Line endX="100.0" scaleX="6.2" scaleY="3.0" startX="-100.0" translateX="535.0"/>
             <HBox prefHeight="100.0" prefWidth="200.0">
-               <VBox prefHeight="21.0" prefWidth="130.0">
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0" text="1">
+               <VBox prefHeight="610.0" prefWidth="156.0" spacing="20.0">
+                  <padding>
+                     <Insets top="20.0"/>
+                  </padding>
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="140.0" text="1">
                      <font>
-                        <Font size="18.0"/>
+                        <Font name="System Bold" size="24.0"/>
                      </font>
                      <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
+                        <Insets/>
                      </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="201.0" text="2">
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="140.0" text="2">
                      <font>
-                        <Font size="18.0"/>
+                        <Font name="System Bold" size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="164.0" text="3">
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="140.0" text="3">
                      <font>
-                        <Font size="18.0"/>
+                        <Font name="System Bold" size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="149.0" text="4">
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="140.0" text="4">
                      <font>
-                        <Font size="18.0"/>
+                        <Font name="System Bold" size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="135.0" text="5">
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="140.0" text="5">
                      <font>
-                        <Font size="18.0"/>
+                        <Font name="System Bold" size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="187.0" text="6">
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="140.0" text="6">
                      <font>
-                        <Font size="18.0"/>
+                        <Font name="System Bold" size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="181.0" text="7">
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="140.0" text="7">
                      <font>
-                        <Font size="18.0"/>
+                        <Font name="System Bold" size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="162.0" text="8">
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="140.0" text="8">
                      <font>
-                        <Font size="18.0"/>
+                        <Font name="System Bold" size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="191.0" text="9">
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="140.0" text="9">
                      <font>
-                        <Font size="18.0"/>
+                        <Font name="System Bold" size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="157.0" text="10">
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="140.0" text="10">
                      <font>
-                        <Font size="18.0"/>
+                        <Font name="System Bold" size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
                </VBox>
-               <VBox fx:id="highScoreNamesList" prefHeight="610.0" prefWidth="220.0">
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0">
+               <VBox fx:id="highScoreNamesList" prefHeight="601.0" prefWidth="216.0" spacing="20.0">
+                  <HBox.margin>
+                     <Insets/>
+                  </HBox.margin>
+                  <padding>
+                     <Insets top="20.0"/>
+                  </padding>
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
                      <font>
-                        <Font size="18.0"/>
+                        <Font size="24.0"/>
                      </font>
                      <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
+                        <Insets/>
                      </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="191.0">
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
                      <font>
-                        <Font size="18.0"/>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+               </VBox>
+               <VBox fx:id="highScoreCuddledList" prefHeight="610.0" prefWidth="312.0" spacing="20.0">
+                  <padding>
+                     <Insets top="20.0"/>
+                  </padding>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
                      </font>
                      <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
+                        <Insets/>
                      </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="270.0">
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0" textAlignment="CENTER">
                      <font>
-                        <Font size="18.0"/>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+               </VBox>
+               <VBox fx:id="highScoreCaughtList" prefHeight="550.0" prefWidth="324.0" spacing="20.0">
+                  <padding>
+                     <Insets top="20.0"/>
+                  </padding>
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
                      </font>
                      <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
+                        <Insets/>
                      </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="181.0">
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
                      <font>
-                        <Font size="18.0"/>
+                        <Font size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="187.0">
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
                      <font>
-                        <Font size="18.0"/>
+                        <Font size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="214.0">
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
                      <font>
-                        <Font size="18.0"/>
+                        <Font size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="229.0">
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
                      <font>
-                        <Font size="18.0"/>
+                        <Font size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="288.0">
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
                      <font>
-                        <Font size="18.0"/>
+                        <Font size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="201.0">
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
                      <font>
-                        <Font size="18.0"/>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
+                     </font>
+                  </Label>
+               </VBox>
+               <VBox fx:id="highScoreTotalList" prefHeight="550.0" prefWidth="250.0" spacing="20.0">
+                  <padding>
+                     <Insets top="20.0"/>
+                  </padding>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0"/>
                      </font>
                      <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
+                        <Insets/>
                      </VBox.margin>
                   </Label>
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0">
                      <font>
-                        <Font size="18.0"/>
+                        <Font size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-               </VBox>
-               <VBox fx:id="highScoreCuddledList" prefHeight="610.0" prefWidth="200.0">
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="201.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="288.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="229.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="214.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="187.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="181.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="270.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="191.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-               </VBox>
-               <VBox fx:id="highScoreCaughtList" prefHeight="610.0" prefWidth="200.0">
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="191.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="270.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="181.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="187.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="214.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="229.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="288.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="201.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0">
                      <font>
-                        <Font size="18.0"/>
+                        <Font size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-               </VBox>
-               <VBox fx:id="highScoreTotalList" prefHeight="610.0" prefWidth="170.0">
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0">
                      <font>
-                        <Font size="18.0"/>
+                        <Font size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="201.0">
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0">
                      <font>
-                        <Font size="18.0"/>
+                        <Font size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="288.0">
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0">
                      <font>
-                        <Font size="18.0"/>
+                        <Font size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="229.0">
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0">
                      <font>
-                        <Font size="18.0"/>
+                        <Font size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="214.0">
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0">
                      <font>
-                        <Font size="18.0"/>
+                        <Font size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="187.0">
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0">
                      <font>
-                        <Font size="18.0"/>
+                        <Font size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="181.0">
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="372.0">
                      <font>
-                        <Font size="18.0"/>
+                        <Font size="24.0"/>
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="270.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="191.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="316.0">
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="17.0" left="1.0" right="17.0" top="17.0"/>
-                     </VBox.margin>
                   </Label>
                </VBox>
             </HBox>
