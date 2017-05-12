@@ -1,5 +1,7 @@
 package gameModel;
 
+import gameModel.gameObjects.Occupant;
+import gameModel.gameObjects.Player;
 import javafx.scene.image.Image;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -140,10 +142,10 @@ public class GridSquare {
     }
 
     /**
-     * Marks this grid square as being visible to the player.
+     * Marks this grid square as being visible or invisible to the player.
      */
-    public void setVisible() {
-        this.visible = true;
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     /**

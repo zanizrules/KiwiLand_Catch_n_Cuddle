@@ -1,4 +1,5 @@
 import gameModel.*;
+import gameModel.gameObjects.*;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -142,22 +143,22 @@ public class GameTest {
     
     @Test
     public void testCanCollectCollectable(){
-        //Items that are collectable and fit in backpack
-        Item valid = new Sandwich(playerPosition,"Sandwich", "Yummy",1.0, 1.0,1.0);
+        //Items that are collectible and fit in backpack
+        Item valid = new Food(playerPosition,"Sandwich", "Yummy",1.0, 1.0,1.0, FOOD_TYPE.SANDWICH);
         Assert.assertTrue("Should be able to collect", game.canCollect(valid));
     }
     
     @Test    
     public void testCanCollectNotCollectable(){
         //Items with size of '0' cannot be carried
-        Item notCollectable = new Sandwich(playerPosition,"Sandwich", "Very Heavy Sandwich",10.0, 0.0,1.0);
+        Item notCollectable = new Food(playerPosition,"Sandwich", "Very Heavy Sandwich",10.0, 0.0,1.0, FOOD_TYPE.SANDWICH);
         Assert.assertFalse("Should not be able to collect", game.canCollect(notCollectable));
     }
     
     @Test
     public void testCanUseFoodValid(){
         //Food can always be used
-        Item valid = new Sandwich(playerPosition,"Sandwich", "Yummy",1.0, 1.0,1.0);
+        Item valid = new Food(playerPosition,"Sandwich", "Yummy",1.0, 1.0,1.0, FOOD_TYPE.SANDWICH);
         Assert.assertTrue("Should be able to use", game.canUse(valid));
     }
     
@@ -166,7 +167,7 @@ public class GameTest {
         //Trap can be used if there is a predator here
         Item valid = new Trap(playerPosition,"Trap", "A predator trap",1.0, 1.0);
         //Add predator
-        Predator rat = new Rat(playerPosition,"Rat", "A norway rat", "Random rat fact");
+        Predator rat = new Predator(playerPosition,"Rat", "A norway rat", "Random rat fact", ANIMAL_TYPE.RAT);
         island.addOccupant(playerPosition, rat);
         Assert.assertTrue("Should be able to use", game.canUse(valid));
     }
@@ -221,7 +222,7 @@ public class GameTest {
 
     @Test
     public void testCollectValid(){
-        Item food = new Sandwich(playerPosition,"Sandwich", "Yummy",1.0, 1.0,1.0);
+        Item food = new Food(playerPosition,"Sandwich", "Yummy",1.0, 1.0,1.0, FOOD_TYPE.SANDWICH);
         island.addOccupant(playerPosition, food);
         Assert.assertTrue("Food now on island", island.hasOccupant(playerPosition, food));
         game.collectItem(food);
@@ -232,7 +233,7 @@ public class GameTest {
 
     @Test
     public void testCollectNotCollectable(){
-        Item notCollectable = new Sandwich(playerPosition,"House", "Can't collect",1.0, 0.0,1.0);
+        Item notCollectable = new Food(playerPosition,"House", "Can't collect",1.0, 0.0,1.0, FOOD_TYPE.SANDWICH);
         island.addOccupant(playerPosition, notCollectable);
         Assert.assertTrue("House now on island", island.hasOccupant(playerPosition, notCollectable));
         game.collectItem(notCollectable);
@@ -243,7 +244,7 @@ public class GameTest {
 
     @Test
     public void testDropValid(){
-        Item food = new Sandwich(playerPosition,"Sandwich", "Yummy",1.0, 1.0,1.0);
+        Item food = new Food(playerPosition,"Sandwich", "Yummy",1.0, 1.0,1.0, FOOD_TYPE.SANDWICH);
         island.addOccupant(playerPosition, food);
         game.collectItem(food);
         Assert.assertTrue("Player should have food", player.hasItem(food));
@@ -255,7 +256,7 @@ public class GameTest {
 
     @Test
     public void testDropNotValidPositionFull(){
-        Item food = new Sandwich(playerPosition,"Sandwich", "Yummy",1.0, 1.0,1.0);
+        Item food = new Food(playerPosition,"Sandwich", "Yummy",1.0, 1.0,1.0, FOOD_TYPE.SANDWICH);
         island.addOccupant(playerPosition, food);
         game.collectItem(food);
         Assert.assertTrue("Player should have food", player.hasItem(food));
@@ -275,7 +276,7 @@ public class GameTest {
 
     @Test
     public void testUseItemFoodCausesIncrease(){
-        Item food = new Sandwich(playerPosition,"Sandwich", "Yummy",1.0, 1.0,1.3);
+        Item food = new Food(playerPosition,"Sandwich", "Yummy",1.0, 1.0,1.3, FOOD_TYPE.SANDWICH);
         player.collect(food);
         Assert.assertTrue("Player should have food", player.hasItem(food));
 
@@ -288,7 +289,7 @@ public class GameTest {
 
     @Test
     public void testUseItemFoodNoIncrease(){
-        Item food = new Sandwich(playerPosition,"Sandwich", "Yummy",1.0, 1.0,1.3);
+        Item food = new Food(playerPosition,"Sandwich", "Yummy",1.0, 1.0,1.3, FOOD_TYPE.SANDWICH);
         player.collect(food);
         Assert.assertTrue("Player should have food", player.hasItem(food));
 
@@ -305,7 +306,7 @@ public class GameTest {
         Assert.assertTrue("Player should have trap", player.hasItem(trap));
 
         // Can only use trap if there is a predator.
-        Predator predator = new Rat(playerPosition,"Rat", "Norway rat", "Random rat fact");
+        Predator predator = new Predator(playerPosition,"Rat", "Norway rat", "Random rat fact", ANIMAL_TYPE.RAT);
         island.addOccupant(playerPosition, predator);
         game.useItem(trap);
         Assert.assertTrue("Player should still have trap", player.hasItem(trap));
@@ -319,7 +320,7 @@ public class GameTest {
         Assert.assertTrue("Player should have trap", player.hasItem(trap));
 
         // Can only use trap if there is a predator.
-        Predator predator = new Rat(playerPosition,"Rat", "Norway rat", "Random rat fact");
+        Predator predator = new Predator(playerPosition,"Rat", "Norway rat", "Random rat fact", ANIMAL_TYPE.RAT);
         island.addOccupant(playerPosition, predator);
         trap.setBroken();
         game.useItem(trap);
@@ -368,7 +369,7 @@ public class GameTest {
         Assert.assertTrue("Move valid", game.playerMove(MoveDirection.SOUTH));
         //Fatal Hazard should kill player
         Assert.assertTrue("Player should be dead.", !player.isAlive());
-        Assert.assertTrue("Game should be over", game.getState() == GameState.LOST);
+        Assert.assertTrue("Game should be over", game.getState() == GameState.GAME_OVER);
     }
     
     @Test
@@ -401,7 +402,7 @@ public class GameTest {
         Assert.assertTrue("Move valid", game.playerMove(MoveDirection.SOUTH));
         //Non-fatal Hazard should reduce player stamina to less than zero
         Assert.assertFalse("Player should not be alive.", player.isAlive());
-        Assert.assertTrue("Game should be over", game.getState() == GameState.LOST);
+        Assert.assertTrue("Game should be over", game.getState() == GameState.GAME_OVER);
         assertEquals("Wrong stamina", 0.0, player.getStaminaLevel());
     }
     
@@ -429,7 +430,7 @@ public class GameTest {
 
     @Test
     public void testCountKiwiWithPredator(){
-        Rat rat = new Rat(player.getPosition(), "rat", "big Rat", "Random rat fact");
+        Predator rat = new Predator(player.getPosition(), "rat", "big Rat", "Random rat fact", ANIMAL_TYPE.RAT);
         Kiwi kiwi = new Kiwi(player.getPosition(), "kiwi","kiwi", "Random kiwi fact");
         island.addOccupant(player.getPosition(), rat);
         island.addOccupant(player.getPosition(), kiwi);

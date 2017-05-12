@@ -1,7 +1,7 @@
 package gameController;
 
-import gameModel.HighScoresHandler;
-import gameModel.SingleHighScore;
+import gameModel.HighScoreHandler;
+import gameModel.HighScoreHandler.*;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 /**
  * Author: Shane Birdsall
@@ -34,26 +34,29 @@ public class HighScoreUI_Controller {
     @FXML
     private VBox highScoreTotalList;
 
-    private static final HighScoresHandler highScoreHandler = new HighScoresHandler();
+    private static final HighScoreHandler highScoreHandler = new HighScoreHandler();
 
     @FXML
     public void initialize() {
-        ArrayList<SingleHighScore> scores = highScoreHandler.getHighScores();
         ObservableList<Node> nameList = highScoreNamesList.getChildren();
         ObservableList<Node> cuddleList = highScoreCuddledList.getChildren();
         ObservableList<Node> predatorList = highScoreCaughtList.getChildren();
         ObservableList<Node> scoreList = highScoreTotalList.getChildren();
 
-        for(int i = 0; i < nameList.size() && i < scores.size(); i++) {
-            Label nameLabel = (Label) nameList.get(i);
-            Label cuddleLabel = (Label) cuddleList.get(i);
-            Label predatorLabel = (Label) predatorList.get(i);
-            Label scoreLabel = (Label) scoreList.get(i);
+        PriorityQueue<PlayerScore> scores = highScoreHandler.getHighScores();
+        int index = 0;
+        for(PlayerScore score : scores) {
+            Label nameLabel = (Label) nameList.get(index);
+            Label cuddleLabel = (Label) cuddleList.get(index);
+            Label predatorLabel = (Label) predatorList.get(index);
+            Label scoreLabel = (Label) scoreList.get(index);
 
-            nameLabel.setText(scores.get(i).getName());
-            cuddleLabel.setText("" + scores.get(i).getKiwisCuddled());
-            predatorLabel.setText("" + scores.get(i).getPredatorsCaptured());
-            scoreLabel.setText("" + scores.get(i).getTotalScore());
+            nameLabel.setText(score.name);
+            cuddleLabel.setText("" + score.kiwisCuddled);
+            predatorLabel.setText("" + score.predatorsCaptured);
+            scoreLabel.setText("" + score.totalScore);
+
+            index++;
         }
     }
 

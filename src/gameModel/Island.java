@@ -1,5 +1,8 @@
 package gameModel;
 
+import gameModel.gameObjects.Occupant;
+import gameModel.gameObjects.Player;
+import gameModel.gameObjects.Predator;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -115,7 +118,7 @@ public class Island {
         return square.hasOccupant(occupant);
     }
 
-    public boolean hasOccupantWithinArea(Position centrePosition, Occupant occupant) {
+    boolean hasOccupantWithinArea(Position centrePosition, Occupant occupant) {
         boolean hasOccupant;
         int rowStart = centrePosition.getRow() - 1;
         int rowEnd = centrePosition.getRow() + 1;
@@ -219,11 +222,16 @@ public class Island {
             getGridSquare(previousPlayerPos).setPlayer(null);
         }
 
-        // add visibility to all new adjacent squares
-        setVisible(position.getNewPosition(MoveDirection.NORTH));
-        setVisible(position.getNewPosition(MoveDirection.EAST));
-        setVisible(position.getNewPosition(MoveDirection.SOUTH));
-        setVisible(position.getNewPosition(MoveDirection.WEST));
+        // set visibility to all squares around player, and hide all others
+        for(int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numColumns; j++) {
+                if(i >= position.getRow() -1 && i <= position.getRow() +1
+                        && j >= position.getColumn() -1 && j <= position.getColumn() +1) {
+                    setVisible(new Position(this, i, j), true);
+                } else setVisible(new Position(this, i, j), false);
+
+            }
+        }
 
         // remember the new player position
         previousPlayerPos = position;
@@ -354,9 +362,9 @@ public class Island {
      *
      * @param position the position to change
      */
-    private void setVisible(Position position) {
+    private void setVisible(Position position, boolean visible) {
         if ((position != null) && position.isOnIsland()) {
-            islandGrid[position.getRow()][position.getColumn()].setVisible();
+            islandGrid[position.getRow()][position.getColumn()].setVisible(visible);
         }
     }
 

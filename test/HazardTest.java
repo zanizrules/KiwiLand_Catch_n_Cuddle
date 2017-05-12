@@ -1,4 +1,4 @@
-import gameModel.Hazard;
+import gameModel.gameObjects.Hazard;
 import gameModel.Island;
 import gameModel.Position;
 import org.junit.After;

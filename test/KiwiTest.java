@@ -1,5 +1,5 @@
 import gameModel.Island;
-import gameModel.Kiwi;
+import gameModel.gameObjects.Kiwi;
 import gameModel.Position;
 import org.junit.After;
 import org.junit.Before;

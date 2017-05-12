@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 import javax.swing.*;
 
 import gameModel.*;
+import gameModel.gameObjects.Item;
+import gameModel.gameObjects.Occupant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -185,7 +187,6 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
     /**
      * This method is called by the game model every time something changes.
      * It triggers an update.
-     * TODO: Change the functionality of this function to implement new game states (Sprint 2)
      */
     @Override
     public void gameStateChanged() {
@@ -194,20 +195,13 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
         // TODO: Use our own message boxes as JOptionPanes DO NOT WORK ON MAC MACHINES (sprint 2)
 
         // check for "game over" or "game won"
-        if (game.getState() == GameState.LOST) {
-
+        if (game.getState() == GameState.GAME_OVER) {
             JOptionPane.showMessageDialog(null, game.getLoseMessage(), "Game over!",
                     JOptionPane.INFORMATION_MESSAGE);
 
             game.createNewGame();
-        } else if (game.getState() == GameState.WON) {
-            JOptionPane.showMessageDialog(
-                    null, game.getWinMessage(), "Well Done!",
-                    JOptionPane.INFORMATION_MESSAGE);
-            game.createNewGame();
         } else if (game.messageForPlayer()) {
-            JOptionPane.showMessageDialog(
-                    null, game.getPlayerMessage(), "Important Information",
+            JOptionPane.showMessageDialog(null, game.getPlayerMessage(), "Important Information",
                     JOptionPane.INFORMATION_MESSAGE);
         }
     }

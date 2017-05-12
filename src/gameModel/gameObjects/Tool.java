@@ -1,4 +1,7 @@
-package gameModel;
+package gameModel.gameObjects;
+
+import gameModel.Position;
+import gameModel.gameObjects.Item;
 
 /**
  * This class represents a tool that can be found on the island and gives the player any sort of advantage.

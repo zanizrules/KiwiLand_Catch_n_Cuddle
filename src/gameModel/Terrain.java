@@ -3,8 +3,7 @@ package gameModel;
 /**
  * Enumeration class Terrain - represents terrain types on Kiwi Island.
  */
-public enum Terrain
-{
+public enum Terrain {
     SAND(".", 1.0),
     FOREST("*", 2.0),
     WETLAND ("#", 2.5),
@@ -20,8 +19,7 @@ public enum Terrain
      * @param stringRep the string representation of the terrain.
      * @param difficulty the difficulty of the terrain
      */
-    Terrain(String stringRep, double difficulty)
-    {
+    Terrain(String stringRep, double difficulty) {
         this.stringRep  = stringRep;
         this.difficulty = difficulty;
     }
@@ -30,8 +28,7 @@ public enum Terrain
      * Gets the difficulty of the terrain
      * @return the difficulty of the terrain
      */
-    public double getDifficulty()
-    {
+    public double getDifficulty() {
         return difficulty;
     }
     
@@ -39,8 +36,7 @@ public enum Terrain
      * Gets a string representation of the terrain to print on the console
      * @return string representation of the terrain
      */
-    public String getStringRepresentation()
-    {
+    public String getStringRepresentation() {
         return stringRep;
     }
     
@@ -50,17 +46,13 @@ public enum Terrain
      * @return the terrain that is associated with this terrain,
      *         or null if the string is invalid
      */
-    public static Terrain getTerrainFromStringRepresentation(String terrainString)
-    {
+    public static Terrain getTerrainFromStringRepresentation(String terrainString) {
         Terrain terrain = null;
-        for ( Terrain item : values() ) 
-        {
-            if ( item.getStringRepresentation().equals(terrainString) )
-            {
+        for(Terrain item : values()) {
+            if ( item.getStringRepresentation().equals(terrainString) ) {
                 terrain = item;
             }
-        }
-        return terrain;
+        } return terrain;
     }
 }
 

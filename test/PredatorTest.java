@@ -1,7 +1,7 @@
 import gameModel.Island;
+import gameModel.gameObjects.ANIMAL_TYPE;
 import gameModel.Position;
-import gameModel.Predator;
-import gameModel.Rat;
+import gameModel.gameObjects.Predator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class PredatorTest {
     public void setUp() {
         island = new Island(5,5);
         position = new Position(island, 4,4);
-        rat = new Rat(position, "Rat", "A norway rat", "Random rat fact");
+        rat = new Predator(position, "Rat", "A norway rat", "Random rat fact", ANIMAL_TYPE.RAT);
     }
     
     @After

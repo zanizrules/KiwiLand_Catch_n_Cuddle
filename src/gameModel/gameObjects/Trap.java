@@ -1,4 +1,7 @@
-package gameModel;
+package gameModel.gameObjects;
+
+import gameModel.Position;
+
 /**
 * Subclass designed to provide a different image for a trap
 */

@@ -3,6 +3,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import gameModel.*;
+import gameModel.gameObjects.*;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -41,7 +42,7 @@ public class GridSquareTest {
         occupiedSquare = new GridSquare(Terrain.FOREST);
         island = new Island(5,5);
         position = new Position(island, 0,0);
-        apple = new Apple(position, "apple", "A juicy red apple", 1.0, 2.0, 1.5);
+        apple = new Food(position, "apple", "A juicy red apple", 1.0, 2.0, 1.5, FOOD_TYPE.APPLE);
         occupiedSquare.addOccupant(apple);
     }
 
@@ -73,12 +74,12 @@ public class GridSquareTest {
     
     @Test
     public void testSetVisible() {
-        emptySquare.setVisible();
+        emptySquare.setVisible(true);
         Assert.assertTrue(emptySquare.isVisible());
     } 
     
     @Test
-    public void testsetExplored() {
+    public void testSetExplored() {
         emptySquare.setExplored();
         Assert.assertTrue(emptySquare.isExplored());
     } 
@@ -136,7 +137,7 @@ public class GridSquareTest {
         Tool trap = new Trap(position, "Trap", "A predator trap", 1.0, 2.0);
         occupiedSquare.addOccupant(trap); 
         // Add a third occupant
-        Predator possum = new Possum(position, "Possum", "A log tailed possum", "Random possum fact");
+        Predator possum = new Predator(position, "Possum", "A log tailed possum", "Random possum fact", ANIMAL_TYPE.POSSUM);
         occupiedSquare.addOccupant(possum);          
         String stringRep = occupiedSquare.getOccupantStringRepresentation();
         Assert.assertEquals(3, stringRep.length());
@@ -151,7 +152,7 @@ public class GridSquareTest {
         Tool trap = new Trap(position, "Trap", "A predator trap", 1.0, 2.0);
         occupiedSquare.addOccupant(trap); 
         // Add a third occupant
-        Predator possum = new Possum(position, "Possum", "A log tailed possum", "Random possum fact");
+        Predator possum = new Predator(position, "Possum", "A log tailed possum", "Random possum fact", ANIMAL_TYPE.POSSUM);
         occupiedSquare.addOccupant(possum);          
         Collection<Occupant> occupants = occupiedSquare.getOccupants();
         Assert.assertEquals(3, occupants.size());
@@ -180,10 +181,10 @@ public class GridSquareTest {
         Tool trap = new Trap(position, "Trap", "A predator trap", 1.0, 2.0);
         occupiedSquare.addOccupant(trap); 
         // Add a third occupant
-        Predator possum = new Possum(position, "Possum", "A log tailed possum", "Random possum fact");
+        Predator possum = new Predator(position, "Possum", "A log tailed possum", "Random possum fact", ANIMAL_TYPE.POSSUM);
         occupiedSquare.addOccupant(possum);        
         //Now the cave has three occupants it should not be possible to add another
-        Predator rat = new Rat(position, "Rat", "A  ship rat", "Random rat fact");
+        Predator rat = new Predator(position, "Rat", "A  ship rat", "Random rat fact", ANIMAL_TYPE.RAT);
         Assert.assertFalse(occupiedSquare.addOccupant(rat));
         Assert.assertFalse(occupiedSquare.hasOccupant(rat));
     } 

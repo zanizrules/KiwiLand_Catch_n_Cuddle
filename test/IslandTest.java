@@ -1,4 +1,8 @@
 import gameModel.*;
+import gameModel.gameObjects.ANIMAL_TYPE;
+import gameModel.gameObjects.Kiwi;
+import gameModel.gameObjects.Player;
+import gameModel.gameObjects.Predator;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -33,7 +37,7 @@ public class IslandTest {
         testIsland = new Island(6,5);
         onIsland = new Position(testIsland, 1,0); 
         notOnIsland = Position.NOT_ON_ISLAND;
-        cat = new Cat(onIsland, "cat", "A hunting cat", "Random cat fact");
+        cat = new Predator(onIsland, "cat", "A hunting cat", "Random cat fact", ANIMAL_TYPE.CAT);
     }
 
     /**
@@ -107,7 +111,7 @@ public class IslandTest {
     @Test
     public void testRemoveOccupantNotAtPosition() {
         Position another = new Position(testIsland, 0,0);
-        Predator rat = new Rat(another, "Rat", "A norway rat", "Random rat fact");
+        Predator rat = new Predator(another, "Rat", "A norway rat", "Random rat fact", ANIMAL_TYPE.RAT);
         Assert.assertFalse(testIsland.removeOccupant(onIsland, rat));
     }
     

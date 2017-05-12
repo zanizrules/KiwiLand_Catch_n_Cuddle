@@ -1,4 +1,6 @@
-package gameModel;
+package gameModel.gameObjects;
+
+import gameModel.Position;
 
 /**
  * This class represents an item that can be found on the island.

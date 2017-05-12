@@ -1,4 +1,5 @@
 import gameModel.*;
+import gameModel.gameObjects.*;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -37,7 +38,7 @@ public class PlayerTest {
         island = new Island(5,5);
         playerPosition = new Position(island, 0,0);
         player = new Player(playerPosition,"Lisa Simpson",25.0, 15.0, 20.0);
-        sandwich = new Sandwich(playerPosition, "sandwich", "A tasty cheese sandwich", 1.0, 2.0, 1.5);
+        sandwich = new Food(playerPosition, "sandwich", "A tasty cheese sandwich", 1.0, 2.0, 1.5, FOOD_TYPE.SANDWICH);
     }
 
     /**
@@ -256,10 +257,9 @@ public class PlayerTest {
     }
     
     @Test
-    public void testCollectDuplicateItem()
-    {
+    public void testAllowForDuplicateItems() {
         Assert.assertTrue(player.collect(sandwich));
-        Assert.assertFalse(player.collect(sandwich));
+        Assert.assertTrue(player.collect(sandwich));
     }
 
     @Test

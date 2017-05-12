@@ -1,4 +1,8 @@
-package gameModel;
+package gameModel.gameObjects;
+
+import gameModel.Position;
+import gameModel.gameObjects.Tool;
+
 /**
 * Subclass designed to provide a different image for a screwdriver
 */

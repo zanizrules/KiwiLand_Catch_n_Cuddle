@@ -1,6 +1,7 @@
 package gameModel;
 
 import gameController.InformationPopUpUI_Controller;
+import gameModel.gameObjects.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -88,7 +89,6 @@ public class Game {
         } while(island.hasOccupantWithinArea(randomPosition, occupant) && count < SPAWN_LOOP_TIMEOUT_LIMIT);
 
         if(count < SPAWN_LOOP_TIMEOUT_LIMIT) {
-            System.out.println("Spawning " + occupant.getName() + " at " + row + ", " + col);
             island.addOccupant(randomPosition, occupant);
         }
     }
@@ -164,7 +164,6 @@ public class Game {
 
     public boolean isVisible(int row, int column) {
         return island.isVisible(new Position(island, row, column));
-
     }
 
     public boolean isExplored(int row, int column) {
@@ -410,11 +409,11 @@ public class Game {
     private void updateGameState() {
         String message;
         if (!player.isAlive()) {
-            state = GameState.LOST;
+            state = GameState.GAME_OVER;
             message = "Sorry, you have lost the game. " + this.getLoseMessage();
             this.setLoseMessage(message);
         } else if (!playerCanMove()) {
-            state = GameState.LOST;
+            state = GameState.GAME_OVER;
             message = "Sorry, you have lost the game. You do not have sufficient stamina to move.";
             this.setLoseMessage(message);
         }
@@ -586,13 +585,13 @@ public class Game {
                     double size = input.nextDouble();
                     double energy = input.nextDouble();
                     if (occName.equalsIgnoreCase("Sandwich")) {
-                        occupant = new Sandwich(occPos, occName, occDesc, weight, size, energy);
+                        occupant = new Food(occPos, occName, occDesc, weight, size, energy, FOOD_TYPE.SANDWICH);
                     } else if (occName.equalsIgnoreCase("Muesli Bar")) {
-                        occupant = new MuesliBar(occPos, occName, occDesc, weight, size, energy);
+                        occupant = new Food(occPos, occName, occDesc, weight, size, energy, FOOD_TYPE.MUESLI_BAR);
                     } else if (occName.equalsIgnoreCase("Apple")) {
-                        occupant = new Apple(occPos, occName, occDesc, weight, size, energy);
+                        occupant = new Food(occPos, occName, occDesc, weight, size, energy, FOOD_TYPE.APPLE);
                     } else if (occName.equalsIgnoreCase("Orange Juice")) {
-                        occupant = new OrangeJuice(occPos, occName, occDesc, weight, size, energy);
+                        occupant = new Food(occPos, occName, occDesc, weight, size, energy, FOOD_TYPE.ORANGE_JUICE);
                     }
                     break;
                 }
@@ -606,31 +605,31 @@ public class Game {
                     break;
                 case "P":
                     if (occName.equalsIgnoreCase("Rat")) {
-                        occupant = new Rat(occPos, occName, occDesc, fact);
+                        occupant = new Predator(occPos, occName, occDesc, fact, ANIMAL_TYPE.RAT);
                     } else if (occName.equalsIgnoreCase("Kiore")) {
-                        occupant = new Kiore(occPos, occName, occDesc, fact);
+                        occupant = new Predator(occPos, occName, occDesc, fact, ANIMAL_TYPE.KIORE);
                     } else if (occName.equalsIgnoreCase("Cat")) {
-                        occupant = new Cat(occPos, occName, occDesc, fact);
+                        occupant = new Predator(occPos, occName, occDesc, fact, ANIMAL_TYPE.CAT);
                     } else if (occName.equalsIgnoreCase("Stoat")) {
-                        occupant = new Stoat(occPos, occName, occDesc, fact);
+                        occupant = new Predator(occPos, occName, occDesc, fact, ANIMAL_TYPE.STOAT);
                     } else if (occName.equalsIgnoreCase("Possum")) {
-                        occupant = new Possum(occPos, occName, occDesc, fact);
+                        occupant = new Predator(occPos, occName, occDesc, fact, ANIMAL_TYPE.POSSUM);
                     }
                     totalPredators++;
                     break;
                 case "F":
                     if (occName.equalsIgnoreCase("Oystercatcher")) {
-                        occupant = new OysterCatcher(occPos, occName, occDesc);
+                        occupant = new Fauna(occPos, occName, occDesc, ANIMAL_TYPE.OYSTER_CATCHER);
                     } else if (occName.equalsIgnoreCase("Crab")) {
-                        occupant = new Crab(occPos, occName, occDesc);
+                        occupant = new Fauna(occPos, occName, occDesc, ANIMAL_TYPE.CRAB);
                     } else if (occName.equalsIgnoreCase("Fernbird")) {
-                        occupant = new FernBird(occPos, occName, occDesc);
+                        occupant = new Fauna(occPos, occName, occDesc, ANIMAL_TYPE.FERNBIRD);
                     } else if (occName.equalsIgnoreCase("Heron")) {
-                        occupant = new Heron(occPos, occName, occDesc);
+                        occupant = new Fauna(occPos, occName, occDesc, ANIMAL_TYPE.HERON);
                     } else if (occName.equalsIgnoreCase("Robin")) {
-                        occupant = new Robin(occPos, occName, occDesc);
+                        occupant = new Fauna(occPos, occName, occDesc, ANIMAL_TYPE.ROBIN);
                     } else if (occName.equalsIgnoreCase("Tui")) {
-                        occupant = new Tui(occPos, occName, occDesc);
+                        occupant = new Fauna(occPos, occName, occDesc, ANIMAL_TYPE.TUI);
                     }
                     break;
             }

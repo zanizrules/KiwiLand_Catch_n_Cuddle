@@ -1,5 +1,6 @@
-package gameModel;
+package gameModel.gameObjects;
 
+import gameModel.Position;
 import javafx.scene.image.Image;
 
 /**
@@ -22,7 +23,6 @@ public abstract class Occupant {
         this.position = position;
         this.name = name;
         this.description = description;
-        setImage();
     }
 
     /**

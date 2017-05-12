@@ -1,4 +1,6 @@
 import gameModel.*;
+import gameModel.gameObjects.Tool;
+import gameModel.gameObjects.Trap;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
