@@ -75,7 +75,7 @@ public class HighScoreController {
         final int kiwisCuddled;
         final int predatorsCaptured;
 
-        PlayerScore(String name, int totalScore, int kiwisCuddled, int predatorsCaptured){
+        public PlayerScore(String name, int totalScore, int kiwisCuddled, int predatorsCaptured){
             this.name = name;
             this.totalScore = totalScore;
             this.kiwisCuddled = kiwisCuddled;
