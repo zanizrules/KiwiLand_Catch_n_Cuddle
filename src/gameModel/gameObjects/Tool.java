@@ -11,7 +11,7 @@ public abstract class Tool extends Item {
 
     Tool(Position pos, String name, String description, double weight, double size) {
         super(pos, name, description, weight, size);
-        broken = false;
+        setBroken(false);
     }
 
     private void setBroken(boolean value) {
