@@ -34,7 +34,7 @@ public class HighScoreUI_Controller {
     @FXML
     private VBox highScoreTotalList;
 
-    private static final HighScoreHandler highScoreHandler = new HighScoreHandler();
+    private static final int MAX_HIGH_SCORES_AMOUNT = 10;
 
     @FXML
     public void initialize() {
@@ -43,20 +43,21 @@ public class HighScoreUI_Controller {
         ObservableList<Node> predatorList = highScoreCaughtList.getChildren();
         ObservableList<Node> scoreList = highScoreTotalList.getChildren();
 
-        PriorityQueue<PlayerScore> scores = highScoreHandler.getHighScores();
         int index = 0;
-        for(PlayerScore score : scores) {
-            Label nameLabel = (Label) nameList.get(index);
-            Label cuddleLabel = (Label) cuddleList.get(index);
-            Label predatorLabel = (Label) predatorList.get(index);
-            Label scoreLabel = (Label) scoreList.get(index);
+        for(PlayerScore score : HighScoreHandler.getHighScores()) {
+            if(index < MAX_HIGH_SCORES_AMOUNT) {
+                Label nameLabel = (Label) nameList.get(index);
+                Label cuddleLabel = (Label) cuddleList.get(index);
+                Label predatorLabel = (Label) predatorList.get(index);
+                Label scoreLabel = (Label) scoreList.get(index);
 
-            nameLabel.setText(score.name);
-            cuddleLabel.setText("" + score.kiwisCuddled);
-            predatorLabel.setText("" + score.predatorsCaptured);
-            scoreLabel.setText("" + score.totalScore);
+                nameLabel.setText(score.getName());
+                cuddleLabel.setText("" + score.kiwisCuddled);
+                predatorLabel.setText("" + score.predatorsCaptured);
+                scoreLabel.setText("" + score.totalScore);
 
-            index++;
+                index++;
+            } else break;
         }
     }
 

@@ -1,5 +1,7 @@
 package gameModel;
 
+import gameModel.HighScoreHandler.*;
+import gameController.GameOverPopUpUI_Controller;
 import gameController.InformationPopUpUI_Controller;
 import gameModel.gameObjects.*;
 import javafx.fxml.FXMLLoader;
@@ -222,7 +224,7 @@ public class Game {
         return winMessage;
     }
 
-    public String getLoseMessage() {
+    private String getLoseMessage() {
         return loseMessage;
     }
 
@@ -323,18 +325,34 @@ public class Game {
         try {
             InformationPopUpUI_Controller.setValues(image, name, description);
             Parent root = FXMLLoader.load(getClass().getResource("/gameView/InformationPopUpUI.fxml"));
-            Stage newStage = new Stage();
-            Scene scene = new Scene(root);
-            newStage.setScene(scene);
-            newStage.initModality(Modality.APPLICATION_MODAL);
-            newStage.setTitle(name);
-            newStage.show();
-
+            showPopUpScene(root, name);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ExceptionInInitializerError | NoClassDefFoundError ignore) {
             // Method is used without user interface.
         }
+    }
+
+    public void showPopUpGameOverScreen() {
+        PlayerScore score = new PlayerScore("", getScore(), kiwisCuddled, predatorsTrapped);
+        try {
+            GameOverPopUpUI_Controller.setValues(score);
+            Parent root = FXMLLoader.load(getClass().getResource("/gameView/GameOverPopUpUI.fxml"));
+            showPopUpScene(root, "Game Over!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ExceptionInInitializerError | NoClassDefFoundError ignore) {
+            // Method is used without user interface.
+        }
+    }
+
+    private void showPopUpScene(Parent root, String name) {
+        Stage newStage = new Stage();
+        Scene scene = new Scene(root);
+        newStage.setScene(scene);
+        newStage.initModality(Modality.APPLICATION_MODAL);
+        newStage.setTitle(name);
+        newStage.show();
     }
 
     public boolean playerMove(MoveDirection direction) {

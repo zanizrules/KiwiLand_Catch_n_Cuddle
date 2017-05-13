@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
@@ -23,7 +24,7 @@
                <Insets top="10.0"/>
             </padding>
          </Label>
-         <Label fx:id="descriptionLabel" alignment="TOP_LEFT" prefHeight="217.0" prefWidth="663.0"
+         <Label fx:id="descriptionLabel" alignment="TOP_LEFT" prefHeight="210.0" prefWidth="638.0"
                 textFill="#000000c7">
             <padding>
                <Insets bottom="15.0" top="15.0"/>
@@ -33,12 +34,12 @@
             </font>
          </Label>
          <Button fx:id="okButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
-                 onAction="#okButtonClick" prefHeight="45.0" prefWidth="110.0" text="OK" textAlignment="CENTER">
+                 onAction="#okButtonClick" prefHeight="40.0" prefWidth="90.0" text="OK" textAlignment="CENTER">
             <font>
                <Font name="System Bold" size="24.0"/>
             </font>
             <VBox.margin>
-               <Insets left="550.0" top="25.0"/>
+               <Insets left="540.0" top="25.0"/>
             </VBox.margin>
          </Button>
       </VBox>

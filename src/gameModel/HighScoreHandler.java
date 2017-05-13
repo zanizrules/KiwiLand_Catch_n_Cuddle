@@ -6,18 +6,16 @@ import java.util.*;
 
 public class HighScoreHandler {
     private final static String HIGH_SCORE_FILE = "HighScores.txt";
-    private PriorityQueue<PlayerScore> highScores;
+    private final static ArrayList<PlayerScore> highScores = new ArrayList<>();
 
-    public PriorityQueue<PlayerScore> getHighScores() {
+    public static ArrayList<PlayerScore> getHighScores() {
+        if(highScores.isEmpty()) {
+            loadHighScoresFromFile();
+        }
         return highScores;
     }
 
-    public HighScoreHandler() {
-        highScores = new PriorityQueue<>();
-        loadHighScoresFromFile();
-    }
-
-    private void loadHighScoresFromFile() {
+    private static void loadHighScoresFromFile() {
         try {
             Scanner input = new Scanner(new File(HIGH_SCORE_FILE));
             input.useDelimiter("\\s*,\\s*");
@@ -36,14 +34,24 @@ public class HighScoreHandler {
         }
     }
 
+    public static boolean checkIfPlayerScoreIsHighScore(PlayerScore score) {
+        PlayerScore lowestHighScore = (PlayerScore) getHighScores().toArray()[highScores.size()-1];
+        System.out.println("Lowest Score is: " + lowestHighScore.totalScore);
+        System.out.println("Player Score is: " + score.totalScore);
+        System.out.println("Is player score higher? " + (lowestHighScore.compareTo(score) < 0));
+        return (lowestHighScore.compareTo(score) > 0);
+    }
+
     // Allows the addition of a new high score
-    public void addNewScore(PlayerScore newHighScore) {
-        highScores.add(newHighScore);
+    public static void addNewScore(PlayerScore newHighScore) {
+        getHighScores().add(newHighScore);
+        Collections.sort(highScores);
+        rewriteTextFile();
     }
 
     // Rewrites the text file with any new high scores
-    private void rewriteTextFile() {
-        int numberOfHighScores = highScores.size();
+    private static void rewriteTextFile() {
+        int numberOfHighScores = getHighScores().size();
 
         // Get content to write to file
         StringBuilder singleScore = new StringBuilder(String.valueOf(numberOfHighScores) + ", \n");
@@ -64,8 +72,8 @@ public class HighScoreHandler {
         }
     }
 
-    public class PlayerScore implements Comparable<PlayerScore> {
-        public final String name;
+    public static class PlayerScore implements Comparable<PlayerScore> {
+        private String name;
         public final int totalScore;
         public final int kiwisCuddled;
         public final int predatorsCaptured;
@@ -77,18 +85,21 @@ public class HighScoreHandler {
             this.predatorsCaptured = predatorsCaptured;
         }
 
+        public void setName(String name) {
+            this.name = name;
+        }
+        public String getName() {
+            return name;
+        }
+
         @Override
         public int compareTo(@Nonnull PlayerScore o) {
             return Integer.compare(o.totalScore, this.totalScore);
         }
 
         public String toString(){
-            String returnString = "";
-            returnString += " Name: " + this.name;
-            returnString += " Score: " + this.totalScore;
-            returnString += " Kiwi's Cuddled: " + this.kiwisCuddled;
-            returnString += " Predators Captured: " + this.predatorsCaptured;
-            return returnString;
+            return "Cuddling " + kiwisCuddled + " kiwis, and catching "
+                    + predatorsCaptured + " predators has scored you " + totalScore + " points";
         }
     }
 }

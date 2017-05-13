@@ -196,9 +196,8 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
 
         // check for "game over" or "game won"
         if (game.getState() == GameState.GAME_OVER) {
-            JOptionPane.showMessageDialog(null, game.getLoseMessage(), "Game over!",
-                    JOptionPane.INFORMATION_MESSAGE);
 
+            game.showPopUpGameOverScreen();
             game.createNewGame();
         } else if (game.messageForPlayer()) {
             JOptionPane.showMessageDialog(null, game.getPlayerMessage(), "Important Information",
