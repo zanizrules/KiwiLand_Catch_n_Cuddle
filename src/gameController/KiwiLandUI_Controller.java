@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-import javax.swing.*;
 
 import gameModel.*;
 import gameModel.gameObjects.Hazard;

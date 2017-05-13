@@ -1,14 +1,14 @@
 package gameController;
 
-import gameModel.HighScoreHandler.*;
+import gameController.HighScoreController.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import static gameModel.HighScoreHandler.addNewScore;
-import static gameModel.HighScoreHandler.checkIfPlayerScoreIsHighScore;
+import static gameController.HighScoreController.addNewScore;
+import static gameController.HighScoreController.checkIfPlayerScoreIsHighScore;
 
 /**
  * Author: Shane Birdsall

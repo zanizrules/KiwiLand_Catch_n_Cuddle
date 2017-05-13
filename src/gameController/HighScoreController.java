@@ -1,14 +1,14 @@
-package gameModel;
+package gameController;
 
 import javax.annotation.Nonnull;
 import java.io.*;
 import java.util.*;
 
-public class HighScoreHandler {
+public class HighScoreController {
     private final static String HIGH_SCORE_FILE = "HighScores.txt";
     private final static ArrayList<PlayerScore> highScores = new ArrayList<>();
 
-    public static ArrayList<PlayerScore> getHighScores() {
+    static ArrayList<PlayerScore> getHighScores() {
         if(highScores.isEmpty()) {
             loadHighScoresFromFile();
         }
@@ -34,13 +34,13 @@ public class HighScoreHandler {
         }
     }
 
-    public static boolean checkIfPlayerScoreIsHighScore(PlayerScore score) {
+    static boolean checkIfPlayerScoreIsHighScore(PlayerScore score) {
         PlayerScore lowestHighScore = (PlayerScore) getHighScores().toArray()[highScores.size()-1];
         return (lowestHighScore.compareTo(score) > 0);
     }
 
     // Allows the addition of a new high score
-    public static void addNewScore(PlayerScore newHighScore) {
+    static void addNewScore(PlayerScore newHighScore) {
         getHighScores().add(newHighScore);
         Collections.sort(highScores);
         rewriteTextFile();
@@ -71,9 +71,9 @@ public class HighScoreHandler {
 
     public static class PlayerScore implements Comparable<PlayerScore> {
         private String name;
-        public final int totalScore;
-        public final int kiwisCuddled;
-        public final int predatorsCaptured;
+        final int totalScore;
+        final int kiwisCuddled;
+        final int predatorsCaptured;
 
         PlayerScore(String name, int totalScore, int kiwisCuddled, int predatorsCaptured){
             this.name = name;

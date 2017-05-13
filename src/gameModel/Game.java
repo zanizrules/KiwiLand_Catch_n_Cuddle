@@ -1,6 +1,6 @@
 package gameModel;
 
-import gameModel.HighScoreHandler.*;
+import gameController.HighScoreController.*;
 import gameController.GameOverPopUpUI_Controller;
 import gameController.InformationPopUpUI_Controller;
 import gameModel.gameObjects.*;

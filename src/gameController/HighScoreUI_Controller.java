@@ -1,7 +1,6 @@
 package gameController;
 
-import gameModel.HighScoreHandler;
-import gameModel.HighScoreHandler.*;
+import gameController.HighScoreController.*;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +13,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.PriorityQueue;
 
 /**
  * Author: Shane Birdsall
@@ -44,7 +42,7 @@ public class HighScoreUI_Controller {
         ObservableList<Node> scoreList = highScoreTotalList.getChildren();
 
         int index = 0;
-        for(PlayerScore score : HighScoreHandler.getHighScores()) {
+        for(PlayerScore score : HighScoreController.getHighScores()) {
             if(index < MAX_HIGH_SCORES_AMOUNT) {
                 Label nameLabel = (Label) nameList.get(index);
                 Label cuddleLabel = (Label) cuddleList.get(index);
