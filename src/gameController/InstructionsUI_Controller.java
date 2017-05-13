@@ -17,11 +17,11 @@ import java.io.IOException;
  */
 public class InstructionsUI_Controller {
     @FXML
-    private Button returnButton;
+    private Button restartButton;
 
     @FXML
     public void returnButtonClick() throws IOException { // Called when return button is clicked
-            Stage stage = (Stage) returnButton.getScene().getWindow();
+            Stage stage = (Stage) restartButton.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("../gameView/mainMenuUI.fxml"));
             stage.setScene(new Scene(root));
             stage.show();

@@ -21,7 +21,7 @@ public enum ANIMAL_TYPE {
     // Kiwi
     KIWI("images/kiwi.png");
 
-    private String imageLoc;
+    private final String imageLoc;
 
     ANIMAL_TYPE(String imageLoc) {
         this.imageLoc = imageLoc;

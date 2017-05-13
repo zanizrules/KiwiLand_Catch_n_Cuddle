@@ -54,7 +54,7 @@ public class Hazard extends Occupant {
     }
 
     @Override
-    public void setImage() {
+    protected void setImage() {
         super.setImage("images/hazard.png");
     }
 }

@@ -14,7 +14,7 @@ public enum FOOD_TYPE {
     ORANGE_JUICE("images/orangejuice.png"),
     SANDWICH("images/sandwich.png");
 
-    private String imageLoc;
+    private final String imageLoc;
 
     FOOD_TYPE(String imageLoc) { this.imageLoc = imageLoc; }
 

@@ -8,7 +8,7 @@ import gameModel.Position;
  */
 public class Food extends Item {
     private final double ENERGY;
-    private FOOD_TYPE foodType;
+    private final FOOD_TYPE foodType;
 
     /**
      * Construct a food object with known attributes.

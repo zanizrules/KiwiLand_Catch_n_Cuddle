@@ -65,7 +65,7 @@ public class PositionTest {
     public void testIllegalArgumentNoIsland() throws Exception {
         try 
         {
-            Position invalidPosition = new Position(null,0,0);
+            new Position(null,0,0);
             Assert.fail("No exception thrown when island null.");
         }
         catch (IllegalArgumentException expected) 
@@ -79,7 +79,7 @@ public class PositionTest {
     public void testIllegalArgumentRowNegative() throws Exception {
         try 
         {
-            Position invalidPosition = new Position(island,-1,0);
+            new Position(island,-1,0);
             Assert.fail("No exception thrown when row negative.");
         }
         catch (IllegalArgumentException expected) 
@@ -93,7 +93,7 @@ public class PositionTest {
     public void testIllegalArgumentRowTooLarge() throws Exception {
         try 
         {
-            Position invalidPosition = new Position(island,5,0);
+            new Position(island,5,0);
             Assert.fail("No exception thrown when row too large.");
         }
         catch (IllegalArgumentException expected) 
@@ -107,7 +107,7 @@ public class PositionTest {
     public void testIllegalArgumentColumnNegative() throws Exception {
         try 
         {
-            Position invalidPosition = new Position(island,1,-1);
+            new Position(island,1,-1);
             Assert.fail("No exception thrown when column negative.");
         }
         catch (IllegalArgumentException expected) 
@@ -121,7 +121,7 @@ public class PositionTest {
     public void testIllegalArgumentColumnTooLarge() throws Exception {
         try 
         {
-            Position invalidPosition = new Position(island,0,5);
+            new Position(island,0,5);
             Assert.fail("No exception thrown when column too large.");
         }
         catch (IllegalArgumentException expected) 
@@ -154,7 +154,7 @@ public class PositionTest {
     public void testGetNewPositionNull()throws Exception {
         try 
         {
-            Position newPosition = onIsland.getNewPosition(null);
+            onIsland.getNewPosition(null);
             Assert.fail("No exception thrown when direction null.");
         }
         catch (IllegalArgumentException expected) 

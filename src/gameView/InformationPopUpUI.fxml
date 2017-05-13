@@ -1,50 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gameController.InformationPopUpUI_Controller">
-   <children>
-      <HBox layoutX="19.0" layoutY="19.0" prefHeight="362.0" prefWidth="863.0" spacing="25.0">
-         <children>
-            <ImageView fx:id="imageDisplay" fitHeight="175.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true">
-               <HBox.margin>
-                  <Insets left="25.0" top="25.0" />
-               </HBox.margin>
-            </ImageView>
-            <VBox prefHeight="362.0" prefWidth="663.0">
-               <children>
-                  <Label fx:id="nameLabel" prefHeight="31.0" prefWidth="1479.0">
-                     <font>
-                        <Font name="System Bold" size="35.0" />
-                     </font>
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
-                  </Label>
-                  <Label fx:id="descriptionLabel" alignment="TOP_LEFT" prefHeight="210.0" prefWidth="638.0" textFill="#000000c7" wrapText="true">
-                     <padding>
-                        <Insets bottom="15.0" top="15.0" />
-                     </padding>
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="okButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#okButtonClick" prefHeight="40.0" prefWidth="90.0" text="OK" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="540.0" top="25.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gameController.InformationPopUpUI_Controller">
+   <HBox layoutX="19.0" layoutY="19.0" prefHeight="362.0" prefWidth="863.0" spacing="25.0">
+      <ImageView fx:id="imageDisplay" fitHeight="175.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true">
+         <HBox.margin>
+            <Insets left="25.0" top="25.0"/>
+         </HBox.margin>
+      </ImageView>
+      <VBox prefHeight="362.0" prefWidth="663.0">
+         <Label fx:id="nameLabel" prefHeight="31.0" prefWidth="1479.0">
+            <font>
+               <Font name="System Bold" size="35.0"/>
+            </font>
+            <padding>
+               <Insets top="10.0"/>
+            </padding>
+         </Label>
+         <Label fx:id="descriptionLabel" alignment="TOP_LEFT" prefHeight="210.0" prefWidth="638.0"
+                textFill="#000000c7" wrapText="true">
+            <padding>
+               <Insets bottom="15.0" top="15.0"/>
+            </padding>
+            <font>
+               <Font size="22.0"/>
+            </font>
+         </Label>
+         <Button fx:id="okButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+                 onAction="#okButtonClick" prefHeight="40.0" prefWidth="90.0" text="OK" textAlignment="CENTER">
+            <font>
+               <Font name="System Bold" size="24.0"/>
+            </font>
+            <VBox.margin>
+               <Insets left="540.0" top="25.0"/>
+            </VBox.margin>
+         </Button>
+      </VBox>
+   </HBox>
 </AnchorPane>

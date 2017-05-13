@@ -64,19 +64,6 @@ public class Island {
     }
 
     /**
-     * G position in this direction
-     *
-     * @param position  starting position
-     * @param direction to go
-     * @return new position
-     */
-    public Position getNewPosition(Position position, MoveDirection direction) {
-        assert position != null;
-        assert direction != null;
-        return position.getNewPosition(direction);
-    }
-
-    /**
      * Is this square visible
      *
      * @return true if visible
@@ -160,16 +147,6 @@ public class Island {
      */
     CopyOnWriteArraySet<Occupant> getOccupants(Position position) {
         return getGridSquare(position).getOccupants();
-    }
-
-    /**
-     * Get string for occupants of this position
-     *
-     * @return string representing occupants
-     */
-    String getOccupantStringRepresentation(Position position) {
-        GridSquare square = getGridSquare(position);
-        return square.getOccupantStringRepresentation();
     }
 
     ArrayList<Image> getOccupantImage(Position position) {

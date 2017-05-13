@@ -121,9 +121,9 @@ public class GameTest {
     @Test
     public void testGetPlayerValues(){
         double[] values = game.getPlayerValues();
-        assertEquals("Check Max backpack size.", values[Game.MAX_SIZE_INDEX], 5.0);
+        assertEquals("Check Max backpack size.", values[Game.MAX_SIZE_INDEX], 15.0);
         assertEquals("Check max stamina.", values[Game.MAX_STAMINA_INDEX], 100.0);
-        assertEquals("Check max backpack weight.", values[Game.MAX_WEIGHT_INDEX], 10.0);
+        assertEquals("Check max backpack weight.", values[Game.MAX_WEIGHT_INDEX], 12.0);
         assertEquals("Check initialstamina", values[Game.STAMINA_INDEX], 100.0);
         assertEquals("Check initial backpack weight.", values[Game.WEIGHT_INDEX], 0.0);
         assertEquals("Check initial backp[ack size.", values[Game.SIZE_INDEX], 0.0);

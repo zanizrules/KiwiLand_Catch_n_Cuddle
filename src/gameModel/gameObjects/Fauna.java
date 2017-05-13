@@ -8,7 +8,7 @@ import gameModel.Position;
  * If we need additional endangered species this class should have descendant classes created.
  */
 public class Fauna extends Occupant {
-    private ANIMAL_TYPE animalType;
+    private final ANIMAL_TYPE animalType;
 
     /**
      * Constructor for objects of class Endangered
@@ -23,7 +23,7 @@ public class Fauna extends Occupant {
     }
 
     @Override
-    public void setImage() {
+    protected void setImage() {
         super.setImage(animalType.getImageLoc());
     }
 

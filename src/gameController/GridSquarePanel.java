@@ -53,7 +53,6 @@ class GridSquarePanel extends Label {
         // get the GridSquare object from the world
         Terrain terrain = game.getTerrain(row, column);
         boolean squareVisible = game.isVisible(row, column);
-        boolean squareExplored = game.isExplored(row, column);
         Image terrainImage;
 
         switch (terrain) { // Set image depending on the terrain for this grid square

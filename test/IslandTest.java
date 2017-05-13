@@ -52,7 +52,7 @@ public class IslandTest {
     }
      
     /**
-     * Tests of methods which are wrappers for GridSqaure or Position are omitted as 
+     * Tests of methods which are wrappers for GridSquare or Position are omitted as
      * methods are tested in those test classes
      */
     @Test
