@@ -45,11 +45,11 @@ public class GameOverPopUpUI_Controller {
         inputNameField.visibleProperty().setValue(inputRequired);
     }
 
-    public static void setValues(PlayerScore score) {
+    public static void setValues(PlayerScore score, String loseMessage) {
         playerScoreReference = score;
         inputRequired = checkIfPlayerScoreIsHighScore(score);
         popUpTitle = "You scored " + score.totalScore + " points!";
-        popUpTitleDescription = score.toString();
+        popUpTitleDescription = loseMessage + "\n" + score.toString();
         popUpDescription = inputRequired ? "You have exceeded all expectations and " +
                 "achieved a spot on the kiwi conservation hall of fame!!!" :
                 "Try playing again to rank in the top ten and have your " +

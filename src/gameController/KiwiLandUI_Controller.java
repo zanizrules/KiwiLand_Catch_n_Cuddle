@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javax.swing.*;
 
 import gameModel.*;
+import gameModel.gameObjects.Hazard;
 import gameModel.gameObjects.Item;
 import gameModel.gameObjects.Occupant;
 import javafx.collections.FXCollections;
@@ -18,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -63,6 +65,8 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
 
     private final Game game;
     private final HashMap<KeyCode, String> keyMappings;
+    private final static Image HAZARD_IMAGE
+            = new Image(Hazard.class.getResource("images/hazard.png").toExternalForm());
 
     public KiwiLandUI_Controller() {
         // Default constructor is the first thing to be called.
@@ -192,16 +196,12 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
     public void gameStateChanged() {
         update();
 
-        // TODO: Use our own message boxes as JOptionPanes DO NOT WORK ON MAC MACHINES (sprint 2)
-
         // check for "game over" or "game won"
         if (game.getState() == GameState.GAME_OVER) {
-
             game.showPopUpGameOverScreen();
             game.createNewGame();
         } else if (game.messageForPlayer()) {
-            JOptionPane.showMessageDialog(null, game.getPlayerMessage(), "Important Information",
-                    JOptionPane.INFORMATION_MESSAGE);
+            game.showPopUpFact(HAZARD_IMAGE, "Important Information", game.getPlayerMessage());
         }
     }
 

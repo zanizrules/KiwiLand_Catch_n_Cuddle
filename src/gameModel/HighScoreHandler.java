@@ -36,9 +36,6 @@ public class HighScoreHandler {
 
     public static boolean checkIfPlayerScoreIsHighScore(PlayerScore score) {
         PlayerScore lowestHighScore = (PlayerScore) getHighScores().toArray()[highScores.size()-1];
-        System.out.println("Lowest Score is: " + lowestHighScore.totalScore);
-        System.out.println("Player Score is: " + score.totalScore);
-        System.out.println("Is player score higher? " + (lowestHighScore.compareTo(score) < 0));
         return (lowestHighScore.compareTo(score) > 0);
     }
 

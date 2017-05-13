@@ -40,7 +40,6 @@ public class Game {
 
     private final Set<GameEventListener> eventListeners;
 
-    private String winMessage = "";
     private String loseMessage = "";
     private String playerMessage = "";
 
@@ -76,7 +75,6 @@ public class Game {
         initialiseIslandFromFile("IslandData.txt");
         drawIsland();
         state = GameState.PLAYING;
-        winMessage = "";
         loseMessage = "";
         playerMessage = "";
         notifyGameEventListeners();
@@ -220,10 +218,6 @@ public class Game {
         return result;
     }
 
-    public String getWinMessage() {
-        return winMessage;
-    }
-
     private String getLoseMessage() {
         return loseMessage;
     }
@@ -321,7 +315,7 @@ public class Game {
         updateGameState();
     }
 
-    private void showPopUpFact(Image image, String name, String description) {
+    public void showPopUpFact(Image image, String name, String description) {
         try {
             InformationPopUpUI_Controller.setValues(image, name, description);
             Parent root = FXMLLoader.load(getClass().getResource("/gameView/InformationPopUpUI.fxml"));
@@ -336,7 +330,7 @@ public class Game {
     public void showPopUpGameOverScreen() {
         PlayerScore score = new PlayerScore("", getScore(), kiwisCuddled, predatorsTrapped);
         try {
-            GameOverPopUpUI_Controller.setValues(score);
+            GameOverPopUpUI_Controller.setValues(score, getLoseMessage());
             Parent root = FXMLLoader.load(getClass().getResource("/gameView/GameOverPopUpUI.fxml"));
             showPopUpScene(root, "Game Over!");
         } catch (IOException e) {
