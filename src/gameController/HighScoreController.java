@@ -1,6 +1,5 @@
 package gameController;
 
-import javax.annotation.Nonnull;
 import java.io.*;
 import java.util.*;
 
@@ -90,7 +89,7 @@ public class HighScoreController {
         }
 
         @Override
-        public int compareTo(@Nonnull PlayerScore o) {
+        public int compareTo(PlayerScore o) {
             return Integer.compare(o.totalScore, this.totalScore);
         }
 
