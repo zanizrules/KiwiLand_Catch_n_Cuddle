@@ -62,7 +62,7 @@ public class HighScoreUI_Controller {
     @FXML
     public void returnButtonClick() throws IOException { // Called when return button is clicked
             Stage stage = (Stage) returnButton.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("../gameView/mainMenuUI.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/gameView/mainMenuUI.fxml"));
             stage.setScene(new Scene(root));
             stage.show();
     }

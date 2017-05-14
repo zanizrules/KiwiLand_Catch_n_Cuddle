@@ -116,7 +116,7 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
     @FXML
     private void exitButtonClick() throws IOException { // Called when exit button is clicked
             Stage stage = (Stage) exitButton.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("../gameView/mainMenuUI.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/gameView/mainMenuUI.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();

@@ -36,7 +36,7 @@
                   <HBox.margin>
                      <Insets left="50.0" right="40.0" top="20.0" />
                   </HBox.margin>
-                  <Image url="@../gameModel/gameObjects/images/kiwi.png" />
+                  <Image url="@/gameModel/gameObjects/images/kiwi.png" />
                </ImageView>
             </HBox>
             <HBox prefHeight="561.0" prefWidth="1512.0">

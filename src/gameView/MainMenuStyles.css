@@ -1,5 +1,5 @@
 #anchorPane{
-    -fx-background-image: url('../gameModel/gameObjects/images/mainMenuBackground.png');
+    -fx-background-image: url('/gameModel/gameObjects/images/mainMenuBackground.png');
     -fx-background-repeat: stretch;
     -fx-background-size: 1280 960;
     -fx-background-position: center center;
