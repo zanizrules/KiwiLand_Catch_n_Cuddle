@@ -10,8 +10,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("../gameView/KiwiLandUI.fxml"));
-        primaryStage.setTitle("KiwiLand Catch & Cuddle");
+        Parent root = FXMLLoader.load(getClass().getResource("../gameView/mainMenuUI.fxml"));
+        primaryStage.setTitle("KiwiLand Catch n Cuddle");
         primaryStage.setScene(new Scene(root, 1280, 960));
         primaryStage.setResizable(false);
         primaryStage.show();

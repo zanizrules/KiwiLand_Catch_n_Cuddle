@@ -1,37 +1,35 @@
-import gameModel.Hazard;
+import gameModel.gameObjects.Hazard;
 import gameModel.Island;
 import gameModel.Position;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertEquals;
 
 
 /**
- * The test class HazardTest.
+ * Test: GridSquareTest
+ * Related Class: Hazard
  *
- * @author  AS
- * @version 2011
+ * @author Shane Birdsall
+ * @version 2.0
+ * Updates:
+ *  1. Removed useless constructor
  */
-public class HazardTest extends junit.framework.TestCase
-{
-    Hazard fatal;
-    Hazard nonFatal;
-    Position position, position2;
-    Island island;
-    /**
-     * Default constructor for test class AnimalTest
-     */
-    public HazardTest()
-    {
-    }
+public class HazardTest {
+    private Hazard fatal;
+    private Hazard nonFatal;
+    private Position position, position2;
+    private Island island;
 
      /**
      * Sets up the test fixture.
-     *
      * Called before every test case method.
      */
-    @Override
-    protected void setUp()
-    {
+    @Before
+    public void setUp() {
         island = new Island(5,5);
         position = new Position(island, 4,4);
         fatal = new Hazard(position, "Hole", "A very deep hole",  1.0);
@@ -41,12 +39,10 @@ public class HazardTest extends junit.framework.TestCase
 
     /**
      * Tears down the test fixture.
-     *
      * Called after every test case method.
      */
-    @Override
-    protected void tearDown()
-    {
+    @After
+    public void tearDown() {
         fatal = null;
         nonFatal =  null;
         island = null;
@@ -59,52 +55,41 @@ public class HazardTest extends junit.framework.TestCase
     }
     
     @Test
-    public void testIsFatal()
-    {
-        assertTrue("Should be fatal", fatal.isFatal());
-        assertFalse("Should not be fatal", nonFatal.isFatal());
+    public void testIsFatal() {
+        Assert.assertTrue("Should be fatal", fatal.isFatal());
+        Assert.assertFalse("Should not be fatal", nonFatal.isFatal());
     }
     
     @Test
-    public void testIsBreakTrap(){
+    public void testIsBreakTrap() {
         Hazard trapBreak = new Hazard(position2, "Broken trap", "Your trap breaks", 0.0);
-        
-        assertTrue("Shoyuld be trap break hazard", trapBreak.isBreakTrap());
+        Assert.assertTrue("Shoyuld be trap break hazard", trapBreak.isBreakTrap());
     }
-            
-    
-    /**
-     * Tests of Occupant methods
-     * Need to test these in one of the descendants of abstract class Occupant
-     */
+
     @Test
     public void testGetPosition(){
-        assertEquals("Wrong position", position, fatal.getPosition());
+        Assert.assertEquals("Wrong position", position, fatal.getPosition());
     }
     
     @Test
     public void testSetPosition() {
         Position newPosition = new Position(island,1,2);
         fatal.setPosition(newPosition);
-        assertEquals("Check position", newPosition, fatal.getPosition());
+        Assert.assertEquals("Check position", newPosition, fatal.getPosition());
     }
 
     @Test
     public void testGetName() {
-        assertEquals("Check name", "Hole", fatal.getName());
+        Assert.assertEquals("Check name", "Hole", fatal.getName());
     }
 
     @Test
-    public void testGetDescription()
-    {
-        assertEquals("Check description", "A very deep hole", fatal.getDescription());
+    public void testGetDescription() {
+        Assert.assertEquals("Check description", "A very deep hole", fatal.getDescription());
     }
 
     @Test
     public void testGetStringRepresentationDangerous() {
-        assertEquals("H",fatal.getStringRepresentation());
+        Assert.assertEquals("H", fatal.getStringRepresentation());
     }
-    
-
-
 }

@@ -1,5 +1,6 @@
-package gameModel;
+package gameModel.gameObjects;
 
+import gameModel.Position;
 import javafx.scene.image.Image;
 
 /**
@@ -8,8 +9,8 @@ import javafx.scene.image.Image;
 public abstract class Occupant {
     private Position position;
     private final String name;
-    private final String description;
-    protected Image image;
+    String description;
+    private Image image;
 
     /**
      * Construct an occupant for a known position & name.
@@ -18,11 +19,10 @@ public abstract class Occupant {
      * @param name        the name of the occupant
      * @param description a longer description
      */
-    public Occupant(Position position, String name, String description) {
+    Occupant(Position position, String name, String description) {
         this.position = position;
         this.name = name;
         this.description = description;
-        setImage();
     }
 
     /**
@@ -80,13 +80,13 @@ public abstract class Occupant {
      */
     public abstract String getStringRepresentation();
 
-    public void setImage(String imageLoc) {
+    void setImage(String imageLoc) {
         try {
             image = new Image(getClass().getResource(imageLoc).toExternalForm());
         } catch (RuntimeException ignore) {}
     }
 
-    public abstract void setImage();
+    protected abstract void setImage();
 
     public Image getImage() {
         return image;

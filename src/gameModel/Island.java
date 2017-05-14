@@ -1,11 +1,13 @@
 package gameModel;
 
+import gameModel.gameObjects.Occupant;
+import gameModel.gameObjects.Player;
+import gameModel.gameObjects.Predator;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
@@ -62,19 +64,6 @@ public class Island {
     }
 
     /**
-     * G position in this direction
-     *
-     * @param position  starting position
-     * @param direction to go
-     * @return new position
-     */
-    public Position getNewPosition(Position position, MoveDirection direction) {
-        assert position != null;
-        assert direction != null;
-        return position.getNewPosition(direction);
-    }
-
-    /**
      * Is this square visible
      *
      * @return true if visible
@@ -116,6 +105,40 @@ public class Island {
         return square.hasOccupant(occupant);
     }
 
+    boolean hasOccupantWithinArea(Position centrePosition, Occupant occupant) {
+        boolean hasOccupant;
+        int rowStart = centrePosition.getRow() - 1;
+        int rowEnd = centrePosition.getRow() + 1;
+        int colStart = centrePosition.getColumn()-1;
+        int colEnd = centrePosition.getColumn()+1;
+
+        if(rowStart < 0) { rowStart = 0; }
+        if(colStart < 0) { colStart = 0; }
+        if(rowEnd > numRows) { rowEnd = numRows -1; }
+        if(colEnd > numColumns) { colEnd = numColumns -1; }
+        if(hasHazardOnPosition(centrePosition)){return true;}
+        for(int i = rowStart; i < rowEnd; i++) {
+            for(int j = colStart; j < colEnd; j++) {
+                Position pos = new Position(this, i, j);
+                hasOccupant = getGridSquare(pos).hasOccupant(occupant);
+                if(hasOccupant) {
+                    return true; // hasOccupant = TRUE
+                }
+            }
+        } return false; // hasOccupant = FALSE
+    }
+
+    private boolean hasHazardOnPosition(Position pos){
+        String occupantString = getGridSquare(pos).getOccupantStringRepresentation();
+        if(Objects.equals(occupantString, "H")) {
+            System.out.println("Space had a hazard");
+            return true;
+        }else{
+            System.out.println("No Hazard");
+            return false;
+        }
+    }
+
     /**
      * Gets the occupants of position as an array.
      *
@@ -124,16 +147,6 @@ public class Island {
      */
     CopyOnWriteArraySet<Occupant> getOccupants(Position position) {
         return getGridSquare(position).getOccupants();
-    }
-
-    /**
-     * Get string for occupants of this position
-     *
-     * @return string representing occupants
-     */
-    String getOccupantStringRepresentation(Position position) {
-        GridSquare square = getGridSquare(position);
-        return square.getOccupantStringRepresentation();
     }
 
     ArrayList<Image> getOccupantImage(Position position) {
@@ -186,11 +199,16 @@ public class Island {
             getGridSquare(previousPlayerPos).setPlayer(null);
         }
 
-        // add visibility to all new adjacent squares
-        setVisible(position.getNewPosition(MoveDirection.NORTH));
-        setVisible(position.getNewPosition(MoveDirection.EAST));
-        setVisible(position.getNewPosition(MoveDirection.SOUTH));
-        setVisible(position.getNewPosition(MoveDirection.WEST));
+        // set visibility to all squares around player, and hide all others
+        for(int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numColumns; j++) {
+                if(i >= position.getRow() -1 && i <= position.getRow() +1
+                        && j >= position.getColumn() -1 && j <= position.getColumn() +1) {
+                    setVisible(new Position(this, i, j), true);
+                } else setVisible(new Position(this, i, j), false);
+
+            }
+        }
 
         // remember the new player position
         previousPlayerPos = position;
@@ -265,34 +283,34 @@ public class Island {
         final int CELL_SIZE = 4;
 
         // create the horizontal line as a string
-        String horizontalLine = "-";
+        StringBuilder horizontalLine = new StringBuilder("-");
         for (int col = 0; col < this.numColumns; col++) {
             for (int i = 0; i < CELL_SIZE; i++) {
-                horizontalLine += "-";
+                horizontalLine.append("-");
             }
-            horizontalLine += "-";
+            horizontalLine.append("-");
         }
 
         // print the content
         for (int row = 0; row < this.numRows; row++) {
-            String rowOccupant = "|";
-            String rowTerrain = "|";
+            StringBuilder rowOccupant = new StringBuilder("|");
+            StringBuilder rowTerrain = new StringBuilder("|");
             for (int col = 0; col < this.numColumns; col++) {
                 GridSquare g = islandGrid[row][col];
                 // create string with occupants
-                String cellOccupant = g.hasPlayer() ? "@" : " ";
-                cellOccupant += g.getOccupantStringRepresentation();
+                StringBuilder cellOccupant = new StringBuilder(g.hasPlayer() ? "@" : " ");
+                cellOccupant.append(g.getOccupantStringRepresentation());
                 for (int i = cellOccupant.length(); i < CELL_SIZE; i++) {
-                    cellOccupant += " ";
+                    cellOccupant.append(" ");
                 }
-                rowOccupant += cellOccupant + "|";
+                rowOccupant.append(cellOccupant).append("|");
 
                 // create string with terrain
-                String cellTerrain = "";
+                StringBuilder cellTerrain = new StringBuilder();
                 for (int i = 0; i < CELL_SIZE; i++) {
-                    cellTerrain += g.getTerrainStringRepresentation();
+                    cellTerrain.append(g.getTerrainStringRepresentation());
                 }
-                rowTerrain += cellTerrain + "|";
+                rowTerrain.append(cellTerrain).append("|");
             }
             System.out.println(horizontalLine);
             System.out.println(rowOccupant);
@@ -321,9 +339,9 @@ public class Island {
      *
      * @param position the position to change
      */
-    private void setVisible(Position position) {
+    private void setVisible(Position position, boolean visible) {
         if ((position != null) && position.isOnIsland()) {
-            islandGrid[position.getRow()][position.getColumn()].setVisible();
+            islandGrid[position.getRow()][position.getColumn()].setVisible(visible);
         }
     }
 

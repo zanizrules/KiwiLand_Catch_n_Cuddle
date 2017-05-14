@@ -1,37 +1,31 @@
 import gameModel.*;
+import gameModel.gameObjects.Tool;
+import gameModel.gameObjects.Trap;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The test class ToolTest.
+ * Test: ToolTest
+ * Related Class: Tool
  *
- * @author  AS
- * @version 2011
+ * @author Shane Birdsall
+ * @version 2.0
+ * Updates:
+ *  1. Removed useless constructor
  */
-
-
-
-
-public class ToolTest extends junit.framework.TestCase
-{
-    Tool trap;
-    Position position;
-    Island island;
-/**
-     * Default constructor for test class ToolTest
-     */
-    public ToolTest()
-    {
-    }
-
+public class ToolTest {
+    private Tool trap;
+    private Position position;
+    private Island island;
 
     /**
      * Sets up the test fixture.
-     *
      * Called before every test case method.
      */
-    @Override
-    protected void setUp()
-    {
+    @Before
+    public void setUp() {
         island = new Island(5,5);
         position = new Position(island, 2,3);
         trap = new Trap(position, "Trap", "A predator trap", 2.0, 3.0);
@@ -39,48 +33,37 @@ public class ToolTest extends junit.framework.TestCase
 
     /**
      * Tears down the test fixture.
-     *
      * Called after every test case method.
      */
-    @Override
-    protected void tearDown()
-    {
+    @After
+    public void tearDown() {
         trap = null;
         island = null;
         position = null;
     }
     
     @Test
-    public void testIsBrokenandBreak(){
-        assertFalse("Should not be broken", trap.isBroken());
+    public void testIsBrokenAndBreak() {
+        Assert.assertFalse("Should not be broken", trap.isBroken());
         trap.setBroken();
-        assertTrue("Should  be broken", trap.isBroken());
+        Assert.assertTrue("Should  be broken", trap.isBroken());
     }
     
     @Test
-    public void testIsTrap(){
-        assertTrue("Should  be trap", trap instanceof Trap);
+    public void testIsTrap() {
+        Assert.assertTrue("Should  be trap", trap instanceof Trap);
     }
-    
+
     @Test
-    public void testIsScrewdriver(){
-        Tool screwdriver = new ScrewDriver(position, "Screwdriver", "A useful screwdriver", 2.0, 3.0);
-        assertTrue("Should  be screwdriver", screwdriver instanceof ScrewDriver);
-    }
-    
-    @Test
-    public void testFix(){
+    public void testFix() {
         trap.setBroken();
-        assertTrue("Should  be broken", trap.isBroken());
+        Assert.assertTrue("Should  be broken", trap.isBroken());
         trap.fix();
-        assertFalse("Should  not be broken", trap.isBroken());
+        Assert.assertFalse("Should  not be broken", trap.isBroken());
     }
-    
-    /**
-     * Test of toString method, of class Item for this descendant.
-     */
+
     @Test
-    public void testGetStringRepresentation() {
-        assertEquals("T",trap.getStringRepresentation());
+    public void testStringRepresentation() {
+        Assert.assertEquals("T", trap.getStringRepresentation());
     }
 }

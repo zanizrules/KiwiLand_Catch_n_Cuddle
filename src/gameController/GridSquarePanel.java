@@ -17,18 +17,18 @@ import java.util.ArrayList;
  * Author: Shane Birdsall
  */
 class GridSquarePanel extends Label {
-    private Game game;
-    private int row, column;
+    private final Game game;
+    private final int row, column;
     private ImageView imageView;
     private static Image playerImage = null;
 
     // Terrain Images
-    private static final Image DEFAULT_TERRAIN = new Image(GridSquarePanel.class.getResource("../gameModel/images/wetland.png").toExternalForm());
+    private static final Image DEFAULT_TERRAIN = new Image(GridSquarePanel.class.getResource("/gameModel/gameObjects/images/wetland.png").toExternalForm());
     private static final Image WETLAND_TERRAIN = DEFAULT_TERRAIN;
-    private static final Image SCRUB_TERRAIN = new Image(GridSquarePanel.class.getResource("../gameModel/images/scrub.png").toExternalForm());
-    private static final Image WATER_TERRAIN =  new Image(GridSquarePanel.class.getResource("../gameModel/images/water.png").toExternalForm());
-    private static final Image FOREST_TERRAIN = new Image(GridSquarePanel.class.getResource("../gameModel/images/forest.png").toExternalForm());
-    private static final Image SAND_TERRAIN = new Image(GridSquarePanel.class.getResource("../gameModel/images/sand.png").toExternalForm());
+    private static final Image SCRUB_TERRAIN = new Image(GridSquarePanel.class.getResource("/gameModel/gameObjects/images/scrub.png").toExternalForm());
+    private static final Image WATER_TERRAIN =  new Image(GridSquarePanel.class.getResource("/gameModel/gameObjects/images/water.png").toExternalForm());
+    private static final Image FOREST_TERRAIN = new Image(GridSquarePanel.class.getResource("/gameModel/gameObjects/images/forest.png").toExternalForm());
+    private static final Image SAND_TERRAIN = new Image(GridSquarePanel.class.getResource("/gameModel/gameObjects/images/sand.png").toExternalForm());
 
     GridSquarePanel(Game game, int row, int column) {
         this.game = game;
@@ -53,8 +53,6 @@ class GridSquarePanel extends Label {
         // get the GridSquare object from the world
         Terrain terrain = game.getTerrain(row, column);
         boolean squareVisible = game.isVisible(row, column);
-        boolean squareExplored = game.isExplored(row, column);
-
         Image terrainImage;
 
         switch (terrain) { // Set image depending on the terrain for this grid square
@@ -79,7 +77,7 @@ class GridSquarePanel extends Label {
         }
 
         // Show images if the square is explored and visible
-        if (squareExplored || squareVisible) {
+        if (squareVisible) {
             if (game.getPlayer().getPosition().getRow() == row &&
                     game.getPlayer().getPosition().getColumn() == column) {
                 imageView.setImage(playerImage);
@@ -95,7 +93,6 @@ class GridSquarePanel extends Label {
             }
             setGraphic(imageView);
 
-            // Set the terrain.
             setBackground(new Background(new BackgroundImage(terrainImage, BackgroundRepeat.NO_REPEAT,
                     BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         } else {

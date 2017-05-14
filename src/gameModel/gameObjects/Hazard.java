@@ -1,12 +1,14 @@
-package gameModel;
+package gameModel.gameObjects;
+
+import gameModel.Position;
 
 /**
  * This class represents a hazard that can be found on the island
  */
 public class Hazard extends Occupant {
-    
+
     private final double impact;
-    private final double FATAL_IMPACT = 1.0;
+    private final static double FATAL_IMPACT = 1.0;
 
     /**
      * Create a hazard on the island
@@ -18,6 +20,7 @@ public class Hazard extends Occupant {
     public Hazard(Position position, String name, String description, double impact) {
         super(position, name, description);
         this.impact = impact;
+        setImage();
     }
     
     /**
@@ -51,7 +54,7 @@ public class Hazard extends Occupant {
     }
 
     @Override
-    public void setImage() {
+    protected void setImage() {
         super.setImage("images/hazard.png");
     }
 }

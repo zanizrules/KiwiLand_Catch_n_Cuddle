@@ -1,10 +1,10 @@
 package gameModel;
 
+import gameModel.gameObjects.Occupant;
+import gameModel.gameObjects.Player;
 import javafx.scene.image.Image;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
@@ -16,7 +16,7 @@ public class GridSquare {
     private boolean visible;
     private boolean explored;
     private Player player;
-    private CopyOnWriteArraySet<Occupant> occupants;
+    private final CopyOnWriteArraySet<Occupant> occupants;
 
     /**
      * Creates a new GridSquare instance.
@@ -78,11 +78,11 @@ public class GridSquare {
      * @return string that combines strings for all occupants
      */
     public String getOccupantStringRepresentation() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (Occupant occupant : occupants) {
-            result += occupant.getStringRepresentation();
+            result.append(occupant.getStringRepresentation());
         }
-        return result;
+        return result.toString();
     }
 
     ArrayList<Image> getOccupantImages() {
@@ -142,10 +142,10 @@ public class GridSquare {
     }
 
     /**
-     * Marks this grid square as being visible to the player.
+     * Marks this grid square as being visible or invisible to the player.
      */
-    public void setVisible() {
-        this.visible = true;
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     /**

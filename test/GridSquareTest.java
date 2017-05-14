@@ -1,57 +1,51 @@
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import gameModel.*;
+import gameModel.gameObjects.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 
 /**
- * The test class GridSquareTest.
+ * Test: GridSquareTest
+ * Related Class: GridSquare
  *
- * @author  AS
- * @version 2011
+ * @author Shane Birdsall
+ * @version 2.0
+ * Updates:
+ *  1. Removed useless constructor
  */
-public class GridSquareTest extends junit.framework.TestCase
-{
-    GridSquare emptySquare;
-    GridSquare occupiedSquare;
-    Island island;
-    Position position;
-    Food apple;
-
-    /**
-     * Default constructor for test class GridSquareTest
-     */
-    public GridSquareTest()
-    {
-    }
+public class GridSquareTest {
+    private GridSquare emptySquare;
+    private GridSquare occupiedSquare;
+    private Island island;
+    private Position position;
+    private Food apple;
 
     /**
      * Sets up the test fixture.
-     *
      * Called before every test case method.
      */
-    @Override
-    protected void setUp()
-    {
+    @Before
+    public void setUp() {
         emptySquare = new GridSquare(Terrain.SAND);
         occupiedSquare = new GridSquare(Terrain.FOREST);
         island = new Island(5,5);
         position = new Position(island, 0,0);
-        apple = new Apple(position, "apple", "A juicy red apple", 1.0, 2.0, 1.5);
+        apple = new Food(position, "apple", "A juicy red apple", 1.0, 2.0, 1.5, FOOD_TYPE.APPLE);
         occupiedSquare.addOccupant(apple);
     }
 
     /**
      * Tears down the test fixture.
-     *
      * Called after every test case method.
      */
-    @Override
-    protected void tearDown()
-    {
+    @After
+    public void tearDown() {
         emptySquare = null;
         occupiedSquare = null;
         island = null;
@@ -61,72 +55,72 @@ public class GridSquareTest extends junit.framework.TestCase
     
     @Test
     public void testIsVisibleNewSquare() {
-        assertFalse( emptySquare.isVisible());
+        Assert.assertFalse(emptySquare.isVisible());
     } 
     
     @Test
     public void testIsExploredNewSquare() {
-        assertFalse( emptySquare.isExplored());
+        Assert.assertFalse(emptySquare.isExplored());
     }
     
     
     @Test
     public void testSetVisible() {
-        emptySquare.setVisible();
-        assertTrue( emptySquare.isVisible());
+        emptySquare.setVisible(true);
+        Assert.assertTrue(emptySquare.isVisible());
     } 
     
     @Test
-    public void testsetExplored() {
+    public void testSetExplored() {
         emptySquare.setExplored();
-        assertTrue(emptySquare.isExplored());
+        Assert.assertTrue(emptySquare.isExplored());
     } 
     
     @Test   
     public void testGetTerrain() {
-        assertEquals(Terrain.SAND, emptySquare.getTerrain());
+        Assert.assertEquals(Terrain.SAND, emptySquare.getTerrain());
     }
     
     @Test
     public void testSetTerrain() {
         emptySquare.setTerrain(Terrain.FOREST);
-        assertEquals(Terrain.FOREST, emptySquare.getTerrain());
+        Assert.assertEquals(Terrain.FOREST, emptySquare.getTerrain());
     }
     
     @Test
     public void testGetTerrainString(){
-        assertEquals(emptySquare.getTerrainStringRepresentation(), ".");
+        Assert.assertEquals(emptySquare.getTerrainStringRepresentation(), ".");
     }
     @Test
     public void testHasPlayerNoPlayer() {
-        assertFalse( emptySquare.hasPlayer());
+        Assert.assertFalse(emptySquare.hasPlayer());
     }
     
     @Test
     public void testHasPlayerWithPlayer() {
         Player player = new Player(position,"",25.0, 10.0, 12.0);
         occupiedSquare.setPlayer(player);
-        assertTrue( occupiedSquare.hasPlayer());
+        Assert.assertTrue(occupiedSquare.hasPlayer());
     }  
     
     @Test
     public void testHasOccupantPresent(){
-        assertTrue(occupiedSquare.hasOccupant(apple));
+        Assert.assertTrue(occupiedSquare.hasOccupant(apple));
     }
     
     @Test
     public void testHasOccupantNotPresent(){
-        assertFalse(emptySquare.hasOccupant(apple));
+        Assert.assertFalse(emptySquare.hasOccupant(apple));
     } 
     
     @Test
     public void testGetOccupantStringRepresentationNoOccupants(){         
-        assertEquals("",emptySquare.getOccupantStringRepresentation() );    
+        Assert.assertEquals("", emptySquare.getOccupantStringRepresentation());
     }
 
     @Test
     public void testGetOccupantStringRepresentationSingle(){
-        assertEquals("E",occupiedSquare.getOccupantStringRepresentation() );    
+        Assert.assertEquals("E", occupiedSquare.getOccupantStringRepresentation());
     }
     
     @Test
@@ -135,13 +129,13 @@ public class GridSquareTest extends junit.framework.TestCase
         Tool trap = new Trap(position, "Trap", "A predator trap", 1.0, 2.0);
         occupiedSquare.addOccupant(trap); 
         // Add a third occupant
-        Predator possum = new Possum(position, "Possum", "A log tailed possum");
+        Predator possum = new Predator(position, "Possum", "A log tailed possum", "Random possum fact", ANIMAL_TYPE.POSSUM);
         occupiedSquare.addOccupant(possum);          
         String stringRep = occupiedSquare.getOccupantStringRepresentation();
-        assertEquals(3, stringRep.length());    
-        assertTrue(stringRep.contains("E"));
-        assertTrue(stringRep.contains("T"));
-        assertTrue(stringRep.contains("P"));
+        Assert.assertEquals(3, stringRep.length());
+        Assert.assertTrue(stringRep.contains("E"));
+        Assert.assertTrue(stringRep.contains("T"));
+        Assert.assertTrue(stringRep.contains("P"));
     } 
     
     @Test
@@ -150,27 +144,27 @@ public class GridSquareTest extends junit.framework.TestCase
         Tool trap = new Trap(position, "Trap", "A predator trap", 1.0, 2.0);
         occupiedSquare.addOccupant(trap); 
         // Add a third occupant
-        Predator possum = new Possum(position, "Possum", "A log tailed possum");
+        Predator possum = new Predator(position, "Possum", "A log tailed possum", "Random possum fact", ANIMAL_TYPE.POSSUM);
         occupiedSquare.addOccupant(possum);          
         Collection<Occupant> occupants = occupiedSquare.getOccupants();
-        assertEquals(3, occupants.size());
+        Assert.assertEquals(3, occupants.size());
         Set<Occupant> occupantSet = new HashSet<>(occupants);
-        assertTrue(occupantSet.contains(trap));
-        assertTrue(occupantSet.contains(apple));
-        assertTrue(occupantSet.contains(possum));
+        Assert.assertTrue(occupantSet.contains(trap));
+        Assert.assertTrue(occupantSet.contains(apple));
+        Assert.assertTrue(occupantSet.contains(possum));
     }
     
         
     @Test
     public void testAddOccupantWhenNotFull() {
         Tool trap = new Trap(position, "Trap", "A predator trap", 1.0, 2.0);
-        assertTrue(occupiedSquare.addOccupant(trap));        
-        assertTrue(occupiedSquare.hasOccupant(trap));
+        Assert.assertTrue(occupiedSquare.addOccupant(trap));
+        Assert.assertTrue(occupiedSquare.hasOccupant(trap));
     }
     
     @Test
     public void testAddOccupantNull() {
-        assertFalse(occupiedSquare.addOccupant(null));
+        Assert.assertFalse(occupiedSquare.addOccupant(null));
     }  
     
     @Test
@@ -179,36 +173,35 @@ public class GridSquareTest extends junit.framework.TestCase
         Tool trap = new Trap(position, "Trap", "A predator trap", 1.0, 2.0);
         occupiedSquare.addOccupant(trap); 
         // Add a third occupant
-        Predator possum = new Possum(position, "Possum", "A log tailed possum");
+        Predator possum = new Predator(position, "Possum", "A log tailed possum", "Random possum fact", ANIMAL_TYPE.POSSUM);
         occupiedSquare.addOccupant(possum);        
         //Now the cave has three occupants it should not be possible to add another
-        Predator rat = new Rat(position, "Rat", "A  ship rat");
-        assertFalse(occupiedSquare.addOccupant(rat));
-        assertFalse(occupiedSquare.hasOccupant(rat));
+        Predator rat = new Predator(position, "Rat", "A  ship rat", "Random rat fact", ANIMAL_TYPE.RAT);
+        Assert.assertFalse(occupiedSquare.addOccupant(rat));
+        Assert.assertFalse(occupiedSquare.hasOccupant(rat));
     } 
     
     @Test
     public void testAddOccupantDuplicate() {  
         // Attempt to add again
-        assertFalse(occupiedSquare.addOccupant(apple));
+        Assert.assertFalse(occupiedSquare.addOccupant(apple));
 
     }
     
     @Test
     public void testRemoveOccupantWhenPresent() {
-        assertTrue(occupiedSquare.removeOccupant(apple));
-        assertFalse(occupiedSquare.hasOccupant(apple));
+        Assert.assertTrue(occupiedSquare.removeOccupant(apple));
+        Assert.assertFalse(occupiedSquare.hasOccupant(apple));
     }
     
     @Test
     public void testRemoveOccupantWhenNotPresent() {
-        assertFalse(emptySquare.removeOccupant(apple));
+        Assert.assertFalse(emptySquare.removeOccupant(apple));
     }
 
     @Test
     public void testRemoveOccupantWhenNull() {
-        assertFalse(occupiedSquare.removeOccupant(null));
+        Assert.assertFalse(occupiedSquare.removeOccupant(null));
     }
-   
 }
 

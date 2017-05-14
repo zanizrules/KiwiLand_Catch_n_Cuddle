@@ -1,10 +1,15 @@
-package gameModel;
+package gameModel.gameObjects;
+
+import gameModel.Position;
+import gameModel.gameObjects.ANIMAL_TYPE;
+import gameModel.gameObjects.Fauna;
 
 /**
  * Kiwi represents a kiwi living on the island
  */
 public class Kiwi extends Fauna {
     private boolean cuddled;
+    private final String kiwiFact;
 
     /**
      * Constructor for objects of class Kiwi
@@ -13,16 +18,25 @@ public class Kiwi extends Fauna {
      * @param name        the name of the kiwi object
      * @param description a longer description of the kiwi
      */
-    public Kiwi(Position pos, String name, String description) {
-        super(pos, name, description);
+    public Kiwi(Position pos, String name, String description, String fact) {
+        super(pos, name, description, ANIMAL_TYPE.KIWI);
         cuddled = false;
+        kiwiFact = fact;
     }
 
     /**
-     * Count this kiwi
+     * Cuddle this kiwi
      */
-    public void count() {
+    public void cuddle() {
         cuddled = true;
+    }
+
+    public void reset() {
+        cuddled = false;
+    }
+
+    public String getKiwiFact() {
+        return kiwiFact;
     }
 
     /**
@@ -30,13 +44,8 @@ public class Kiwi extends Fauna {
      *
      * @return true if cuddled.
      */
-    public boolean counted() {
+    public boolean cuddled() {
         return cuddled;
-    }
-
-    @Override
-    public void setImage() {
-        super.setImage("images/kiwi.png");
     }
 
     @Override

@@ -1,10 +1,20 @@
 package gameModel;
 
+import gameController.HighScoreController.*;
+import gameController.GameOverPopUpUI_Controller;
+import gameController.InformationPopUpUI_Controller;
+import gameModel.gameObjects.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -16,42 +26,67 @@ public class Game {
     private Island island;
     private Player player;
     private GameState state;
-    private int kiwiCount;
+    private int turnCount;
+    private int kiwisCuddled;
     private int score;
     private int totalPredators;
     private int totalKiwis;
+    private int totalFood;
     private int predatorsTrapped;
-    private Set<GameEventListener> eventListeners;
 
-    private final double MIN_REQUIRED_CATCH = 0.8;
+    private ConcurrentLinkedQueue<Predator> predatorQueue;
+    private ConcurrentLinkedQueue<Food> foodQueue;
+    private ConcurrentLinkedQueue<Kiwi> kiwiQueue;
 
-    private String winMessage = "";
+    private final Set<GameEventListener> eventListeners;
+
     private String loseMessage = "";
     private String playerMessage = "";
 
-    //Constants shared with UI to provide player data
+    // Constants shared with UI to provide player data
     public static final int STAMINA_INDEX = 0;
-    public static final int MAXSTAMINA_INDEX = 1;
-    public static final int MAXWEIGHT_INDEX = 2;
+    public static final int MAX_STAMINA_INDEX = 1;
+    public static final int MAX_WEIGHT_INDEX = 2;
     public static final int WEIGHT_INDEX = 3;
-    public static final int MAXSIZE_INDEX = 4;
+    public static final int MAX_SIZE_INDEX = 4;
     public static final int SIZE_INDEX = 5;
+    private static final int MIN_NUM_OF_KIWIS_ON_BOARD = 4;
+    private static final int MIN_NUM_OF_FOOD_ON_BOARD = 2;
+    private static final int MIN_NUM_OF_PREDATOR_ON_BOARD = 2;
+    private static final int SPAWN_LOOP_TIMEOUT_LIMIT = 6;
+    private static final int TURNS_BETWEEN_SPAWNS = 2;
 
     public Game() {
         eventListeners = new HashSet<>();
         createNewGame();
     }
 
+    public int getTotalPredators() {
+        return totalPredators;
+    }
+
+    public int getPredatorsTrapped() {
+        return predatorsTrapped;
+    }
+
+    public int getTotalKiwis() {
+        return totalKiwis;
+    }
+
     public void createNewGame() {
+        kiwiQueue = new ConcurrentLinkedQueue<>();
+        foodQueue = new ConcurrentLinkedQueue<>();
+        predatorQueue = new ConcurrentLinkedQueue<>();
+        turnCount = 0;
         score = 0;
         totalPredators = 0;
         totalKiwis = 0;
+        totalFood = 0;
         predatorsTrapped = 0;
-        kiwiCount = 0;
+        kiwisCuddled = 0;
         initialiseIslandFromFile("IslandData.txt");
         drawIsland();
         state = GameState.PLAYING;
-        winMessage = "";
         loseMessage = "";
         playerMessage = "";
         notifyGameEventListeners();
@@ -90,7 +125,7 @@ public class Game {
         if ((newPosition != null) && newPosition.isOnIsland()) {
             // what is the terrain at that new position?
             Terrain newTerrain = island.getTerrain(newPosition);
-            // can the playuer do it?
+            // can the player do it?
             isMovePossible = player.hasStaminaToMove(newTerrain) &&
                     player.isAlive();
         }
@@ -103,7 +138,6 @@ public class Game {
 
     public boolean isVisible(int row, int column) {
         return island.isVisible(new Position(island, row, column));
-
     }
 
     public boolean isExplored(int row, int column) {
@@ -114,36 +148,28 @@ public class Game {
         return island.getOccupants(player.getPosition());
     }
 
-    public String getOccupantStringRepresentation(int row, int column) {
-        return island.getOccupantStringRepresentation(new Position(island, row, column));
-    }
-
     public ArrayList<Image> getOccupantImages(int row, int column) {
         return island.getOccupantImage(new Position(island, row, column));
     }
 
-    public int[] getPlayerValues() {
-        int[] playerValues = new int[6];
-        playerValues[STAMINA_INDEX] = (int) player.getStaminaLevel();
-        playerValues[MAXSTAMINA_INDEX] = (int) player.getMaximumStaminaLevel();
-        playerValues[MAXWEIGHT_INDEX] = (int) player.getMaximumBackpackWeight();
-        playerValues[WEIGHT_INDEX] = (int) player.getCurrentBackpackWeight();
-        playerValues[MAXSIZE_INDEX] = (int) player.getMaximumBackpackSize();
-        playerValues[SIZE_INDEX] = (int) player.getCurrentBackpackSize();
+    public double[] getPlayerValues() {
+        double[] playerValues = new double[6];
+        playerValues[STAMINA_INDEX] = player.getStaminaLevel();
+        playerValues[MAX_STAMINA_INDEX] = player.getMaximumStaminaLevel();
+        playerValues[MAX_WEIGHT_INDEX] = player.getMaximumBackpackWeight();
+        playerValues[WEIGHT_INDEX] = player.getCurrentBackpackWeight();
+        playerValues[MAX_SIZE_INDEX] = player.getMaximumBackpackSize();
+        playerValues[SIZE_INDEX] = player.getCurrentBackpackSize();
 
         return playerValues;
     }
 
-    public int getKiwiCount() {
-        return kiwiCount;
+    public int getKiwisCuddled() {
+        return kiwisCuddled;
     }
 
     public int getScore() {
         return score;
-    }
-
-    public int getPredatorsRemaining() {
-        return totalPredators - predatorsTrapped;
     }
 
     public Collection<Item> getPlayerInventory() {
@@ -179,7 +205,7 @@ public class Game {
         boolean result = (itemToCount != null) && (itemToCount instanceof Kiwi);
         if (result) {
             Kiwi kiwi = (Kiwi) itemToCount;
-            result = !kiwi.counted();
+            result = !kiwi.cuddled();
         }
         return result;
     }
@@ -204,11 +230,7 @@ public class Game {
         return result;
     }
 
-    public String getWinMessage() {
-        return winMessage;
-    }
-
-    public String getLoseMessage() {
+    private String getLoseMessage() {
         return loseMessage;
     }
 
@@ -227,21 +249,22 @@ public class Game {
      * Ignores any objects that are not items as they cannot be picked up
      *
      * @param item the item to pick up
-     * @return true if item was picked up, false if not
      */
-    public boolean collectItem(Object item) {
+    public void collectItem(Object item) {
         boolean success = (item instanceof Item) && (player.collect((Item) item));
         if (success) {
             // player has picked up an item: remove from grid square
             island.removeOccupant(player.getPosition(), (Item) item);
+            if(item instanceof Food) {
+                foodQueue.offer((Food) item);
+            }
 
             // everybody has to know about the change
             notifyGameEventListeners();
         }
-        return success;
     }
 
-    public boolean dropItem(Object what) {
+    public void dropItem(Object what) {
         boolean success = player.drop((Item) what);
         if (success) {
             // player has dropped an what: try to add to grid square
@@ -255,7 +278,6 @@ public class Game {
                 player.collect(item);
             }
         }
-        return success;
     }
 
     public boolean useItem(Object item) {
@@ -286,18 +308,57 @@ public class Game {
         return success;
     }
 
-    public void countKiwi() {
+    public void cuddleKiwi() {
         //check if there are any kiwis here
         for (Occupant occupant : island.getOccupants(player.getPosition())) {
             if (occupant instanceof Kiwi) {
                 Kiwi kiwi = (Kiwi) occupant;
                 island.removeOccupant(player.getPosition(), kiwi); // Remove kiwi
-                kiwi.count();
-                kiwiCount++;
+                kiwi.cuddle();
+                kiwisCuddled++;
+                totalKiwis--;
                 addToScore(10);
+                kiwi.reset();
+                kiwiQueue.offer(kiwi);
+                showPopUpFact(kiwi.getImage(), "You Cuddled: " + kiwi.getDescription(), kiwi.getKiwiFact());
+                break;
             }
         }
         updateGameState();
+    }
+
+    public void showPopUpFact(Image image, String name, String description) {
+        try {
+            InformationPopUpUI_Controller.setValues(image, name, description);
+            Parent root = FXMLLoader.load(getClass().getResource("/gameView/InformationPopUpUI.fxml"));
+            showPopUpScene(root, name);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ExceptionInInitializerError | NoClassDefFoundError ignore) {
+            // Method is used without user interface.
+        }
+    }
+
+    public void showPopUpGameOverScreen() {
+        PlayerScore score = new PlayerScore("", getScore(), kiwisCuddled, predatorsTrapped);
+        try {
+            GameOverPopUpUI_Controller.setValues(score, getLoseMessage());
+            Parent root = FXMLLoader.load(getClass().getResource("/gameView/GameOverPopUpUI.fxml"));
+            showPopUpScene(root, "Game Over!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ExceptionInInitializerError | NoClassDefFoundError ignore) {
+            // Method is used without user interface.
+        }
+    }
+
+    private void showPopUpScene(Parent root, String name) {
+        Stage newStage = new Stage();
+        Scene scene = new Scene(root);
+        newStage.setScene(scene);
+        newStage.initModality(Modality.APPLICATION_MODAL);
+        newStage.setTitle(name);
+        newStage.show();
     }
 
     public boolean playerMove(MoveDirection direction) {
@@ -310,6 +371,10 @@ public class Game {
             // move the player to new position
             player.moveToPosition(newPosition, terrain);
             island.updatePlayerPosition(player);
+            turnCount++;
+            if(turnCount % TURNS_BETWEEN_SPAWNS == 0) {
+                spawnOccupants();
+            }
             successfulMove = true;
 
             // Is there a hazard?
@@ -320,41 +385,63 @@ public class Game {
         return successfulMove;
     }
 
-    public void addGameEventListener(GameEventListener listener) {
-        eventListeners.add(listener);
+    private void spawnOccupants() {
+        if(totalKiwis < MIN_NUM_OF_KIWIS_ON_BOARD) {
+            if(!kiwiQueue.isEmpty()) {
+                spawnItem(kiwiQueue.poll());
+                totalKiwis++;
+            }
+        }
+        if(totalPredators < MIN_NUM_OF_PREDATOR_ON_BOARD) {
+            if(!predatorQueue.isEmpty()) {
+                spawnItem(predatorQueue.poll());
+                totalPredators++;
+            }
+        }
+        if(totalFood < MIN_NUM_OF_FOOD_ON_BOARD) {
+            if(!foodQueue.isEmpty()) {
+                spawnItem(foodQueue.poll());
+                totalFood++;
+            }
+        }
     }
 
-    public void removeGameEventListener(GameEventListener listener) {
-        eventListeners.remove(listener);
+    // Random spawning functions
+
+    private void spawnItem(Occupant occupant) {
+        Random rand = new Random();
+        int row, col;
+        Position randomPosition;
+        int count = 0;
+        do {
+            row = rand.nextInt(island.getNumRows());
+            col = rand.nextInt(island.getNumColumns());
+            randomPosition = new Position(island, row, col);
+            count++;
+        } while(island.hasOccupantWithinArea(randomPosition, occupant) && count < SPAWN_LOOP_TIMEOUT_LIMIT);
+
+        if(count < SPAWN_LOOP_TIMEOUT_LIMIT) {
+            island.addOccupant(randomPosition, occupant);
+        }
+    }
+
+    public void addGameEventListener(GameEventListener listener) {
+        eventListeners.add(listener);
     }
 
     private void updateGameState() {
         String message;
         if (!player.isAlive()) {
-            state = GameState.LOST;
+            state = GameState.GAME_OVER;
             message = "Sorry, you have lost the game. " + this.getLoseMessage();
             this.setLoseMessage(message);
         } else if (!playerCanMove()) {
-            state = GameState.LOST;
+            state = GameState.GAME_OVER;
             message = "Sorry, you have lost the game. You do not have sufficient stamina to move.";
             this.setLoseMessage(message);
-        } else if (predatorsTrapped == totalPredators) {
-            state = GameState.WON;
-            message = "You win! You have done an excellent job and trapped all the predators.";
-            this.setWinMessage(message);
-        } else if (kiwiCount == totalKiwis) {
-            if (predatorsTrapped >= totalPredators * MIN_REQUIRED_CATCH) {
-                state = GameState.WON;
-                message = "You win! You have counted all the kiwi and trapped at least 80% of the predators.";
-                this.setWinMessage(message);
-            }
         }
         // notify listeners about changes
         notifyGameEventListeners();
-    }
-
-    private void setWinMessage(String message) {
-        winMessage = message;
     }
 
     private void setLoseMessage(String message) {
@@ -363,7 +450,6 @@ public class Game {
 
     private void setPlayerMessage(String message) {
         playerMessage = message;
-
     }
 
     private boolean playerCanMove() {
@@ -375,11 +461,14 @@ public class Game {
         Position current = player.getPosition();
         boolean hadPredator = island.hasPredator(current);
         if (hadPredator) { //can trap it
-            Occupant occupant = island.getPredator(current);
+            Predator predator = island.getPredator(current);
             //Predator has been trapped so remove
-            island.removeOccupant(current, occupant);
+            island.removeOccupant(current, predator);
+            predatorQueue.offer(predator);
             predatorsTrapped++;
+            totalPredators--;
             addToScore(10);
+            showPopUpFact(predator.getImage(), "You Captured: " + predator.getDescription(), predator.getPredatorFact());
         }
 
         return hadPredator;
@@ -488,65 +577,82 @@ public class Game {
             String occType = input.next();
             String occName = input.next();
             String occDesc = input.next();
+
             int occRow = input.nextInt();
             int occCol = input.nextInt();
             Position occPos = new Position(island, occRow, occCol);
+
+            String fact = "";
+            if(occType.equals("K") || occType.equals("P")) {
+                fact = input.next();
+            }
+
             Occupant occupant = null;
 
-            if (occType.equals("T")) {
-                double weight = input.nextDouble();
-                double size = input.nextDouble();
-                if (occName.equalsIgnoreCase("Screwdriver")) {
-                    occupant = new ScrewDriver(occPos, occName, occDesc, weight, size);
-                } else if (occName.equalsIgnoreCase("Trap")) {
-                    occupant = new Trap(occPos, occName, occDesc, weight, size);
+            switch (occType) {
+                case "T": {
+                    double weight = input.nextDouble();
+                    double size = input.nextDouble();
+                    if (occName.equalsIgnoreCase("Screwdriver")) {
+                        occupant = new ScrewDriver(occPos, occName, occDesc, weight, size);
+                    } else if (occName.equalsIgnoreCase("Trap")) {
+                        occupant = new Trap(occPos, occName, occDesc, weight, size, occDesc.contains("broken"));
+                    }
+                    break;
                 }
-            } else if (occType.equals("E")) {
-                double weight = input.nextDouble();
-                double size = input.nextDouble();
-                double energy = input.nextDouble();
-                if (occName.equalsIgnoreCase("Sandwich")) {
-                    occupant = new Sandwich(occPos, occName, occDesc, weight, size, energy);
-                } else if (occName.equalsIgnoreCase("Muesli Bar")) {
-                    occupant = new MuesliBar(occPos, occName, occDesc, weight, size, energy);
-                } else if (occName.equalsIgnoreCase("Apple")) {
-                    occupant = new Apple(occPos, occName, occDesc, weight, size, energy);
-                } else if (occName.equalsIgnoreCase("Orange Juice")) {
-                    occupant = new OrangeJuice(occPos, occName, occDesc, weight, size, energy);
+                case "E": {
+                    totalFood++;
+                    double weight = input.nextDouble();
+                    double size = input.nextDouble();
+                    double energy = input.nextDouble();
+                    if (occName.equalsIgnoreCase("Sandwich")) {
+                        occupant = new Food(occPos, occName, occDesc, weight, size, energy, FOOD_TYPE.SANDWICH);
+                    } else if (occName.equalsIgnoreCase("Muesli Bar")) {
+                        occupant = new Food(occPos, occName, occDesc, weight, size, energy, FOOD_TYPE.MUESLI_BAR);
+                    } else if (occName.equalsIgnoreCase("Apple")) {
+                        occupant = new Food(occPos, occName, occDesc, weight, size, energy, FOOD_TYPE.APPLE);
+                    } else if (occName.equalsIgnoreCase("Orange Juice")) {
+                        occupant = new Food(occPos, occName, occDesc, weight, size, energy, FOOD_TYPE.ORANGE_JUICE);
+                    }
+                    break;
                 }
-            } else if (occType.equals("H")) {
-                double impact = input.nextDouble();
-                occupant = new Hazard(occPos, occName, occDesc, impact);
-            } else if (occType.equals("K")) {
-                occupant = new Kiwi(occPos, occName, occDesc);
-                totalKiwis++;
-            } else if (occType.equals("P")) {
-                if (occName.equalsIgnoreCase("Rat")) {
-                    occupant = new Rat(occPos, occName, occDesc);
-                } else if (occName.equalsIgnoreCase("Kiore")) {
-                    occupant = new Kiore(occPos, occName, occDesc);
-                } else if (occName.equalsIgnoreCase("Cat")) {
-                    occupant = new Cat(occPos, occName, occDesc);
-                } else if (occName.equalsIgnoreCase("Stoat")) {
-                    occupant = new Stoat(occPos, occName, occDesc);
-                } else if (occName.equalsIgnoreCase("Possum")) {
-                    occupant = new Possum(occPos, occName, occDesc);
-                }
-                totalPredators++;
-            } else if (occType.equals("F")) {
-                if (occName.equalsIgnoreCase("Oystercatcher")) {
-                    occupant = new OysterCatcher(occPos, occName, occDesc);
-                } else if (occName.equalsIgnoreCase("Crab")) {
-                    occupant = new Crab(occPos, occName, occDesc);
-                } else if (occName.equalsIgnoreCase("Fernbird")) {
-                    occupant = new FernBird(occPos, occName, occDesc);
-                } else if (occName.equalsIgnoreCase("Heron")) {
-                    occupant = new Heron(occPos, occName, occDesc);
-                } else if (occName.equalsIgnoreCase("Robin")) {
-                    occupant = new Robin(occPos, occName, occDesc);
-                } else if (occName.equalsIgnoreCase("Tui")) {
-                    occupant = new Tui(occPos, occName, occDesc);
-                }
+                case "H":
+                    double impact = input.nextDouble();
+                    occupant = new Hazard(occPos, occName, occDesc, impact);
+                    break;
+                case "K":
+                    occupant = new Kiwi(occPos, occName, occDesc, fact);
+                    totalKiwis++;
+                    break;
+                case "P":
+                    if (occName.equalsIgnoreCase("Rat")) {
+                        occupant = new Predator(occPos, occName, occDesc, fact, ANIMAL_TYPE.RAT);
+                    } else if (occName.equalsIgnoreCase("Kiore")) {
+                        occupant = new Predator(occPos, occName, occDesc, fact, ANIMAL_TYPE.KIORE);
+                    } else if (occName.equalsIgnoreCase("Cat")) {
+                        occupant = new Predator(occPos, occName, occDesc, fact, ANIMAL_TYPE.CAT);
+                    } else if (occName.equalsIgnoreCase("Stoat")) {
+                        occupant = new Predator(occPos, occName, occDesc, fact, ANIMAL_TYPE.STOAT);
+                    } else if (occName.equalsIgnoreCase("Possum")) {
+                        occupant = new Predator(occPos, occName, occDesc, fact, ANIMAL_TYPE.POSSUM);
+                    }
+                    totalPredators++;
+                    break;
+                case "F":
+                    if (occName.equalsIgnoreCase("Oystercatcher")) {
+                        occupant = new Fauna(occPos, occName, occDesc, ANIMAL_TYPE.OYSTER_CATCHER);
+                    } else if (occName.equalsIgnoreCase("Crab")) {
+                        occupant = new Fauna(occPos, occName, occDesc, ANIMAL_TYPE.CRAB);
+                    } else if (occName.equalsIgnoreCase("Fernbird")) {
+                        occupant = new Fauna(occPos, occName, occDesc, ANIMAL_TYPE.FERNBIRD);
+                    } else if (occName.equalsIgnoreCase("Heron")) {
+                        occupant = new Fauna(occPos, occName, occDesc, ANIMAL_TYPE.HERON);
+                    } else if (occName.equalsIgnoreCase("Robin")) {
+                        occupant = new Fauna(occPos, occName, occDesc, ANIMAL_TYPE.ROBIN);
+                    } else if (occName.equalsIgnoreCase("Tui")) {
+                        occupant = new Fauna(occPos, occName, occDesc, ANIMAL_TYPE.TUI);
+                    }
+                    break;
             }
             if (occupant != null) island.addOccupant(occPos, occupant);
         }

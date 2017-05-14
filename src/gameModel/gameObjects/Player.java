@@ -1,9 +1,12 @@
-package gameModel;
+package gameModel.gameObjects;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
-import java.util.HashSet;
+import gameModel.Position;
+import gameModel.Terrain;
+import gameModel.gameObjects.Item;
+import gameModel.gameObjects.Tool;
+import gameModel.gameObjects.Trap;
+
+import java.util.*;
 
 /**
  * Player represents the player in the KiwiIsland game.
@@ -19,10 +22,10 @@ public class Player {
     private final double maxStamina;
     private double stamina;
     private boolean alive;
-    private Set<Item> backpack;
+    private final List<Item> backpack;
     private final double maxBackpackWeight;
     private final double maxBackpackSize;
-    private String image;
+    private final String image;
 
     /**
      * Constructs a new player object.
@@ -42,7 +45,7 @@ public class Player {
         this.maxBackpackWeight = maxBackpackWeight;
         this.maxBackpackSize = maxBackpackSize;
         this.alive = true;
-        this.backpack = new HashSet<>();
+        this.backpack = new ArrayList<>();
         image = getClass().getResource("images/player.png").toExternalForm();
     }
 
@@ -272,9 +275,9 @@ public class Player {
             double addedWeight = getCurrentBackpackWeight() + item.getWeight();
             //Will weight fit in backpack?
             boolean notTooHeavy = (addedWeight <= this.maxBackpackWeight);
-            System.out.println("not too heavy: "+notTooHeavy + ", enoughRoom: " +enoughRoom + "size: "+item.getSize());
+
             //Player can only carry one trap at a time.
-            //Is this an addtional trap?
+            //Is this an additional trap?
             boolean additionalTrap = false;
             if (item instanceof Tool) {
                 Tool tool = (Tool) item;

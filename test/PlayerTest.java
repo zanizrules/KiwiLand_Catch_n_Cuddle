@@ -1,320 +1,288 @@
 import gameModel.*;
+import gameModel.gameObjects.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collection;
 
+import static junit.framework.TestCase.assertEquals;
+
 /**
- * The test class PlayerTest.
+ * Test: PlayerTest
+ * Related Class: Player
  *
- * @author  AS
- * @version July 2011
+ * @author Shane Birdsall
+ * @version 2.0
+ * Updates:
+ *  1. Removed useless constructor
+ *  2. Renamed movement tests to be more descriptive
  */
-public class PlayerTest extends junit.framework.TestCase
-{
-   Player player;
-   Position playerPosition;
-   Island island;
-   Food sandwich;
-     /**
-     * Default constructor for test class PlayerTest
-     */
-    public PlayerTest()
-    {
-    }
+public class PlayerTest {
+    private Player player;
+    private Position playerPosition;
+    private Island island;
+    private Food sandwich;
 
     /**
      * Sets up the test fixture.
-     *
      * Called before every test case method.
      */
-    @Override
-    protected void setUp()
-    {
+    @Before
+    public void setUp() {
         island = new Island(5,5);
         playerPosition = new Position(island, 0,0);
         player = new Player(playerPosition,"Lisa Simpson",25.0, 15.0, 20.0);
-        sandwich = new Sandwich(playerPosition, "sandwich", "A tasty cheese sandwich", 1.0, 2.0, 1.5);
+        sandwich = new Food(playerPosition, "sandwich", "A tasty cheese sandwich", 1.0, 2.0, 1.5, FOOD_TYPE.SANDWICH);
     }
 
     /**
      * Tears down the test fixture.
-     *
      * Called after every test case method.
      */
-    @Override
-    protected void tearDown()
-    {
+    @After
+    public void tearDown() {
         island = null;
         playerPosition = null;
-        player = null;       
+        player = null;
     }
-    
+
     // Tests for accessor methods
     @Test
-    public void testGetName()
-    {
-        assertEquals("Lisa Simpson", player.getName());
+    public void testGetName() {
+        Assert.assertEquals("Lisa Simpson", player.getName());
     }
 
     @Test
-    public void testGetPosition()
-    {
-        assertEquals(playerPosition, player.getPosition());
+    public void testGetPosition() {
+        Assert.assertEquals(playerPosition, player.getPosition());
     }
-    
+
     @Test
-    public void testGetMaximumBackpackSize(){
-        assertEquals(player.getMaximumBackpackSize(),20.0);
+    public void testGetMaximumBackpackSize() {
+        assertEquals(player.getMaximumBackpackSize(), 20.0);
     }
-    
+
     @Test
-    public void testGetCurrentBackpackSizeEmpty(){
-        assertEquals(player.getCurrentBackpackSize(),0.0);
+    public void testGetCurrentBackpackSizeEmpty() {
+        assertEquals(player.getCurrentBackpackSize(), 0.0);
     }
-    
+
     @Test
-    public void testGetCurrentBackpackSizeNotEmpty(){
+    public void testGetCurrentBackpackSizeNotEmpty() {
         player.collect(sandwich);
-        assertEquals(player.getCurrentBackpackSize(),2.0);
+        assertEquals(player.getCurrentBackpackSize(), 2.0);
     }
-    
+
     @Test
-    public void testGetMaximumBackpackWeight(){
-        assertEquals(player.getMaximumBackpackWeight(),15.0);
+    public void testGetMaximumBackpackWeight() {
+        assertEquals(player.getMaximumBackpackWeight(), 15.0);
     }
-    
+
     @Test
-    public void testGetCurrentBackpackWeightEmpty(){
-        assertEquals(player.getCurrentBackpackWeight(),0.0);
+    public void testGetCurrentBackpackWeightEmpty() {
+        assertEquals(player.getCurrentBackpackWeight(), 0.0);
     }
     @Test
-    public void testGetCurrentBackpackWeightNotEmpty(){
+    public void testGetCurrentBackpackWeightNotEmpty() {
         player.collect(sandwich);
-        assertEquals(player.getCurrentBackpackWeight(),1.0);
-    }
-    
-    @Test
-    public void testGetMaximumStaminaLevel()
-    {
-        assertEquals(25.0, player.getMaximumStaminaLevel(), 0.01);
-    }  
-    
-    @Test
-    public void testGetStaminaLevel()
-    {
-        assertEquals(25.0, player.getStaminaLevel(), 0.01);
+        assertEquals(player.getCurrentBackpackWeight(), 1.0);
     }
 
+    @Test
+    public void testGetMaximumStaminaLevel() {
+        Assert.assertEquals(25.0, player.getMaximumStaminaLevel(), 0.01);
+    }
 
     @Test
-    public void testReduceStamina()
-    {
+    public void testGetStaminaLevel() {
+        Assert.assertEquals(25.0, player.getStaminaLevel(), 0.01);
+    }
+
+    @Test
+    public void testReduceStamina() {
         player.reduceStamina(7.0);
-        assertEquals(18.0, player.getStaminaLevel(), 0.01);
-    } 
-    
+        Assert.assertEquals(18.0, player.getStaminaLevel(), 0.01);
+    }
+
     @Test
-    public void testReduceStaminaPastZero()
-    {
+    public void testReduceStaminaPastZero() {
         player.reduceStamina(26.0);
-        assertEquals(0.0, player.getStaminaLevel(), 0.01);
-    } 
-    
-    @Test
-    public void testReduceStaminaByNegative()
-    {
-        player.reduceStamina(-1.0);
-        assertEquals(25.0, player.getStaminaLevel(), 0.01);
+        Assert.assertEquals(0.0, player.getStaminaLevel(), 0.01);
     }
-    
-    @Test 
-    public void testIncreaseStamina()
-    {
+
+    @Test
+    public void testReduceStaminaByNegative() {
+        player.reduceStamina(-1.0);
+        Assert.assertEquals(25.0, player.getStaminaLevel(), 0.01);
+    }
+
+    @Test
+    public void testIncreaseStamina() {
         player.reduceStamina(7.0);
         player.increaseStamina(4.0);
-        assertEquals(22.0, player.getStaminaLevel(), 0.01);
-    } 
-    
+        Assert.assertEquals(22.0, player.getStaminaLevel(), 0.01);
+    }
+
     @Test
-    public void testIncreaseStaminaPastZero()
-    {
+    public void testIncreaseStaminaPastZero() {
         player.increaseStamina(4.0);
-        assertEquals(25.0, player.getStaminaLevel(), 0.01);
-    } 
-    
+        Assert.assertEquals(25.0, player.getStaminaLevel(), 0.01);
+    }
+
     @Test
-    public void testIncreaseStaminaByNegative()
-    {
+    public void testIncreaseStaminaByNegative() {
         player.increaseStamina(-1.0);
-        assertEquals(25.0, player.getStaminaLevel(), 0.01);
+        Assert.assertEquals(25.0, player.getStaminaLevel(), 0.01);
     }
 
     @Test
-    public void testhasStaminaToMoveEnoughStamina()
-    {
-        assertTrue(player.hasStaminaToMove(Terrain.SAND));
+    public void testHasEnoughStaminaToMovEnoughStaminaForTerrain() {
+        Assert.assertTrue(player.hasStaminaToMove(Terrain.SAND));
     }
 
     @Test
-    public void testhasStaminaToMoveNotEnoughStaminaForTerrain()
-    {
+    public void testHasEnoughStaminaToMoveNotEnoughStaminaForTerrain() {
         player.reduceStamina(23);
-        assertFalse(player.hasStaminaToMove(Terrain.SCRUB));
+        Assert.assertFalse(player.hasStaminaToMove(Terrain.SCRUB));
     }
 
     @Test
-    public void testhasStaminaToMoveNotEnoughStaminaFullBackpack()
-    {
-       // reduce stamina so under four required for FOREST with full backpack
+    public void testHasStaminaToMoveNotEnoughStaminaFullBackpack() {
+        // reduce stamina so under four required for FOREST with full backpack
         player.reduceStamina(22.0);
         Tool fullLoad = new Trap(playerPosition, "full", "A full load.", 14.5, 1.5);
         player.collect(fullLoad);
-        assertFalse(player.hasStaminaToMove(Terrain.FOREST));
+        Assert.assertFalse(player.hasStaminaToMove(Terrain.FOREST));
     }
 
     @Test
-    public void testhasStaminaToMoveNotEnoughStaminaPartlyFullBackpack()
-    {
-       // reduce stamina so 50% backpack load takes over limit
+    public void testHasStaminaToMoveNotEnoughStaminaPartlyFullBackpack() {
+        // reduce stamina so 50% backpack load takes over limit
         player.reduceStamina(23.0);
         Tool partLoad = new Trap(playerPosition, "part", "A part load.", 7.5, 1.5);
         player.collect(partLoad);
-        assertFalse(player.hasStaminaToMove(Terrain.FOREST));
+        Assert.assertFalse(player.hasStaminaToMove(Terrain.FOREST));
     }
-  
-    @Test
-    public void testIsAlive()
-    {
-        assertTrue(player.isAlive());
-    }
-    
-    @Test
-    public void testKill()
-    {
-        player.kill();
-        assertFalse(player.isAlive());
-    }    
 
     @Test
-    public void testhasItemWithItem()
-    {
+    public void testIsAlive() {
+        Assert.assertTrue(player.isAlive());
+    }
+
+    @Test
+    public void testKill() {
+        player.kill();
+        Assert.assertFalse(player.isAlive());
+    }
+
+    @Test
+    public void testHasItemWithItem() {
         player.collect(sandwich);
-        assertTrue(player.hasItem(sandwich));
+        Assert.assertTrue(player.hasItem(sandwich));
     }
-    
+
     @Test
-    public void testhasItemNoItem()
-    {
-        assertFalse(player.hasItem(sandwich));
+    public void testHasItemNoItem() {
+        Assert.assertFalse(player.hasItem(sandwich));
     }
-    
+
     @Test
-    public void testHasTrapWithTrap()
-    {
+    public void testHasTrapWithTrap() {
         Trap trap = new Trap(playerPosition, "Trap", "A predator trap", 1.0, 1.0);
         player.collect(trap);
-        assertTrue(player.hasTrap());
+        Assert.assertTrue(player.hasTrap());
     }
-    
+
     @Test
-    public void testHasTrapNoTrap()
-    {
-        assertFalse(player.hasTrap());
+    public void testHasTrapNoTrap() {
+        Assert.assertFalse(player.hasTrap());
     }
-    
+
     @Test
-    public void testGetTrap()
-    {
+    public void testGetTrap() {
         Trap trap = new Trap(playerPosition, "Trap", "A predator trap", 1.0, 1.0);
         player.collect(trap);
-        assertEquals(player.getTrap(), trap);
+        Assert.assertEquals(player.getTrap(), trap);
     }
-    
+
     @Test
-    public void testGetInventory(){
+    public void testGetInventory() {
         player.collect(sandwich);
         Tool trap = new Trap(playerPosition, "Trap", "A predator trap", 1.0, 1.0);
         player.collect(trap);
         Collection inventory = player.getInventory();
-        assertTrue(inventory.contains(trap));
-        assertTrue(inventory.contains(sandwich));
+        Assert.assertTrue(inventory.contains(trap));
+        Assert.assertTrue(inventory.contains(sandwich));
     }
-    
+
     @Test
-    public void testCollectValidItemThatFits()
-    {
-        assertTrue(player.collect(sandwich));
-        assertTrue(player.hasItem(sandwich));
-        assertEquals(1.0, player.getCurrentBackpackWeight(),0.01);
-        assertEquals(2.0, player.getCurrentBackpackSize(),0.01);
+    public void testCollectValidItemThatFits() {
+        Assert.assertTrue(player.collect(sandwich));
+        Assert.assertTrue(player.hasItem(sandwich));
+        Assert.assertEquals(1.0, player.getCurrentBackpackWeight(), 0.01);
+        Assert.assertEquals(2.0, player.getCurrentBackpackSize(), 0.01);
         Position newPos = sandwich.getPosition();
-        assertFalse(newPos.isOnIsland());
-    }
-    
-    @Test
-    public void testCollectDuplicateItem()
-    {
-        assertTrue(player.collect(sandwich));
-        assertFalse(player.collect(sandwich));
+        Assert.assertFalse(newPos.isOnIsland());
     }
 
     @Test
-    public void testCollectItemMaxWeight()
-    {
+    public void testAllowForDuplicateItems() {
+        Assert.assertTrue(player.collect(sandwich));
+        Assert.assertTrue(player.collect(sandwich));
+    }
+
+    @Test
+    public void testCollectItemMaxWeight() {
         Tool maxWeight = new Trap(playerPosition, "weight", "A very heavy weight", 15.0, 1.5);
-        assertTrue(player.collect(maxWeight));
-        assertTrue(player.hasItem(maxWeight));        
+        Assert.assertTrue(player.collect(maxWeight));
+        Assert.assertTrue(player.hasItem(maxWeight));
     }
-    
+
     @Test
-    public void testCollectItemTooHeavy()
-    {
+    public void testCollectItemTooHeavy() {
         Tool hugeWeight = new Trap(playerPosition, "weight", "A very heavy weight", 16.0, 1.5);
-        assertFalse(player.collect(hugeWeight));
-        assertFalse(player.hasItem(hugeWeight));        
+        Assert.assertFalse(player.collect(hugeWeight));
+        Assert.assertFalse(player.hasItem(hugeWeight));
     }
-    
+
     @Test
-    public void testCollectItemTooBig()
-    {
+    public void testCollectItemTooBig() {
         Tool largeTool = new Trap(playerPosition, "large", "A very large tool", 1.0, 20.5);
-        assertFalse(player.collect(largeTool));
-        assertFalse(player.hasItem(largeTool));        
-    }     
-
-     @Test  
-    public void testDropValidItem()
-    {
-        assertTrue(player.collect(sandwich));
-        assertTrue(player.hasItem(sandwich));
-        assertTrue(player.drop(sandwich));
-        assertEquals(0.0, player.getCurrentBackpackWeight(),0.01);
-        assertEquals(0.0, player.getCurrentBackpackSize(),0.01);
-        assertFalse(player.hasItem(sandwich));
+        Assert.assertFalse(player.collect(largeTool));
+        Assert.assertFalse(player.hasItem(largeTool));
     }
 
     @Test
-    public void testDropInvalidItem()
-    {
-        assertFalse(player.drop(sandwich));
+    public void testDropValidItem() {
+        Assert.assertTrue(player.collect(sandwich));
+        Assert.assertTrue(player.hasItem(sandwich));
+        Assert.assertTrue(player.drop(sandwich));
+        Assert.assertEquals(0.0, player.getCurrentBackpackWeight(), 0.01);
+        Assert.assertEquals(0.0, player.getCurrentBackpackSize(), 0.01);
+        Assert.assertFalse(player.hasItem(sandwich));
     }
 
     @Test
-    public void testMoveToPositionEnoughStamina()
-    {
+    public void testDropInvalidItem() {
+        Assert.assertFalse(player.drop(sandwich));
+    }
+
+    @Test
+    public void testMoveToPositionEnoughStamina() {
         Position newPosition = new Position(island, 0,1);
         player.moveToPosition(newPosition, Terrain.SAND);
-        assertEquals(newPosition, player.getPosition());
-        assertEquals(24.0, player.getStaminaLevel(), 0.01);
+        Assert.assertEquals(newPosition, player.getPosition());
+        Assert.assertEquals(24.0, player.getStaminaLevel(), 0.01);
     }
 
     @Test
-    public void testMoveToPositionNotEnoughStamina()
-    {
+    public void testMoveToPositionNotEnoughStamina() {
         Position newPosition = new Position(island, 0,1);
         player.reduceStamina(23);
         player.moveToPosition(newPosition, Terrain.SCRUB);
-        assertEquals(playerPosition, player.getPosition());
-        assertEquals(2.0, player.getStaminaLevel(), 0.01);
+        Assert.assertEquals(playerPosition, player.getPosition());
+        Assert.assertEquals(2.0, player.getStaminaLevel(), 0.01);
     }
 }

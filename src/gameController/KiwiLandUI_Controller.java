@@ -1,24 +1,29 @@
 package gameController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-import javax.swing.*;
 
 import gameModel.*;
+import gameModel.gameObjects.Hazard;
+import gameModel.gameObjects.Item;
+import gameModel.gameObjects.Occupant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 /**
  * Main Game Screen/UI for KiwiLand Catch n Cuddle.
@@ -54,9 +59,13 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
     private Button discardButton;
     @FXML
     private Button useButton;
+    @FXML
+    private Button exitButton;
 
-    private Game game;
-    private HashMap<KeyCode, String> keyMappings;
+    private final Game game;
+    private final HashMap<KeyCode, String> keyMappings;
+    private final static Image HAZARD_IMAGE
+            = new Image(Hazard.class.getResource("images/hazard.png").toExternalForm());
 
     public KiwiLandUI_Controller() {
         // Default constructor is the first thing to be called.
@@ -105,6 +114,20 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
     }
 
     @FXML
+    private void exitButtonClick() throws IOException { // Called when exit button is clicked
+            Stage stage = (Stage) exitButton.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("../gameView/mainMenuUI.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+    }
+
+    @FXML
+    private void restartButtonClick() { // Called when restart button is clicked
+        game.createNewGame();
+    }
+
+    @FXML
     private void collectButtonClick() { // Called when collect button is clicked
         Occupant occupant = objectListView.getSelectionModel().getSelectedItem();
         game.collectItem(occupant);
@@ -122,7 +145,7 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
 
     @FXML
     private void cuddleButtonClick() { // Called when cuddle button is clicked
-        game.countKiwi();
+        game.cuddleKiwi();
     }
 
     @FXML
@@ -167,28 +190,17 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
     /**
      * This method is called by the game model every time something changes.
      * It triggers an update.
-     * TODO: Change the functionality of this function to implement new game states (Sprint 2)
      */
     @Override
     public void gameStateChanged() {
         update();
 
-        // TODO: Use our own message boxes as JOptionPanes DO NOT WORK ON MAC MACHINES (sprint 2)
-
         // check for "game over" or "game won"
-        if (game.getState() == GameState.LOST) {
-            JOptionPane.showMessageDialog(null, game.getLoseMessage(), "Game over!",
-                    JOptionPane.INFORMATION_MESSAGE);
-            game.createNewGame();
-        } else if (game.getState() == GameState.WON) {
-            JOptionPane.showMessageDialog(
-                    null, game.getWinMessage(), "Well Done!",
-                    JOptionPane.INFORMATION_MESSAGE);
+        if (game.getState() == GameState.GAME_OVER) {
+            game.showPopUpGameOverScreen();
             game.createNewGame();
         } else if (game.messageForPlayer()) {
-            JOptionPane.showMessageDialog(
-                    null, game.getPlayerMessage(), "Important Information",
-                    JOptionPane.INFORMATION_MESSAGE);
+            game.showPopUpFact(HAZARD_IMAGE, "Important Information", game.getPlayerMessage());
         }
     }
 
@@ -210,14 +222,11 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
         }
 
         // update player information
-        int[] playerValues = game.getPlayerValues();
+        double[] playerValues = game.getPlayerValues();
         nameLabel.setText(game.getPlayerName());
-        float stamina = (float) playerValues[Game.STAMINA_INDEX]/(float) playerValues[Game.MAXSTAMINA_INDEX];
-        staminaProgressBar.setProgress(stamina);
-        float weight = (float) playerValues[Game.WEIGHT_INDEX]/(float) playerValues[Game.MAXWEIGHT_INDEX];
-        weightProgressBar.setProgress(weight);
-        float size = (float) playerValues[Game.SIZE_INDEX]/(float) playerValues[Game.MAXSIZE_INDEX];
-        sizeProgressBar.setProgress(size);
+        staminaProgressBar.setProgress(playerValues[Game.STAMINA_INDEX]/playerValues[Game.MAX_STAMINA_INDEX]);
+        weightProgressBar.setProgress(playerValues[Game.WEIGHT_INDEX]/playerValues[Game.MAX_WEIGHT_INDEX]);
+        sizeProgressBar.setProgress(playerValues[Game.SIZE_INDEX]/playerValues[Game.MAX_SIZE_INDEX]);
         scoreLabel.setText("Score: " + Integer.toString(game.getScore()));
         // NOTE: Math used to calculate the value between 0 and 1 to be used on progress bar
 
