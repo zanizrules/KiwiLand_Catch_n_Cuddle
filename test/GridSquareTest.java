@@ -11,10 +11,13 @@ import org.junit.Test;
 
 
 /**
- * The test class GridSquareTest.
+ * Test: GridSquareTest
+ * Related Class: GridSquare
  *
- * @author  AS
- * @version 2011
+ * @author Shane Birdsall
+ * @version 2.0
+ * Updates:
+ *  1. Removed useless constructor
  */
 public class GridSquareTest {
     private GridSquare emptySquare;
@@ -24,20 +27,11 @@ public class GridSquareTest {
     private Food apple;
 
     /**
-     * Default constructor for test class GridSquareTest
-     */
-    public GridSquareTest()
-    {
-    }
-
-    /**
      * Sets up the test fixture.
-     *
      * Called before every test case method.
      */
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         emptySquare = new GridSquare(Terrain.SAND);
         occupiedSquare = new GridSquare(Terrain.FOREST);
         island = new Island(5,5);
@@ -48,12 +42,10 @@ public class GridSquareTest {
 
     /**
      * Tears down the test fixture.
-     *
      * Called after every test case method.
      */
     @After
-    public void tearDown()
-    {
+    public void tearDown() {
         emptySquare = null;
         occupiedSquare = null;
         island = null;
@@ -211,6 +203,5 @@ public class GridSquareTest {
     public void testRemoveOccupantWhenNull() {
         Assert.assertFalse(occupiedSquare.removeOccupant(null));
     }
-   
 }
 

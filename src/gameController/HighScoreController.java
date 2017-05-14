@@ -14,7 +14,7 @@ public class HighScoreController {
         return highScores;
     }
 
-    private static void loadHighScoresFromFile() {
+    public static boolean loadHighScoresFromFile() {
         try {
             Scanner input = new Scanner(new File(HIGH_SCORE_FILE));
             input.useDelimiter("\\s*,\\s*");
@@ -28,12 +28,13 @@ public class HighScoreController {
                 PlayerScore score = new PlayerScore(name, totalScore, kiwisCuddled, predatorsCaptured);
                 highScores.add(score);
             }
+            return true;
         } catch (FileNotFoundException e) {
-            System.err.println("Unable to find: " + HIGH_SCORE_FILE);
+            return false;
         }
     }
 
-    static boolean checkIfPlayerScoreIsHighScore(PlayerScore score) {
+    public static boolean checkIfPlayerScoreIsHighScore(PlayerScore score) {
         PlayerScore lowestHighScore = (PlayerScore) getHighScores().toArray()[highScores.size()-1];
         return (lowestHighScore.compareTo(score) > 0);
     }

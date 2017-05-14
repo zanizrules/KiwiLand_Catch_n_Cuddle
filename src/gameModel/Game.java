@@ -50,15 +50,27 @@ public class Game {
     public static final int WEIGHT_INDEX = 3;
     public static final int MAX_SIZE_INDEX = 4;
     public static final int SIZE_INDEX = 5;
-    private static final int MIN_NUM_OF_KIWIS_ON_BOARD = 10;
-    private static final int MIN_NUM_OF_FOOD_ON_BOARD = 5;
-    private static final int MIN_NUM_OF_PREDATOR_ON_BOARD = 7;
+    private static final int MIN_NUM_OF_KIWIS_ON_BOARD = 4;
+    private static final int MIN_NUM_OF_FOOD_ON_BOARD = 2;
+    private static final int MIN_NUM_OF_PREDATOR_ON_BOARD = 2;
     private static final int SPAWN_LOOP_TIMEOUT_LIMIT = 6;
-    private static final int TURNS_BETWEEN_SPAWNS = 4;
+    private static final int TURNS_BETWEEN_SPAWNS = 2;
 
     public Game() {
         eventListeners = new HashSet<>();
         createNewGame();
+    }
+
+    public int getTotalPredators() {
+        return totalPredators;
+    }
+
+    public int getPredatorsTrapped() {
+        return predatorsTrapped;
+    }
+
+    public int getTotalKiwis() {
+        return totalKiwis;
     }
 
     public void createNewGame() {
@@ -377,16 +389,19 @@ public class Game {
         if(totalKiwis < MIN_NUM_OF_KIWIS_ON_BOARD) {
             if(!kiwiQueue.isEmpty()) {
                 spawnItem(kiwiQueue.poll());
+                totalKiwis++;
             }
         }
         if(totalPredators < MIN_NUM_OF_PREDATOR_ON_BOARD) {
             if(!predatorQueue.isEmpty()) {
                 spawnItem(predatorQueue.poll());
+                totalPredators++;
             }
         }
         if(totalFood < MIN_NUM_OF_FOOD_ON_BOARD) {
             if(!foodQueue.isEmpty()) {
                 spawnItem(foodQueue.poll());
+                totalFood++;
             }
         }
     }
@@ -401,7 +416,6 @@ public class Game {
         do {
             row = rand.nextInt(island.getNumRows());
             col = rand.nextInt(island.getNumColumns());
-            System.out.println("Iteration: " + count + ", Row: " +row + ", Col: " + col);
             randomPosition = new Position(island, row, col);
             count++;
         } while(island.hasOccupantWithinArea(randomPosition, occupant) && count < SPAWN_LOOP_TIMEOUT_LIMIT);

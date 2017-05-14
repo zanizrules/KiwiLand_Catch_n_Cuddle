@@ -9,31 +9,26 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The test class IslandTest.
+ * Test: IslandTest
+ * Related Class: Island
  *
- * @author  AS
- * @version July 2011
+ * @author Shane Birdsall
+ * @version 2.0
+ * Updates:
+ *  1. Removed useless constructor
  */
 public class IslandTest {
     private Island testIsland;
     private Position onIsland;
     private Position notOnIsland;
     private Predator cat;
-    /**
-     * Default constructor for test class IslandTest
-     */
-    public IslandTest()
-    {
-    }
 
     /**
      * Sets up the test fixture.
-     *
      * Called before every test case method.
      */
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         testIsland = new Island(6,5);
         onIsland = new Position(testIsland, 1,0); 
         notOnIsland = Position.NOT_ON_ISLAND;
@@ -42,12 +37,10 @@ public class IslandTest {
 
     /**
      * Tears down the test fixture.
-     *
      * Called after every test case method.
      */
     @After
-    public void tearDown()
-    {
+    public void tearDown() {
       testIsland  = null;
     }
      
@@ -66,14 +59,14 @@ public class IslandTest {
     }
     
     @Test
-    public void testHasPredatorNoPredator(){
+    public void testHasPredatorNoPredator() {
         Kiwi kiwi = new Kiwi(onIsland, "Kiwi", "Little spotted kiwi", "Random kiwi fact");
         testIsland.addOccupant(onIsland, kiwi);
         Assert.assertFalse(testIsland.hasPredator(onIsland));
     }
     
     @Test
-    public void testHasPredatorWithPredator(){
+    public void testHasPredatorWithPredator() {
         testIsland.addOccupant(onIsland, cat);
         Assert.assertTrue(testIsland.hasPredator(onIsland));
     }
@@ -116,7 +109,7 @@ public class IslandTest {
     }
     
     @Test
-    public void testUpdatePlayerPosition(){
+    public void testUpdatePlayerPosition() {
         Position newPos = new Position(testIsland, 2,3);
         Assert.assertFalse(testIsland.isExplored(newPos));
         Player player = new Player(newPos ,"Ada Lovelace",25.0, 15.0, 20.0);
@@ -144,10 +137,8 @@ public class IslandTest {
     }
     
     @Test
-    public void testGetPredator(){
+    public void testGetPredator() {
         testIsland.addOccupant(onIsland, cat);
         Assert.assertEquals(testIsland.getPredator(onIsland), cat);
     }
-
-
 }

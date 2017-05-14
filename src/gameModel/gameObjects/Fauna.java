@@ -31,4 +31,8 @@ public class Fauna extends Occupant {
     public String getStringRepresentation() {
         return "F";
     }
+
+    public ANIMAL_TYPE getAnimalType() {
+        return animalType;
+    }
 }

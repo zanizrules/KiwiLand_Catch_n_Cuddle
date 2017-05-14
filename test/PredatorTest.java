@@ -8,19 +8,19 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+ * Test: PredatorTest
+ * Related Class: Predator
  *
- * @author AS
- * @version 2011
+ * @author Shane Birdsall
+ * @version 2.0
+ * Updates:
+ *  1. Removed useless constructor
  */
 public class PredatorTest {
     private Predator rat;
     private Position position;
     private Island island;
-    
-    
-    public PredatorTest() {
-    }
-    
+
     @Before
     public void setUp() {
         island = new Island(5,5);
@@ -35,14 +35,10 @@ public class PredatorTest {
         rat = null;   
     }
 
-    /**
-     * Test of getStringRepresentation method, of class Predator.
-     */
     @Test
-    public void testGetStringRepresentation() {
+    public void testStringRepresentation() {
         String expResult = "P";
         String result = rat.getStringRepresentation();
         assertEquals(expResult, result);
     }
-    
 }

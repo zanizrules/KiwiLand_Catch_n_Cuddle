@@ -28,7 +28,6 @@ public class Food extends Item {
         setImage();
     }
 
-
     /**
      * Gets the ENERGY of the food.
      *

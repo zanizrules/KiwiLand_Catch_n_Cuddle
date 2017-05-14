@@ -7,172 +7,134 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The test class PositionTest.
+ * Test: PositionTest
+ * Related Class: Position
  *
- * @author AS
- * @version 2011
+ * @author Shane Birdsall
+ * @version 2.0
  */
 public class PositionTest {
     private Position onIsland;
     private Position notOnIsland;
     private Island island;
-    /**
-     * Default constructor for test class PositionTest
-     */
-    public PositionTest()
-    {
-    }
 
     /**
      * Sets up the test fixture.
-     *
      * Called before every test case method.
      */
     @Before
-    public void setUp()
-    {
-        island = new Island(5,5);
-        onIsland = new Position(island, 1,2) ;
+    public void setUp() {
+        island = new Island(5, 5);
+        onIsland = new Position(island, 1, 2);
         notOnIsland = Position.NOT_ON_ISLAND;
     }
 
     /**
      * Tears down the test fixture.
-     *
      * Called after every test case method.
      */
     @After
-    public void tearDown()
-    {
+    public void tearDown() {
         island = null;
         onIsland = null;
-        notOnIsland = null;       
+        notOnIsland = null;
     }
 
     @Test
-    public void testPositionValidParametersOnIsland()
-    {
+    public void testPositionValidParametersOnIsland() {
         Assert.assertTrue(onIsland.isOnIsland());
     }
 
     @Test
-    public void testPositionValidParameterNotOnIsland()
-    {
+    public void testPositionValidParameterNotOnIsland() {
         Assert.assertFalse(notOnIsland.isOnIsland());
     }
 
     @Test
     public void testIllegalArgumentNoIsland() throws Exception {
-        try 
-        {
-            new Position(null,0,0);
+        try {
+            new Position(null, 0, 0);
             Assert.fail("No exception thrown when island null.");
-        }
-        catch (IllegalArgumentException expected) 
-        {
+        } catch (IllegalArgumentException expected) {
             Assert.assertTrue("Not expected exception message", expected.getMessage().contains("Island"));
         }
-        
     }
 
     @Test
     public void testIllegalArgumentRowNegative() throws Exception {
-        try 
-        {
-            new Position(island,-1,0);
+        try {
+            new Position(island, -1, 0);
             Assert.fail("No exception thrown when row negative.");
-        }
-        catch (IllegalArgumentException expected) 
-        {
+        } catch (IllegalArgumentException expected) {
             Assert.assertTrue("Not expected exception message", expected.getMessage().contains("Invalid row"));
         }
-        
     }
-    
+
     @Test
     public void testIllegalArgumentRowTooLarge() throws Exception {
-        try 
-        {
-            new Position(island,5,0);
+        try {
+            new Position(island, 5, 0);
             Assert.fail("No exception thrown when row too large.");
-        }
-        catch (IllegalArgumentException expected) 
-        {
+        } catch (IllegalArgumentException expected) {
             Assert.assertTrue("Not expected exception message", expected.getMessage().contains("Invalid row"));
         }
-        
-    } 
-    
+    }
+
     @Test
     public void testIllegalArgumentColumnNegative() throws Exception {
-        try 
-        {
-            new Position(island,1,-1);
+        try {
+            new Position(island, 1, -1);
             Assert.fail("No exception thrown when column negative.");
-        }
-        catch (IllegalArgumentException expected) 
-        {
+        } catch (IllegalArgumentException expected) {
             Assert.assertTrue("Not expected exception message", expected.getMessage().contains("Invalid column"));
         }
-        
     }
-    
+
     @Test
     public void testIllegalArgumentColumnTooLarge() throws Exception {
-        try 
-        {
-            new Position(island,0,5);
+        try {
+            new Position(island, 0, 5);
             Assert.fail("No exception thrown when column too large.");
-        }
-        catch (IllegalArgumentException expected) 
-        {
+        } catch (IllegalArgumentException expected) {
             Assert.assertTrue("Not expected exception message", expected.getMessage().contains("Invalid column"));
         }
-        
     }
-    
+
     @Test
-    public void testGetColumn()
-    {
+    public void testGetColumn() {
         Assert.assertEquals(2, onIsland.getColumn());
-    }    
+    }
 
     @Test
-    public void testGetRow()
-    {
+    public void testGetRow() {
         Assert.assertEquals(1, onIsland.getRow());
-    } 
+    }
 
     @Test
-    public void testRemoveFromIsland()
-    {
+    public void testRemoveFromIsland() {
         onIsland.removeFromIsland();
         Assert.assertFalse(onIsland.isOnIsland());
     }
-    
+
     @Test
-    public void testGetNewPositionNull()throws Exception {
-        try 
-        {
+    public void testGetNewPositionNull() throws Exception {
+        try {
             onIsland.getNewPosition(null);
             Assert.fail("No exception thrown when direction null.");
-        }
-        catch (IllegalArgumentException expected) 
-        {
+        } catch (IllegalArgumentException expected) {
             Assert.assertTrue("Not expected exception message", expected.getMessage().contains("Direction parameter"));
-        }    
+        }
     }
-    
+
     @Test
     public void testGetNewPositionNotOnIsland() {
         Assert.assertEquals(notOnIsland.getNewPosition(MoveDirection.NORTH), null);
     }
-    
+
     @Test
     public void testGetNewPositionValidDirection() {
         Position newPosition = onIsland.getNewPosition(MoveDirection.WEST);
         Assert.assertEquals(newPosition.getRow(), 1);
         Assert.assertEquals(newPosition.getColumn(), 1);
     }
-
 }

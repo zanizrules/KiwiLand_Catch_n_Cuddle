@@ -10,31 +10,26 @@ import static junit.framework.TestCase.assertEquals;
 
 
 /**
- * The test class HazardTest.
+ * Test: GridSquareTest
+ * Related Class: Hazard
  *
- * @author  AS
- * @version 2011
+ * @author Shane Birdsall
+ * @version 2.0
+ * Updates:
+ *  1. Removed useless constructor
  */
 public class HazardTest {
     private Hazard fatal;
     private Hazard nonFatal;
     private Position position, position2;
     private Island island;
-    /**
-     * Default constructor for test class AnimalTest
-     */
-    public HazardTest()
-    {
-    }
 
      /**
      * Sets up the test fixture.
-     *
      * Called before every test case method.
      */
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         island = new Island(5,5);
         position = new Position(island, 4,4);
         fatal = new Hazard(position, "Hole", "A very deep hole",  1.0);
@@ -44,12 +39,10 @@ public class HazardTest {
 
     /**
      * Tears down the test fixture.
-     *
      * Called after every test case method.
      */
     @After
-    public void tearDown()
-    {
+    public void tearDown() {
         fatal = null;
         nonFatal =  null;
         island = null;
@@ -62,24 +55,17 @@ public class HazardTest {
     }
     
     @Test
-    public void testIsFatal()
-    {
+    public void testIsFatal() {
         Assert.assertTrue("Should be fatal", fatal.isFatal());
         Assert.assertFalse("Should not be fatal", nonFatal.isFatal());
     }
     
     @Test
-    public void testIsBreakTrap(){
+    public void testIsBreakTrap() {
         Hazard trapBreak = new Hazard(position2, "Broken trap", "Your trap breaks", 0.0);
-        
         Assert.assertTrue("Shoyuld be trap break hazard", trapBreak.isBreakTrap());
     }
-            
-    
-    /**
-     * Tests of Occupant methods
-     * Need to test these in one of the descendants of abstract class Occupant
-     */
+
     @Test
     public void testGetPosition(){
         Assert.assertEquals("Wrong position", position, fatal.getPosition());
@@ -98,8 +84,7 @@ public class HazardTest {
     }
 
     @Test
-    public void testGetDescription()
-    {
+    public void testGetDescription() {
         Assert.assertEquals("Check description", "A very deep hole", fatal.getDescription());
     }
 
@@ -107,7 +92,4 @@ public class HazardTest {
     public void testGetStringRepresentationDangerous() {
         Assert.assertEquals("H", fatal.getStringRepresentation());
     }
-    
-
-
 }

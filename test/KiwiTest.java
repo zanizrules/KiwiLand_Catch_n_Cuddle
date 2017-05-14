@@ -1,4 +1,5 @@
 import gameModel.Island;
+import gameModel.gameObjects.ANIMAL_TYPE;
 import gameModel.gameObjects.Kiwi;
 import gameModel.Position;
 import org.junit.After;
@@ -7,19 +8,20 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+ * Test: KiwiTest
+ * Related Class: Kiwi
  *
- * @author AS
- * @version 2011
+ * @author Shane Birdsall
+ * @version 2.0
+ * Updates:
+ *  1. Removed useless constructor
+ *  2. Added test to check kiwi animal type
  */
 public class KiwiTest {
-    
     private Kiwi kiwi;
     private Position position;
     private Island island;
-    
-    public KiwiTest() {
-    }
-    
+
     @Before
     public void setUp() {
         island = new Island(5,5);
@@ -46,14 +48,13 @@ public class KiwiTest {
         assertTrue("Should  be cuddled", kiwi.cuddled());
     }
 
-    /**
-     * Test of getStringRepresentation method, of class Kiwi.
-     */
     @Test
-    public void testGetStringRepresentation() {
+    public void testStringRepresentation() {
         assertEquals("K", kiwi.getStringRepresentation());
     }
 
-
-    
+    @Test
+    public void testAnimalType() {
+        assertEquals(ANIMAL_TYPE.KIWI, kiwi.getAnimalType());
+    }
 }
