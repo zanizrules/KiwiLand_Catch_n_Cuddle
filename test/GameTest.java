@@ -1,5 +1,6 @@
 import gameModel.*;
 import gameModel.gameObjects.*;
+import javafx.geometry.Pos;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,6 +28,10 @@ public class GameTest {
     private Player player;
     private Position playerPosition;
     private Island island ;
+    private Predator rat;
+    private Position position;
+    private Food apple;
+    private Kiwi kiwi;
 
     /**
      * Sets up the test fixture.
@@ -40,6 +45,12 @@ public class GameTest {
         playerPosition = game.getPlayer().getPosition();
         player         = game.getPlayer();
         island = game.getIsland();
+        rat = new Predator(position, "Rat", "A norway rat", "Random rat fact", ANIMAL_TYPE.RAT);
+        apple = new Food(position, "apple", "A juicy red apple", 1.0, 2.0, 1.5, FOOD_TYPE.APPLE);
+        kiwi = new Kiwi(position, "", "", "");
+        position = new Position(island, 0,0);
+        island.addOccupant(position, rat);
+        island.addOccupant(position, apple);
     }
 
     /**
@@ -61,13 +72,13 @@ public class GameTest {
     @Test
     public void testIsPlayerMovePossibleValidMove() {
         //At start of game player has valid moves EAST, West & South
-        Assert.assertTrue("Move should be valid", game.isPlayerMovePossible(MoveDirection.SOUTH));
+        Assert.assertTrue("Move should be valid", game.isOccupantMovePossible(MoveDirection.SOUTH));
     }
 
     @Test
     public void testIsPlayerMovePossibleInvalidMove() {
         //At start of game player has valid moves EAST, West & South
-        Assert.assertFalse("Move should not be valid", game.isPlayerMovePossible(MoveDirection.NORTH));
+        Assert.assertFalse("Move should not be valid", game.isOccupantMovePossible(MoveDirection.NORTH));
     }
 
     @Test
@@ -257,13 +268,13 @@ public class GameTest {
     @Test
     public void testPlayerMoveToInvalidPosition(){
         //A move NORTH would be invalid from player's start position
-        Assert.assertFalse("Move not valid", game.playerMove(MoveDirection.NORTH));
+        Assert.assertFalse("Move not valid", game.occupantMove(MoveDirection.NORTH));
     }
 
     @Test
     public void testPlayerMoveValidNoHazards(){
         double stamina = player.getStaminaLevel();
-        Assert.assertTrue("Move valid", game.playerMove(MoveDirection.SOUTH));
+        Assert.assertTrue("Move valid", game.occupantMove(MoveDirection.SOUTH));
         //Stamina reduced by move
         assertEquals("Wrong stamina", stamina - 3, player.getStaminaLevel());
         Position newPos = game.getPlayer().getPosition();
@@ -276,7 +287,7 @@ public class GameTest {
         Position hazardPosition = new Position(island, playerPosition.getRow()+1, playerPosition.getColumn());
         Hazard fatal = new Hazard(hazardPosition, "Cliff", "Steep cliff", 1.0);
         island.addOccupant(hazardPosition, fatal);
-        Assert.assertTrue("Move valid", game.playerMove(MoveDirection.SOUTH));
+        Assert.assertTrue("Move valid", game.occupantMove(MoveDirection.SOUTH));
         //Fatal Hazard should kill player
         Assert.assertTrue("Player should be dead.", !player.isAlive());
         Assert.assertTrue("Game should be over", game.getState() == GameState.GAME_OVER);
@@ -285,7 +296,7 @@ public class GameTest {
     @Test
     public void testPlayerMoveDeadPlayer(){
         player.kill();
-        Assert.assertFalse(game.playerMove(MoveDirection.SOUTH));
+        Assert.assertFalse(game.occupantMove(MoveDirection.SOUTH));
     }
 
     @Test
@@ -294,7 +305,7 @@ public class GameTest {
         Position hazardPosition = new Position(island, playerPosition.getRow()+1, playerPosition.getColumn());
         Hazard fatal = new Hazard(hazardPosition, "Cliff", "Not so steep cliff", 0.5);
         island.addOccupant(hazardPosition, fatal);
-        Assert.assertTrue("Move valid", game.playerMove(MoveDirection.SOUTH));
+        Assert.assertTrue("Move valid", game.occupantMove(MoveDirection.SOUTH));
         //Non-fatal Hazard should reduce player stamina
         Assert.assertTrue("Player should be alive.", player.isAlive());
         Assert.assertTrue("Game should not be over", game.getState() == GameState.PLAYING);
@@ -307,7 +318,7 @@ public class GameTest {
         Hazard fatal = new Hazard(hazardPosition, "Cliff", "Not so steep cliff", 0.5);
         island.addOccupant(hazardPosition, fatal);
         player.reduceStamina(47.0);
-        Assert.assertTrue("Move valid", game.playerMove(MoveDirection.SOUTH));
+        Assert.assertTrue("Move valid", game.occupantMove(MoveDirection.SOUTH));
         //Non-fatal Hazard should reduce player stamina to less than zero
         Assert.assertFalse("Player should not be alive.", player.isAlive());
         Assert.assertTrue("Game should be over", game.getState() == GameState.GAME_OVER);
@@ -319,7 +330,7 @@ public class GameTest {
         // Reduce player's stamina to less than is needed for the most challenging move
         //Most challenging move is WEST as Terrain is water
         player.reduceStamina(97.0);
-        Assert.assertFalse("Player should not have required stamina", game.playerMove(MoveDirection.WEST));
+        Assert.assertFalse("Player should not have required stamina", game.occupantMove(MoveDirection.WEST));
         //Game not over as there other moves player has enough stamina for
         Assert.assertTrue("Game should not be over", game.getState() == GameState.PLAYING);
     }
@@ -360,6 +371,32 @@ public class GameTest {
         collectAllOriginalKiwis();
         Assert.assertNotEquals(0, game.getTotalKiwis());
         Assert.assertEquals(10, game.getKiwisCuddled());
+    }
+
+    @Test
+    public void testPredatorEatsFoodWhenOnSameTile() {
+        game.predConsume(rat);
+        Assert.assertFalse(island.hasOccupant(position, apple));
+    }
+
+    @Test
+    public void testPredatorEatsKiwiWhenOnSameTile() {
+        island.addOccupant(position, kiwi);
+        game.predConsume(rat);
+        Assert.assertFalse(island.hasOccupant(position, kiwi));
+    }
+
+    @Test
+    public void testPredatorMovesFromTile() {
+        Position pos2 = new Position(island, 1, 0);
+
+        Assert.assertFalse(island.hasOccupant(pos2, rat));
+        // is he gone
+        game.occupantMove(rat, MoveDirection.SOUTH);
+        Assert.assertFalse(island.hasOccupant(position, rat));
+
+        // Does he move
+        Assert.assertTrue(island.hasOccupant(pos2, rat));
     }
 
     /**
@@ -471,7 +508,7 @@ public class GameTest {
     private boolean playerMoveNorth(int numberOfMoves) {
         boolean success = false;
         for (int i = 0; i < numberOfMoves; i++) {
-            success = game.playerMove(MoveDirection.NORTH);
+            success = game.occupantMove(MoveDirection.NORTH);
             if(!success) break;
         } return success;
     }
@@ -479,7 +516,7 @@ public class GameTest {
     private boolean playerMoveSouth(int numberOfMoves) {
         boolean success = false;
         for (int i = 0; i < numberOfMoves; i++) {
-            success = game.playerMove(MoveDirection.SOUTH);
+            success = game.occupantMove(MoveDirection.SOUTH);
             if(!success)break;
         } return success;
     }
@@ -487,7 +524,7 @@ public class GameTest {
     private boolean playerMoveEast(int numberOfMoves) {
         boolean success = false;
         for (int i = 0; i < numberOfMoves; i++) {
-            success = game.playerMove(MoveDirection.EAST);
+            success = game.occupantMove(MoveDirection.EAST);
             if(!success) break;
         } return success;
     }
@@ -495,7 +532,7 @@ public class GameTest {
     private boolean playerMoveWest(int numberOfMoves) {
         boolean success = false;
         for (int i = 0; i < numberOfMoves; i++) {
-            success = game.playerMove(MoveDirection.WEST);
+            success = game.occupantMove(MoveDirection.WEST);
             if(!success) break;
         } return success;
     }

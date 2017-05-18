@@ -1,6 +1,7 @@
 package gameModel.gameObjects;
 
 import gameModel.Position;
+import gameModel.Terrain;
 import javafx.scene.image.Image;
 
 /**
@@ -8,6 +9,7 @@ import javafx.scene.image.Image;
  */
 public abstract class Occupant {
     private Position position;
+    private Position previousPosition;
     private final String name;
     String description;
     private Image image;
@@ -21,6 +23,7 @@ public abstract class Occupant {
      */
     Occupant(Position position, String name, String description) {
         this.position = position;
+        previousPosition = position;
         this.name = name;
         this.description = description;
     }
@@ -32,6 +35,14 @@ public abstract class Occupant {
      */
     public Position getPosition() {
         return this.position;
+    }
+
+    public Position getPreviousPosition() {
+        return this.previousPosition;
+    }
+
+    public void setPreviousPosition(Position pos) {
+        previousPosition = pos;
     }
 
     /**
@@ -87,6 +98,13 @@ public abstract class Occupant {
     }
 
     protected abstract void setImage();
+
+    public void moveToPosition(Position newPosition, Terrain terrain) {
+        if ((position == null)) {
+            throw new IllegalArgumentException("Null parameters");
+        }
+        this.position = newPosition;
+    }
 
     public Image getImage() {
         return image;

@@ -61,6 +61,34 @@ public class Game {
         createNewGame();
     }
 
+    public void predConsume(Predator predator){
+        for(Occupant itemToRemove : island.getOccupants(predator.getPosition())) {
+            if (itemToRemove instanceof Food) {
+                predatorConsumeFood((Food) itemToRemove);
+            } else if (itemToRemove instanceof Kiwi) {
+                predatorConsumeKiwi((Kiwi) itemToRemove);
+            }
+        }
+    }
+
+    private void predatorConsumeKiwi(Kiwi kiwi) {
+        island.removeOccupant(kiwi.getPosition(), kiwi);
+    }
+
+    private void predatorConsumeFood(Food food) {
+        island.removeOccupant(food.getPosition(), food);
+    }
+
+    public void predatorMove(Predator predator) {
+        Position currentPosition = predator.getPosition();
+        Position positionToMoveTo = getNewPredatorPosition(currentPosition);
+    }
+
+    public Position getNewPredatorPosition(Position oldPosition) {
+        int row = oldPosition.getRow(); //TODO look
+        return oldPosition;
+    }
+
     public int getTotalPredators() {
         return totalPredators;
     }
@@ -92,6 +120,8 @@ public class Game {
         notifyGameEventListeners();
     }
 
+
+
     public int getNumRows() {
         return island.getNumRows();
     }
@@ -117,7 +147,7 @@ public class Game {
         return player;
     }
 
-    public boolean isPlayerMovePossible(MoveDirection direction) {
+    public boolean isOccupantMovePossible(MoveDirection direction) {
         boolean isMovePossible = false;
         // what position is the player moving to?
         Position newPosition = player.getPosition().getNewPosition(direction);
@@ -361,25 +391,32 @@ public class Game {
         newStage.show();
     }
 
-    public boolean playerMove(MoveDirection direction) {
+    public boolean occupantMove(MoveDirection direction) {
+        return occupantMove(player, direction);
+    }
+
+    public boolean occupantMove(Occupant occupant, MoveDirection direction) {
         // what terrain is the player moving on currently
         boolean successfulMove = false;
-        if (isPlayerMovePossible(direction)) {
-            Position newPosition = player.getPosition().getNewPosition(direction);
+        if (isOccupantMovePossible(direction)) {
+            Position newPosition = occupant.getPosition().getNewPosition(direction);
             Terrain terrain = island.getTerrain(newPosition);
 
             // move the player to new position
-            player.moveToPosition(newPosition, terrain);
-            island.updatePlayerPosition(player);
-            turnCount++;
-            if(turnCount % TURNS_BETWEEN_SPAWNS == 0) {
-                spawnOccupants();
+            Position oldPosition = occupant.getPosition();
+            occupant.moveToPosition(newPosition, terrain);
+            island.updateOccupantPosition(occupant, oldPosition);
+
+            if(occupant instanceof Player) {
+                turnCount++;
+                if(turnCount % TURNS_BETWEEN_SPAWNS == 0) {
+                    spawnOccupants();
+                }
+
+                // Is there a hazard?
+                checkForHazard();
             }
             successfulMove = true;
-
-            // Is there a hazard?
-            checkForHazard();
-
             updateGameState();
         }
         return successfulMove;
@@ -453,8 +490,8 @@ public class Game {
     }
 
     private boolean playerCanMove() {
-        return (isPlayerMovePossible(MoveDirection.NORTH) || isPlayerMovePossible(MoveDirection.SOUTH)
-                || isPlayerMovePossible(MoveDirection.EAST) || isPlayerMovePossible(MoveDirection.WEST));
+        return (isOccupantMovePossible(MoveDirection.NORTH) || isOccupantMovePossible(MoveDirection.SOUTH)
+                || isOccupantMovePossible(MoveDirection.EAST) || isOccupantMovePossible(MoveDirection.WEST));
     }
 
     private boolean trapPredator() {
@@ -568,7 +605,7 @@ public class Game {
         player = new Player(pos, playerName,
                 playerMaxStamina,
                 playerMaxBackpackWeight, playerMaxBackpackSize);
-        island.updatePlayerPosition(player);
+        island.updateOccupantPosition(player, player.getPosition());
     }
 
     private void setUpOccupants(Scanner input) {

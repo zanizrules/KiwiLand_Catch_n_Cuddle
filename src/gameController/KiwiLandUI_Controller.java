@@ -172,16 +172,16 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
         // Based on the command past in determines which way the player should move
         switch (command) {
             case "north":
-                game.playerMove(MoveDirection.NORTH);
+                game.occupantMove(MoveDirection.NORTH);
                 break;
             case "south":
-                game.playerMove(MoveDirection.SOUTH);
+                game.occupantMove(MoveDirection.SOUTH);
                 break;
             case "west":
-                game.playerMove(MoveDirection.WEST);
+                game.occupantMove(MoveDirection.WEST);
                 break;
             case "east":
-                game.playerMove(MoveDirection.EAST);
+                game.occupantMove(MoveDirection.EAST);
                 break;
             // Do nothing if invalid command
         }

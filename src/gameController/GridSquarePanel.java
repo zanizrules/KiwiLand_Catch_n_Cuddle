@@ -33,7 +33,7 @@ class GridSquarePanel extends Label {
     GridSquarePanel(Game game, int row, int column) {
         this.game = game;
         if (playerImage == null) {
-            playerImage = new Image(game.getPlayer().getImage());
+            playerImage = game.getPlayer().getImage();
         }
         this.row = row;
         this.column = column;

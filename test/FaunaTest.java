@@ -26,7 +26,7 @@ public class FaunaTest {
     @Before
     public void setUp() {
         game = new Game();
-        game.playerMove(MoveDirection.EAST);
+        game.occupantMove(MoveDirection.EAST);
         instance = (Fauna) game.getOccupantsPlayerPosition().toArray()[0];
     }
 

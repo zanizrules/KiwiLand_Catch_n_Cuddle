@@ -187,31 +187,34 @@ public class Island {
     /**
      * Update the grid and the explored & visible state of the grid to reflect new position of player.
      */
-    public void updatePlayerPosition(Player player) {
+    public void updateOccupantPosition(Occupant occupant, Position oldPosition) {
         // the grid square with the player on it is now explored...
-        Position position = player.getPosition();
-        getGridSquare(position).setExplored();
-        //... and has the player on it
-        getGridSquare(position).setPlayer(player);
+        Position position = occupant.getPosition();
+        occupant.setPreviousPosition(oldPosition);
 
-        // remove player from previous square
-        if (previousPlayerPos != null) {
-            getGridSquare(previousPlayerPos).setPlayer(null);
-        }
+        if(occupant instanceof Player) {
+            getGridSquare(position).setExplored();
+            getGridSquare(position).setPlayer((Player) occupant);
+            // remove player from previous square
+            if (oldPosition != null) {
+                getGridSquare(oldPosition).setPlayer(null);
+            }
 
-        // set visibility to all squares around player, and hide all others
-        for(int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numColumns; j++) {
-                if(i >= position.getRow() -1 && i <= position.getRow() +1
-                        && j >= position.getColumn() -1 && j <= position.getColumn() +1) {
-                    setVisible(new Position(this, i, j), true);
-                } else setVisible(new Position(this, i, j), false);
-
+            // set visibility to all squares around player, and hide all others
+            for(int i = 0; i < numRows; i++) {
+                for (int j = 0; j < numColumns; j++) {
+                    if(i >= position.getRow() -1 && i <= position.getRow() +1
+                            && j >= position.getColumn() -1 && j <= position.getColumn() +1) {
+                        setVisible(new Position(this, i, j), true);
+                    } else setVisible(new Position(this, i, j), false);
+                }
+            }
+        } else {
+            getGridSquare(position).addOccupant(occupant);
+            if (occupant.getPreviousPosition() != position) {
+                getGridSquare(occupant.getPreviousPosition()).removeOccupant(occupant);
             }
         }
-
-        // remember the new player position
-        previousPlayerPos = position;
     }
 
     /**

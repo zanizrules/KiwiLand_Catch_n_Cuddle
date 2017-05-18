@@ -1,8 +1,11 @@
 import gameModel.Island;
 import gameModel.gameObjects.ANIMAL_TYPE;
 import gameModel.Position;
+import gameModel.gameObjects.FOOD_TYPE;
+import gameModel.gameObjects.Food;
 import gameModel.gameObjects.Predator;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -41,4 +44,6 @@ public class PredatorTest {
         String result = rat.getStringRepresentation();
         assertEquals(expResult, result);
     }
+
+
 }

@@ -115,7 +115,7 @@ public class IslandTest {
         Player player = new Player(newPos ,"Ada Lovelace",25.0, 15.0, 20.0);
         player.moveToPosition(newPos, Terrain.SAND);
         
-        testIsland.updatePlayerPosition(player);
+        testIsland.updateOccupantPosition(player, player.getPosition());
         //new position should now be explored
         Assert.assertTrue("Should be explored.", testIsland.isExplored(newPos));
         //Surrounding positions should be visible
