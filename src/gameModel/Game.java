@@ -522,12 +522,13 @@ public class Game {
                         predator.getPredatorFact());
             } else if(fauna instanceof Kiwi) {
                 resetScore();
-                System.out.println("YOU CAUGHT A KIWI :'(");
-                // todo show new pop up
+                showPopUpFact(fauna.getImage(), "You Captured: " + fauna.getDescription(),
+                        "What have you done!? You are damaging the kiwi population!  ");
             } else { // Ordinary Fauna
                 addToScore(-10);
                 System.out.println("YOU CAUGHT INNOCENT FAUNA :'(");
-                // todo show new pop up
+                showPopUpFact(fauna.getImage(), "You Captured: " + fauna.getName(),
+                        "You captured an animal which is not a threat to Kiwis! How cruel!");
             }
 
         }
