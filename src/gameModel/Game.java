@@ -5,7 +5,6 @@ import gameController.GameOverPopUpUI_Controller;
 import gameController.InformationPopUpUI_Controller;
 import gameModel.gameObjects.*;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -164,10 +163,7 @@ public class Game {
     }
 
     private Position isOccupantMoveWithinTheIsland(Occupant occupant, MoveDirection direction) {
-        Position pos = occupant.getPosition().getNewPosition(direction);
-        if (pos != null && pos.isOnIsland()) {
-            return pos;
-        } else return null;
+        return occupant.getPosition().getNewPosition(direction);
     }
 
 
@@ -258,7 +254,7 @@ public class Game {
                 Tool tool = (Tool) itemToUse;
                 //Traps can only be used if there is a predator to catch
                 if (tool instanceof Trap) {
-                    result = island.hasPredator(player.getPosition());
+                    result = island.hasAnimal(player.getPosition());
                 }
                 //Screwdriver can only be used if player has a broken trap
                 else if(tool instanceof ScrewDriver) {
@@ -334,7 +330,7 @@ public class Game {
         } else if (item instanceof Tool) {
             Tool tool = (Tool) item;
             if (tool instanceof Trap && !tool.isBroken()) {
-                success = trapPredator();
+                success = trapAnimal();
             } else if (tool instanceof ScrewDriver)// Use screwdriver (to fix trap)
             {
                 if (player.hasTrap()) {
@@ -508,22 +504,42 @@ public class Game {
                 || isPlayerMovePossible(MoveDirection.EAST) || isPlayerMovePossible(MoveDirection.WEST));
     }
 
-    private boolean trapPredator() {
+    private boolean trapAnimal() {
         Position current = player.getPosition();
-        boolean hadPredator = island.hasPredator(current);
-        if (hadPredator) { //can trap it
-            Predator predator = island.getPredator(current);
-            //Predator has been trapped so remove
-            island.removeOccupant(current, predator);
-            predatorQueue.offer(predator);
-            predatorsTrapped++;
-            totalPredators--;
-            addToScore(10);
-            showPopUpFact(predator.getImage(), "You Captured: " + predator.getDescription(), predator.getPredatorFact());
-        }
+        boolean hadAnimal = island.hasAnimal(current);
+        if (hadAnimal) { //can trap it
+            Fauna fauna = island.getFauna(current);
+            //Animal has been trapped so remove
+            island.removeOccupant(current, fauna);
+            if(fauna instanceof Predator) {
+                System.out.println("Pred removed at: " + current.getRow() + ", " + current.getColumn());
+                Predator predator = (Predator) fauna;
+                predatorQueue.offer(predator);
+                predatorsTrapped++;
+                totalPredators--;
+                addToScore(10);
+                showPopUpFact(predator.getImage(), "You Captured: " + predator.getDescription(),
+                        predator.getPredatorFact());
+            } else if(fauna instanceof Kiwi) {
+                resetScore();
+                System.out.println("YOU CAUGHT A KIWI :'(");
+                // todo show new pop up
+            } else { // Ordinary Fauna
+                addToScore(-10);
+                System.out.println("YOU CAUGHT INNOCENT FAUNA :'(");
+                // todo show new pop up
+            }
 
-        return hadPredator;
+        }
+        return hadAnimal;
     }
+
+    private void resetScore() {
+        if(score > 0) {
+            score = 0;
+        }
+    }
+
     public void addToScore(int amount) { score += amount; }
 
     private void checkForHazard() {

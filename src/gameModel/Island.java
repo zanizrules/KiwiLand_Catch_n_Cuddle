@@ -1,5 +1,6 @@
 package gameModel;
 
+import gameModel.gameObjects.Fauna;
 import gameModel.gameObjects.Occupant;
 import gameModel.gameObjects.Player;
 import gameModel.gameObjects.Predator;
@@ -155,22 +156,22 @@ public class Island {
     }
 
     /**
-     * Checks if this position contains a predator.
+     * Checks if this position contains a animal (fauna, kiwi, predator).
      *
      * @param position which position
-     * @return true if contains a predator, false if not
+     * @return true if contains animal, false if not
      */
-    public boolean hasPredator(Position position) {
+    public boolean hasAnimal(Position position) {
         GridSquare square = getGridSquare(position);
         CopyOnWriteArraySet<Occupant> occupants = square.getOccupants();
-        boolean isPredator = false;
+        boolean isAnimal = false;
         if (!occupants.isEmpty()) {
             Iterator<Occupant> it = occupants.iterator();
-            while (it.hasNext() && !isPredator) {
-                isPredator = it.next() instanceof Predator;
+            while (it.hasNext() && !isAnimal) {
+                isAnimal = it.next() instanceof Fauna;
             }
         }
-        return isPredator;
+        return isAnimal;
     }
 
     /**
@@ -257,25 +258,25 @@ public class Island {
     }
 
     /**
-     * Get the first predator that is in this position
+     * Get the first fauna that is in this position
      *
      * @param position which position
-     * @return predator or null if there is not one here.
+     * @return fauna or null if there is not one here.
      */
-    public Predator getPredator(Position position) {
+    public Fauna getFauna(Position position) {
         GridSquare square = getGridSquare(position);
         CopyOnWriteArraySet<Occupant> occupants = square.getOccupants();
-        Predator predator = null;
+        Fauna fauna = null;
         if (!occupants.isEmpty()) {
             Iterator<Occupant> it = occupants.iterator();
-            while (it.hasNext() && predator == null) {
+            while (it.hasNext() && fauna == null) {
                 Occupant o = it.next();
-                if (o instanceof Predator) {
-                    predator = (Predator) o;
+                if (o instanceof Fauna) {
+                    fauna = (Fauna) o;
                 }
             }
         }
-        return predator;
+        return fauna;
     }
 
     /**

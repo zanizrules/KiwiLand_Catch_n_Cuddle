@@ -120,7 +120,18 @@ public class GameTest {
         island.addOccupant(playerPosition, fauna);
         game.useItem(trap);
         Assert.assertEquals(score, game.getScore());
+    }
 
+    @Test
+    public void testFaunaIsRemovedWhenTrapped() {
+        Item trap = new Trap(playerPosition,"Trap", "A predator trap",1.0, 1.0);
+        game.getPlayer().collect(trap);
+        Fauna fauna = new Fauna(playerPosition,"Fauna", "Fauna", ANIMAL_TYPE.FERNBIRD);
+        island.addOccupant(playerPosition, fauna);
+
+        Assert.assertTrue(island.hasOccupant(playerPosition, fauna));
+        game.useItem(trap);
+        Assert.assertFalse(island.hasOccupant(playerPosition, fauna));
     }
 
     @Test
@@ -131,8 +142,19 @@ public class GameTest {
         Kiwi kiwi = new Kiwi(playerPosition,"Kiwi", "A kiwi", "Random rat fact");
         island.addOccupant(playerPosition, kiwi);
         game.useItem(trap);
-        Assert.assertEquals(game.getScore(), 0);
+        Assert.assertEquals(0, game.getScore());
+    }
 
+    @Test
+    public void testKiwiIsRemovedWhenTrapped() {
+        Item trap = new Trap(playerPosition,"Trap", "A predator trap",1.0, 1.0);
+        game.getPlayer().collect(trap);
+        Kiwi kiwi = new Kiwi(playerPosition,"Kiwi", "A kiwi", "Random rat fact");
+        island.addOccupant(playerPosition, kiwi);
+
+        Assert.assertTrue(island.hasOccupant(playerPosition, kiwi));
+        game.useItem(trap);
+        Assert.assertFalse(island.hasOccupant(playerPosition, kiwi));
     }
 
 
@@ -262,7 +284,7 @@ public class GameTest {
         island.addOccupant(playerPosition, predator);
         game.useItem(trap);
         Assert.assertTrue("Player should still have trap", player.hasItem(trap));
-        Assert.assertFalse("Predator should be gone.", island.hasPredator(playerPosition));
+        Assert.assertFalse("Predator should be gone.", island.hasAnimal(playerPosition));
     }
 
     @Test
@@ -276,7 +298,7 @@ public class GameTest {
         trap.setBroken();
         game.useItem(trap);
         Assert.assertTrue("Player should still have trap", player.hasItem(trap));
-        Assert.assertTrue("Predator should still be there as trap broken.", island.hasPredator(playerPosition));
+        Assert.assertTrue("Predator should still be there as trap broken.", island.hasAnimal(playerPosition));
     }
 
     @Test
@@ -431,11 +453,11 @@ public class GameTest {
      */
     private void collectAllOriginalKiwis() {
         // Kiwi 1
-        playerMoveEast(5);
+        playerMoveEast(4);
         game.cuddleKiwi();
         // Kiwi 2
         playerMoveSouth(2);
-        playerMoveEast(1);
+        playerMoveEast(2);
         game.cuddleKiwi();
         // Kiwi 3
         playerMoveSouth(4);

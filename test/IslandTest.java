@@ -13,9 +13,9 @@ import org.junit.Test;
  * Related Class: Island
  *
  * @author Shane Birdsall
- * @version 2.0
+ * @version 3.0
  * Updates:
- *  1. Removed useless constructor
+ *  * Updated predator specific tests to test animals
  */
 public class IslandTest {
     private Island testIsland;
@@ -57,18 +57,11 @@ public class IslandTest {
     public void testGetNumColumns() {
         Assert.assertEquals(5, testIsland.getNumColumns());
     }
-    
+
     @Test
-    public void testHasPredatorNoPredator() {
-        Kiwi kiwi = new Kiwi(onIsland, "Kiwi", "Little spotted kiwi", "Random kiwi fact");
-        testIsland.addOccupant(onIsland, kiwi);
-        Assert.assertFalse(testIsland.hasPredator(onIsland));
-    }
-    
-    @Test
-    public void testHasPredatorWithPredator() {
+    public void testHasAnimalWithAnimal() {
         testIsland.addOccupant(onIsland, cat);
-        Assert.assertTrue(testIsland.hasPredator(onIsland));
+        Assert.assertTrue(testIsland.hasAnimal(onIsland));
     }
     
     @Test
@@ -139,6 +132,6 @@ public class IslandTest {
     @Test
     public void testGetPredator() {
         testIsland.addOccupant(onIsland, cat);
-        Assert.assertEquals(testIsland.getPredator(onIsland), cat);
+        Assert.assertEquals(testIsland.getFauna(onIsland), cat);
     }
 }
