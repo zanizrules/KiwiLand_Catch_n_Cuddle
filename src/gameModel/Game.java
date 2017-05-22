@@ -510,7 +510,7 @@ public class Game {
 
         return hadPredator;
     }
-    private void addToScore(int amount) { score += amount; }
+    public void addToScore(int amount) { score += amount; }
 
     private void checkForHazard() {
         //check if there are hazards

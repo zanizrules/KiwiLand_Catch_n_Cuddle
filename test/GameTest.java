@@ -113,6 +113,34 @@ public class GameTest {
     }
 
     @Test
+    public void testCanUseTrapOnFaunaDecreaseScoreBy10() {
+        int score = game.getScore() - 10;
+        Item trap = new Trap(playerPosition,"Trap", "A predator trap",1.0, 1.0);
+        game.getPlayer().collect(trap);
+        Fauna fauna= new Fauna(playerPosition,"Fauna", "Fauna", ANIMAL_TYPE.FERNBIRD);
+        island.addOccupant(playerPosition, fauna);
+        game.useItem(trap);
+        Assert.assertEquals(score, game.getScore());
+
+    }
+
+    @Test
+    public void testCanUseTrapOnKiwiResetScore() {
+        game.addToScore(20);
+        Item trap = new Trap(playerPosition,"Trap", "A predator trap",1.0, 1.0);
+        game.getPlayer().collect(trap);
+        Kiwi kiwi = new Kiwi(playerPosition,"Kiwi", "A kiwi", "Random rat fact");
+        island.addOccupant(playerPosition, kiwi);
+        game.useItem(trap);
+        Assert.assertEquals(game.getScore(), 0);
+
+    }
+
+
+
+    //Trap can be used if there is a predator here
+
+    @Test
     public void testCanUseTrapNoPredator() {
         //Trap can be used if there is a predator here
         Item tool = new Trap(playerPosition,"Trap", "A predator trap",1.0, 1.0);
