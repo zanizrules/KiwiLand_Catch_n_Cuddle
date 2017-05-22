@@ -5,6 +5,7 @@ import gameController.GameOverPopUpUI_Controller;
 import gameController.InformationPopUpUI_Controller;
 import gameModel.gameObjects.*;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -55,13 +56,14 @@ public class Game {
     private static final int MIN_NUM_OF_PREDATOR_ON_BOARD = 2;
     private static final int SPAWN_LOOP_TIMEOUT_LIMIT = 6;
     private static final int TURNS_BETWEEN_SPAWNS = 2;
+    private static final int TURNS_BETWEEN_PREDATOR_AI_MOVEMENT = 3;
 
     public Game() {
         eventListeners = new HashSet<>();
         createNewGame();
     }
 
-    public void predConsume(Predator predator){
+    public void predatorConsumeOccupantOnSameTile(Predator predator){
         for(Occupant itemToRemove : island.getOccupants(predator.getPosition())) {
             if (itemToRemove instanceof Food) {
                 predatorConsumeFood((Food) itemToRemove);
@@ -79,14 +81,16 @@ public class Game {
         island.removeOccupant(food.getPosition(), food);
     }
 
-    public void predatorMove(Predator predator) {
-        Position currentPosition = predator.getPosition();
-        Position positionToMoveTo = getNewPredatorPosition(currentPosition);
-    }
-
-    public Position getNewPredatorPosition(Position oldPosition) {
-        int row = oldPosition.getRow(); //TODO look
-        return oldPosition;
+    private void movePredatorToNewPosition(Predator predator) {
+        if(isOccupantMoveWithinTheIsland(predator, MoveDirection.NORTH) != null) {
+            occupantMove(predator, MoveDirection.NORTH);
+        } else if(isOccupantMoveWithinTheIsland(predator, MoveDirection.EAST) != null) {
+            occupantMove(predator, MoveDirection.EAST);
+        } else if(isOccupantMoveWithinTheIsland(predator, MoveDirection.SOUTH) != null) {
+            occupantMove(predator, MoveDirection.SOUTH);
+        } else if(isOccupantMoveWithinTheIsland(predator, MoveDirection.WEST) != null) {
+            occupantMove(predator, MoveDirection.WEST);
+        }
     }
 
     public int getTotalPredators() {
@@ -120,8 +124,6 @@ public class Game {
         notifyGameEventListeners();
     }
 
-
-
     public int getNumRows() {
         return island.getNumRows();
     }
@@ -147,20 +149,27 @@ public class Game {
         return player;
     }
 
-    public boolean isOccupantMovePossible(MoveDirection direction) {
-        boolean isMovePossible = false;
-        // what position is the player moving to?
-        Position newPosition = player.getPosition().getNewPosition(direction);
+    public boolean isPlayerMovePossible(MoveDirection direction) {
+        Position newPosition = isOccupantMoveWithinTheIsland(player, direction);
         // is that a valid position?
-        if ((newPosition != null) && newPosition.isOnIsland()) {
+        boolean enoughStamina = false;
+        if (newPosition != null) {
             // what is the terrain at that new position?
             Terrain newTerrain = island.getTerrain(newPosition);
             // can the player do it?
-            isMovePossible = player.hasStaminaToMove(newTerrain) &&
+            enoughStamina = player.hasStaminaToMove(newTerrain) &&
                     player.isAlive();
         }
-        return isMovePossible;
+        return enoughStamina;
     }
+
+    private Position isOccupantMoveWithinTheIsland(Occupant occupant, MoveDirection direction) {
+        Position pos = occupant.getPosition().getNewPosition(direction);
+        if (pos != null && pos.isOnIsland()) {
+            return pos;
+        } else return null;
+    }
+
 
     public Terrain getTerrain(int row, int column) {
         return island.getTerrain(new Position(island, row, column));
@@ -398,11 +407,11 @@ public class Game {
     public boolean occupantMove(Occupant occupant, MoveDirection direction) {
         // what terrain is the player moving on currently
         boolean successfulMove = false;
-        if (isOccupantMovePossible(direction)) {
+        if (isPlayerMovePossible(direction)) {
             Position newPosition = occupant.getPosition().getNewPosition(direction);
             Terrain terrain = island.getTerrain(newPosition);
 
-            // move the player to new position
+            // move the occupant to new position
             Position oldPosition = occupant.getPosition();
             occupant.moveToPosition(newPosition, terrain);
             island.updateOccupantPosition(occupant, oldPosition);
@@ -411,6 +420,11 @@ public class Game {
                 turnCount++;
                 if(turnCount % TURNS_BETWEEN_SPAWNS == 0) {
                     spawnOccupants();
+                }
+                if(turnCount % TURNS_BETWEEN_PREDATOR_AI_MOVEMENT == 0) {
+                    // todo: in here we want to call movePredatorToNewPosition(predator);
+                    // We want to do this for every predator on the island
+                    // We could store reference to all predators, or we could loop through the island.
                 }
 
                 // Is there a hazard?
@@ -490,8 +504,8 @@ public class Game {
     }
 
     private boolean playerCanMove() {
-        return (isOccupantMovePossible(MoveDirection.NORTH) || isOccupantMovePossible(MoveDirection.SOUTH)
-                || isOccupantMovePossible(MoveDirection.EAST) || isOccupantMovePossible(MoveDirection.WEST));
+        return (isPlayerMovePossible(MoveDirection.NORTH) || isPlayerMovePossible(MoveDirection.SOUTH)
+                || isPlayerMovePossible(MoveDirection.EAST) || isPlayerMovePossible(MoveDirection.WEST));
     }
 
     private boolean trapPredator() {

@@ -1,6 +1,5 @@
 import gameModel.*;
 import gameModel.gameObjects.*;
-import javafx.geometry.Pos;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -72,13 +71,13 @@ public class GameTest {
     @Test
     public void testIsPlayerMovePossibleValidMove() {
         //At start of game player has valid moves EAST, West & South
-        Assert.assertTrue("Move should be valid", game.isOccupantMovePossible(MoveDirection.SOUTH));
+        Assert.assertTrue("Move should be valid", game.isPlayerMovePossible(MoveDirection.SOUTH));
     }
 
     @Test
     public void testIsPlayerMovePossibleInvalidMove() {
         //At start of game player has valid moves EAST, West & South
-        Assert.assertFalse("Move should not be valid", game.isOccupantMovePossible(MoveDirection.NORTH));
+        Assert.assertFalse("Move should not be valid", game.isPlayerMovePossible(MoveDirection.NORTH));
     }
 
     @Test
@@ -403,14 +402,14 @@ public class GameTest {
 
     @Test
     public void testPredatorEatsFoodWhenOnSameTile() {
-        game.predConsume(rat);
+        game.predatorConsumeOccupantOnSameTile(rat);
         Assert.assertFalse(island.hasOccupant(position, apple));
     }
 
     @Test
     public void testPredatorEatsKiwiWhenOnSameTile() {
         island.addOccupant(position, kiwi);
-        game.predConsume(rat);
+        game.predatorConsumeOccupantOnSameTile(rat);
         Assert.assertFalse(island.hasOccupant(position, kiwi));
     }
 
