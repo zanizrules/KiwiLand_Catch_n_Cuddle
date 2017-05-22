@@ -41,6 +41,7 @@ public class Player extends Occupant {
         this.maxBackpackSize = maxBackpackSize;
         this.alive = true;
         this.backpack = new ArrayList<>();
+        setImage();
     }
 
     @Override
