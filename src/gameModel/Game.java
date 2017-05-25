@@ -330,7 +330,7 @@ public class Game {
         } else if (item instanceof Tool) {
             Tool tool = (Tool) item;
             if (tool instanceof Trap && !tool.isBroken()) {
-                success = trapAnimal();
+                success = trapAnimal((Trap) item);
             } else if (tool instanceof ScrewDriver)// Use screwdriver (to fix trap)
             {
                 if (player.hasTrap()) {
@@ -504,10 +504,13 @@ public class Game {
                 || isPlayerMovePossible(MoveDirection.EAST) || isPlayerMovePossible(MoveDirection.WEST));
     }
 
-    private boolean trapAnimal() {
+    private boolean trapAnimal(Trap trap) {
         Position current = player.getPosition();
         boolean hadAnimal = island.hasAnimal(current);
         if (hadAnimal) { //can trap it
+            // Calculate chance of trap breaking
+            trap.calculateChanceOfBreaking();
+
             Fauna fauna = island.getFauna(current);
             //Animal has been trapped so remove
             island.removeOccupant(current, fauna);
