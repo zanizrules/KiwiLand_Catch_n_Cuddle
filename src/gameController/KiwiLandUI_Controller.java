@@ -107,6 +107,7 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
         keyMappings.put(KeyCode.A, "west");
         keyMappings.put(KeyCode.S, "south");
         keyMappings.put(KeyCode.D, "east");
+        keyMappings.put(KeyCode.F1, "revealMap");
     }
 
     @FXML
@@ -182,6 +183,10 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
                 break;
             case "east":
                 game.occupantMove(MoveDirection.EAST);
+                break;
+            case "revealMap":
+                GridSquarePanel.toggleRevealMap();
+                update();
                 break;
             // Do nothing if invalid command
         }
