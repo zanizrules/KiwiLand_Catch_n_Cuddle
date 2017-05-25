@@ -558,6 +558,7 @@ public class GameTest {
         boolean success = false;
         for (int i = 0; i < numberOfMoves; i++) {
             success = game.occupantMove(MoveDirection.NORTH);
+
             if(!success) break;
         } return success;
     }
