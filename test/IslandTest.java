@@ -1,6 +1,5 @@
 import gameModel.*;
 import gameModel.gameObjects.ANIMAL_TYPE;
-import gameModel.gameObjects.Kiwi;
 import gameModel.gameObjects.Player;
 import gameModel.gameObjects.Predator;
 import org.junit.After;

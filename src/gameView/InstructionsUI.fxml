@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -33,7 +34,8 @@
                   <VBox.margin>
                      <Insets left="125.0"/>
                   </VBox.margin>
-                  <ImageView fitHeight="180.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="180.0" fitWidth="130.0" pickOnBounds="true"
+                             preserveRatio="true">
                      <Image url="@/gameModel/gameObjects/images/player.png"/>
                   </ImageView>
                   <Label prefHeight="239.0" prefWidth="513.0"
@@ -48,7 +50,8 @@
                   <VBox.margin>
                      <Insets left="125.0"/>
                   </VBox.margin>
-                  <ImageView fitHeight="165.0" fitWidth="136.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="165.0" fitWidth="136.0" pickOnBounds="true"
+                             preserveRatio="true">
                      <Image url="@/gameModel/gameObjects/images/kiwi.png"/>
                   </ImageView>
                   <Label prefHeight="183.0" prefWidth="344.0"
@@ -62,7 +65,8 @@
                   <VBox.margin>
                      <Insets left="125.0"/>
                   </VBox.margin>
-                  <ImageView fitHeight="125.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="125.0" fitWidth="144.0" pickOnBounds="true"
+                             preserveRatio="true">
                      <Image url="@/gameModel/gameObjects/images/rat2.png"/>
                   </ImageView>
                   <Label prefHeight="150.0" prefWidth="641.0"
@@ -100,7 +104,8 @@
                   <VBox.margin>
                      <Insets left="125.0"/>
                   </VBox.margin>
-                  <ImageView fitHeight="225.0" fitWidth="228.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="225.0" fitWidth="228.0" pickOnBounds="true"
+                             preserveRatio="true">
                      <Image url="@/gameModel/gameObjects/images/playerSurroundings.png"/>
                   </ImageView>
                   <Label prefHeight="236.0" prefWidth="625.0"
@@ -115,7 +120,8 @@
                   <padding>
                      <Insets left="125.0"/>
                   </padding>
-                  <ImageView fitHeight="156.0" fitWidth="233.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="156.0" fitWidth="233.0" pickOnBounds="true"
+                             preserveRatio="true">
                      <Image url="@/gameModel/gameObjects/images/wasd.png"/>
                   </ImageView>
                   <Label prefHeight="160.0" prefWidth="633.0"
@@ -130,7 +136,8 @@
                   <padding>
                      <Insets left="125.0"/>
                   </padding>
-                  <ImageView fitHeight="225.0" fitWidth="242.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="225.0" fitWidth="242.0" pickOnBounds="true"
+                             preserveRatio="true">
                      <Image url="@/gameModel/gameObjects/images/hazard.png"/>
                   </ImageView>
                   <Label prefHeight="225.0" prefWidth="636.0"
@@ -166,7 +173,8 @@
                   <padding>
                      <Insets left="125.0"/>
                   </padding>
-                  <ImageView fitHeight="156.0" fitWidth="167.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="156.0" fitWidth="167.0" pickOnBounds="true"
+                             preserveRatio="true">
                      <Image url="@/gameModel/gameObjects/images/sandwich.png"/>
                   </ImageView>
                   <Label prefHeight="153.0" prefWidth="619.0"
@@ -181,7 +189,8 @@
                   <padding>
                      <Insets left="125.0"/>
                   </padding>
-                  <ImageView fitHeight="161.0" fitWidth="162.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="161.0" fitWidth="162.0" pickOnBounds="true"
+                             preserveRatio="true">
                      <Image url="@/gameModel/gameObjects/images/trap.png"/>
                   </ImageView>
                   <Label prefHeight="161.0" prefWidth="635.0"
@@ -196,11 +205,12 @@
                   <padding>
                      <Insets left="125.0"/>
                   </padding>
-                  <ImageView fitHeight="170.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="170.0" fitWidth="180.0" pickOnBounds="true"
+                             preserveRatio="true">
                      <Image url="@/gameModel/gameObjects/images/tool.png"/>
                   </ImageView>
                   <Label prefHeight="170.0" prefWidth="633.0"
-                         text="Occasionally traps can break and need a screwdriver to be fixed. If you have a broken trap make sure to find one quickly!"
+                         text="The more a trap is used, the more likely it will break! A screwdriver can be used to fix traps. So if you have a broken trap make sure to find one quickly!"
                          wrapText="true">
                      <font>
                         <Font size="18.0"/>

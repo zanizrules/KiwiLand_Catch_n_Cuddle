@@ -1,15 +1,11 @@
 import gameModel.*;
 import gameModel.Position;
-import gameModel.gameObjects.ANIMAL_TYPE;
 import gameModel.gameObjects.Predator;
-import gameModel.gameObjects.Tool;
 import gameModel.gameObjects.Trap;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import javax.swing.text.*;
 
 /**
  * Test: ToolTest

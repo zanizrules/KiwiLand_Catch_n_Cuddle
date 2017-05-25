@@ -3,7 +3,6 @@ package gameModel;
 import gameModel.gameObjects.Fauna;
 import gameModel.gameObjects.Occupant;
 import gameModel.gameObjects.Player;
-import gameModel.gameObjects.Predator;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
