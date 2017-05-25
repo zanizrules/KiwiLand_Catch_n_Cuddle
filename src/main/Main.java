@@ -30,8 +30,8 @@ public class Main extends Application {
             usersScreenWidth -= 100;
             usersScreenHeight -= 100;
             System.out.println("4:3");
-        } else if(usersScreenWidth/16 == usersScreenHeight/10) {
-            // User has a 16:9 screen
+        } else {
+            // User has a 16:10 screen, or close to it
             usersScreenWidth -= 600;
             usersScreenHeight -= 200;
             System.out.println("16:10");
