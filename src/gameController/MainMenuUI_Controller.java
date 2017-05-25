@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import main.Main;
 
 import java.io.IOException;
 
@@ -49,23 +50,14 @@ public class MainMenuUI_Controller {
 
         // get reference to the button's stage
         stage = (Stage) playButton.getScene().getWindow();
+
         // load up OTHER FXML document
         root = FXMLLoader.load(getClass().getResource(filePath));
 
-        /*
-            Source for the idea behind the following resize code:
-            http://gillius.org/blog/2013/02/javafx-window-scaling-on-resize.html
-         */
-        if(root.getPrefWidth() == Region.USE_COMPUTED_SIZE) {
-            root.setPrefWidth(sceneWidth);
-        } else sceneWidth = root.getPrefWidth();
-        if(root.getPrefHeight() == Region.USE_COMPUTED_SIZE) {
-            root.setPrefHeight(sceneHeight);
-        } else sceneHeight = root.getPrefHeight();
-
         Group group = new Group(root);
         StackPane rootPane = new StackPane(group);
-        Scene scene = new Scene(rootPane);
+        Scene scene = new Scene(rootPane, Main.usersScreenWidth, Main.usersScreenHeight);
+
         group.scaleXProperty().bind(scene.widthProperty().divide(sceneWidth));
         group.scaleYProperty().bind(scene.heightProperty().divide(sceneHeight));
         stage.setScene(scene);

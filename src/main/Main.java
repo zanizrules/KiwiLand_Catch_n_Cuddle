@@ -8,34 +8,51 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.IOException;
+
 public class Main extends Application {
+    public static int usersScreenWidth;
+    public static int usersScreenHeight;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Region root = FXMLLoader.load(getClass().getResource("/gameView/mainMenuUI.fxml"));
-        primaryStage.setTitle("KiwiLand Catch n Cuddle");
+    public void start(Stage primaryStage) throws Exception {
+        GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        usersScreenWidth = graphicsDevice.getDisplayMode().getWidth();
+        usersScreenHeight = graphicsDevice.getDisplayMode().getHeight();
+
+        if(usersScreenWidth/16 == usersScreenHeight/9) {
+            // User has a 16:9 screen
+            usersScreenWidth -= 600;
+            usersScreenHeight -= 100;
+            System.out.println("16:9");
+        } else if(usersScreenWidth/4 == usersScreenHeight/3) {
+            // User has a 4:3 screen
+            usersScreenWidth -= 100;
+            usersScreenHeight -= 100;
+            System.out.println("4:3");
+        }
+
+        loadMenu(primaryStage);
+    }
+
+
+    /* I got help with window rescaling from the following source:
+    http://gillius.org/blog/2013/02/javafx-window-scaling-on-resize.html */
+    public static void loadMenu(Stage stage) throws IOException {
+        Region root = FXMLLoader.load(Main.class.getResource("/gameView/mainMenuUI.fxml"));
+        stage.setTitle("KiwiLand Catch n Cuddle");
 
         double sceneWidth = 1280;
         double sceneHeight = 960;
 
-        /*
-            Source for the idea behind the following resize code:
-            http://gillius.org/blog/2013/02/javafx-window-scaling-on-resize.html
-         */
-        if(root.getPrefWidth() == Region.USE_COMPUTED_SIZE) {
-            root.setPrefWidth(sceneWidth);
-        } else sceneWidth = root.getPrefWidth();
-        if(root.getPrefHeight() == Region.USE_COMPUTED_SIZE) {
-            root.setPrefHeight(sceneHeight);
-        } else sceneHeight = root.getPrefHeight();
-
         Group group = new Group(root);
         StackPane rootPane = new StackPane(group);
-        Scene kiwiLandScene = new Scene(rootPane, sceneWidth, sceneHeight);
+        Scene kiwiLandScene = new Scene(rootPane, usersScreenWidth, usersScreenHeight);
         group.scaleXProperty().bind(kiwiLandScene.widthProperty().divide(sceneWidth));
         group.scaleYProperty().bind(kiwiLandScene.heightProperty().divide(sceneHeight));
-        primaryStage.setScene(kiwiLandScene);
-        primaryStage.show();
+        stage.setScene(kiwiLandScene);
+        stage.show();
     }
 
     public static void main(String[] args) {
