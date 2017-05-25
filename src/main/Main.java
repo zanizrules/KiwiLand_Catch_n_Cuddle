@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
 import java.awt.*;
 import java.io.IOException;
 
@@ -31,8 +30,12 @@ public class Main extends Application {
             usersScreenWidth -= 100;
             usersScreenHeight -= 100;
             System.out.println("4:3");
+        } else if(usersScreenWidth/16 == usersScreenHeight/10) {
+            // User has a 16:9 screen
+            usersScreenWidth -= 600;
+            usersScreenHeight -= 200;
+            System.out.println("16:10");
         }
-
         loadMenu(primaryStage);
     }
 
