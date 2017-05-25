@@ -25,7 +25,8 @@ public class Main extends Application {
             usersScreenWidth -= 600;
             usersScreenHeight -= 100;
             System.out.println("16:9");
-        } else if(usersScreenWidth/4 == usersScreenHeight/3) {
+        } else if(usersScreenWidth/4 == usersScreenHeight/3
+                || usersScreenWidth/5 == usersScreenHeight/4) {
             // User has a 4:3 screen
             usersScreenWidth -= 100;
             usersScreenHeight -= 100;
