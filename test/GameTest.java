@@ -494,8 +494,9 @@ public class GameTest {
 
     private void trapAllOriginalPredators() {
         //Firstly player needs a trap
-        Tool trap = new Trap(playerPosition,"Trap", "A predator trap",1.0, 1.0);
+        Trap trap = new Trap(playerPosition,"Trap", "A predator trap",1.0, 1.0);
         game.collectItem(trap);
+        trap.setDurability(-7); // Ensure it does not break
 
         //Now player needs to trap all predators
         //Predator 1
