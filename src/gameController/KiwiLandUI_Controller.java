@@ -12,20 +12,14 @@ import gameModel.gameObjects.Occupant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import main.Main;
 
@@ -205,7 +199,7 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
             game.showPopUpGameOverScreen();
             game.createNewGame();
         } else if (game.messageForPlayer()) {
-            game.showPopUpFact(HAZARD_IMAGE, "Important Information", game.getPlayerMessage());
+            game.showPopUpInformation(HAZARD_IMAGE, "Important Information", game.getPlayerMessage());
         }
     }
 

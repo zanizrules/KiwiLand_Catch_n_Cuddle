@@ -6,7 +6,6 @@ import gameController.InformationPopUpUI_Controller;
 import gameModel.gameObjects.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
@@ -333,8 +332,10 @@ public class Game {
             notifyGameEventListeners();
         } else if (item instanceof Tool) {
             Tool tool = (Tool) item;
-            if (tool instanceof Trap && !tool.isBroken()) {
-                success = trapAnimal((Trap) item);
+            if (tool instanceof Trap) {
+                if(tool.isBroken()) {
+                    showPopUpInformation(tool.getImage(), "Your Trap Is Broken!", "You must fix your trap with a screwdriver before using it");
+                } else success = trapAnimal((Trap) item);
             } else if (tool instanceof ScrewDriver)// Use screwdriver (to fix trap)
             {
                 if (player.hasTrap()) {
@@ -359,14 +360,14 @@ public class Game {
                 addToScore(10);
                 kiwi.reset();
                 kiwiQueue.offer(kiwi);
-                showPopUpFact(kiwi.getImage(), "You Cuddled: " + kiwi.getDescription(), kiwi.getKiwiFact());
+                showPopUpInformation(kiwi.getImage(), "You Cuddled: " + kiwi.getDescription(), kiwi.getKiwiFact());
                 break;
             }
         }
         updateGameState();
     }
 
-    public void showPopUpFact(Image image, String name, String description) {
+    public void showPopUpInformation(Image image, String name, String description) {
         try {
             InformationPopUpUI_Controller.setValues(image, name, description);
             Region root = FXMLLoader.load(getClass().getResource("/gameView/InformationPopUpUI.fxml"));
@@ -534,16 +535,16 @@ public class Game {
                 predatorsTrapped++;
                 totalPredators--;
                 addToScore(10);
-                showPopUpFact(predator.getImage(), "You Captured: " + predator.getDescription(),
+                showPopUpInformation(predator.getImage(), "You Captured: " + predator.getDescription(),
                         predator.getPredatorFact());
             } else if(fauna instanceof Kiwi) {
                 resetScore();
-                showPopUpFact(fauna.getImage(), "You Captured: " + fauna.getDescription(),
+                showPopUpInformation(fauna.getImage(), "You Captured: " + fauna.getDescription(),
                         "What have you done!? You are damaging the kiwi population!  ");
             } else { // Ordinary Fauna
                 addToScore(-10);
                 System.out.println("YOU CAUGHT INNOCENT FAUNA :'(");
-                showPopUpFact(fauna.getImage(), "You Captured: " + fauna.getName(),
+                showPopUpInformation(fauna.getImage(), "You Captured: " + fauna.getName(),
                         "You captured an animal which is not a threat to Kiwis! How cruel!");
             }
 
