@@ -5,11 +5,14 @@ import gameController.GameOverPopUpUI_Controller;
 import gameController.InformationPopUpUI_Controller;
 import gameModel.gameObjects.*;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.Main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -329,8 +332,10 @@ public class Game {
             notifyGameEventListeners();
         } else if (item instanceof Tool) {
             Tool tool = (Tool) item;
-            if (tool instanceof Trap && !tool.isBroken()) {
-                success = trapAnimal();
+            if (tool instanceof Trap) {
+                if(tool.isBroken()) {
+                    showPopUpInformation(tool.getImage(), "Your Trap Is Broken!", "You must fix your trap with a screwdriver before using it");
+                } else success = trapAnimal((Trap) item);
             } else if (tool instanceof ScrewDriver)// Use screwdriver (to fix trap)
             {
                 if (player.hasTrap()) {
@@ -355,17 +360,17 @@ public class Game {
                 addToScore(10);
                 kiwi.reset();
                 kiwiQueue.offer(kiwi);
-                showPopUpFact(kiwi.getImage(), "You Cuddled: " + kiwi.getDescription(), kiwi.getKiwiFact());
+                showPopUpInformation(kiwi.getImage(), "You Cuddled: " + kiwi.getDescription(), kiwi.getKiwiFact());
                 break;
             }
         }
         updateGameState();
     }
 
-    public void showPopUpFact(Image image, String name, String description) {
+    public void showPopUpInformation(Image image, String name, String description) {
         try {
             InformationPopUpUI_Controller.setValues(image, name, description);
-            Parent root = FXMLLoader.load(getClass().getResource("/gameView/InformationPopUpUI.fxml"));
+            Region root = FXMLLoader.load(getClass().getResource("/gameView/InformationPopUpUI.fxml"));
             showPopUpScene(root, name);
         } catch (IOException e) {
             e.printStackTrace();
@@ -378,7 +383,7 @@ public class Game {
         PlayerScore score = new PlayerScore("", getScore(), kiwisCuddled, predatorsTrapped);
         try {
             GameOverPopUpUI_Controller.setValues(score, getLoseMessage());
-            Parent root = FXMLLoader.load(getClass().getResource("/gameView/GameOverPopUpUI.fxml"));
+            Region root = FXMLLoader.load(getClass().getResource("/gameView/GameOverPopUpUI.fxml"));
             showPopUpScene(root, "Game Over!");
         } catch (IOException e) {
             e.printStackTrace();
@@ -387,9 +392,18 @@ public class Game {
         }
     }
 
-    private void showPopUpScene(Parent root, String name) {
+    private void showPopUpScene(Region root, String name) {
+        double sceneWidth = 900;
+        double sceneHeight = 400;
+
         Stage newStage = new Stage();
-        Scene scene = new Scene(root);
+        Group group = new Group(root);
+        StackPane rootPane = new StackPane(group);
+        Scene scene = new Scene(rootPane, Main.usersScreenWidth/1.42, Main.usersScreenHeight/2.4);
+
+        group.scaleXProperty().bind(scene.widthProperty().divide(sceneWidth));
+        group.scaleYProperty().bind(scene.heightProperty().divide(sceneHeight));
+
         newStage.setScene(scene);
         newStage.initModality(Modality.APPLICATION_MODAL);
         newStage.setTitle(name);
@@ -504,10 +518,13 @@ public class Game {
                 || isPlayerMovePossible(MoveDirection.EAST) || isPlayerMovePossible(MoveDirection.WEST));
     }
 
-    private boolean trapAnimal() {
+    private boolean trapAnimal(Trap trap) {
         Position current = player.getPosition();
         boolean hadAnimal = island.hasAnimal(current);
         if (hadAnimal) { //can trap it
+            // Calculate chance of trap breaking
+            trap.calculateChanceOfBreaking();
+
             Fauna fauna = island.getFauna(current);
             //Animal has been trapped so remove
             island.removeOccupant(current, fauna);
@@ -518,16 +535,16 @@ public class Game {
                 predatorsTrapped++;
                 totalPredators--;
                 addToScore(10);
-                showPopUpFact(predator.getImage(), "You Captured: " + predator.getDescription(),
+                showPopUpInformation(predator.getImage(), "You Captured: " + predator.getDescription(),
                         predator.getPredatorFact());
             } else if(fauna instanceof Kiwi) {
                 resetScore();
-                showPopUpFact(fauna.getImage(), "You Captured: " + fauna.getDescription(),
+                showPopUpInformation(fauna.getImage(), "You Captured: " + fauna.getDescription(),
                         "What have you done!? You are damaging the kiwi population!  ");
             } else { // Ordinary Fauna
                 addToScore(-10);
                 System.out.println("YOU CAUGHT INNOCENT FAUNA :'(");
-                showPopUpFact(fauna.getImage(), "You Captured: " + fauna.getName(),
+                showPopUpInformation(fauna.getImage(), "You Captured: " + fauna.getName(),
                         "You captured an animal which is not a threat to Kiwis! How cruel!");
             }
 

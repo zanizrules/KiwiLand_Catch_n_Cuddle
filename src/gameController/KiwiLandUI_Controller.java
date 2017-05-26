@@ -12,11 +12,8 @@ import gameModel.gameObjects.Occupant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -24,6 +21,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import main.Main;
 
 /**
  * Main Game Screen/UI for KiwiLand Catch n Cuddle.
@@ -103,6 +101,7 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
         keyMappings.put(KeyCode.A, "west");
         keyMappings.put(KeyCode.S, "south");
         keyMappings.put(KeyCode.D, "east");
+        keyMappings.put(KeyCode.F1, "revealMap");
     }
 
     @FXML
@@ -115,11 +114,7 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
 
     @FXML
     private void exitButtonClick() throws IOException { // Called when exit button is clicked
-            Stage stage = (Stage) exitButton.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/gameView/mainMenuUI.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+        Main.loadMenu((Stage) exitButton.getScene().getWindow());
     }
 
     @FXML
@@ -183,6 +178,10 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
             case "east":
                 game.occupantMove(MoveDirection.EAST);
                 break;
+            case "revealMap":
+                GridSquarePanel.toggleRevealMap();
+                update();
+                break;
             // Do nothing if invalid command
         }
     }
@@ -200,7 +199,7 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
             game.showPopUpGameOverScreen();
             game.createNewGame();
         } else if (game.messageForPlayer()) {
-            game.showPopUpFact(HAZARD_IMAGE, "Important Information", game.getPlayerMessage());
+            game.showPopUpInformation(HAZARD_IMAGE, "Important Information", game.getPlayerMessage());
         }
     }
 

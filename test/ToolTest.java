@@ -1,5 +1,6 @@
 import gameModel.*;
-import gameModel.gameObjects.Tool;
+import gameModel.Position;
+import gameModel.gameObjects.Predator;
 import gameModel.gameObjects.Trap;
 import org.junit.After;
 import org.junit.Assert;
@@ -16,9 +17,11 @@ import org.junit.Test;
  *  1. Removed useless constructor
  */
 public class ToolTest {
-    private Tool trap;
+    private Trap trap;
     private Position position;
     private Island island;
+    private Game game;
+    private Predator rat;
 
     /**
      * Sets up the test fixture.
@@ -29,6 +32,7 @@ public class ToolTest {
         island = new Island(5,5);
         position = new Position(island, 2,3);
         trap = new Trap(position, "Trap", "A predator trap", 2.0, 3.0);
+        game = new Game();
     }
 
     /**
@@ -60,6 +64,26 @@ public class ToolTest {
         Assert.assertTrue("Should  be broken", trap.isBroken());
         trap.fix();
         Assert.assertFalse("Should  not be broken", trap.isBroken());
+    }
+
+    @Test
+    public void testDurabilityChangesOnUse(){
+        Position newPosition = new Position(game.getIsland(), 2, 6);
+        game.getPlayer().setPosition(newPosition);
+        game.getPlayer().collect(trap);
+        int durability = trap.getDurability();
+        game.useItem(trap);
+        Assert.assertNotEquals(durability, trap.getDurability());
+    }
+
+    @Test
+    public void testDurabilityMakesTrapBreak(){
+        trap.setDurability(Trap.MAX_DURABILITY);
+        Position newPosition = new Position(game.getIsland(), 4, 1);
+        game.getPlayer().setPosition(newPosition);
+        game.getPlayer().collect(trap);
+        game.useItem(trap);
+        Assert.assertTrue(trap.isBroken());
     }
 
     @Test
