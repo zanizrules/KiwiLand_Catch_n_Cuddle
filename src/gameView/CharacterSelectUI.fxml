@@ -129,15 +129,21 @@
                   </VBox>
                </children>
             </HBox>
-            <Button fx:id="selectBtn" minHeight="60.0" mnemonicParsing="false" prefWidth="120.0" text="SELECT">
+            <Button fx:id="selectBtn" minHeight="60.0" mnemonicParsing="false" prefWidth="120.0" text="Select">
                <VBox.margin>
                   <Insets left="600.0" top="150.0" />
                </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
             </Button>
-            <Button fx:id="returnBtn" minHeight="60.0" mnemonicParsing="false" prefWidth="120.0" text="RETURN">
+            <Button fx:id="returnBtn" minHeight="60.0" mnemonicParsing="false" prefWidth="120.0" text="Return">
                <VBox.margin>
                   <Insets left="1125.0" />
                </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
             </Button>
          </children></VBox>
    </children>
