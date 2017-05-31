@@ -71,6 +71,7 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
         game = new Game();
         if(selectedCharacter != null && !selectedCharacter.isEmpty()) {
             game.getPlayer().setImage(selectedCharacter);
+            game.getPlayer().setName(selectedCharacter);
         }
         keyMappings = new HashMap<>();
         setUpKeys();

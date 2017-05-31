@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
 public abstract class Occupant {
     private Position position;
     private Position previousPosition;
-    private final String name;
+    protected String name;
     String description;
     private Image image;
 

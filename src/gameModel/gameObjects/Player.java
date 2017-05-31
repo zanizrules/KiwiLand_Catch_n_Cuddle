@@ -51,11 +51,15 @@ public class Player extends Occupant {
 
     @Override
     protected void setImage() {
-        super.setImage("images/player.png");
+        setImage("player");
     }
 
-    public void setImage(String imageLoc) {
-        super.setImage(imageLoc);
+    public void setImage(String name) {
+        super.setImage("images/" + name + ".png");
+    }
+
+    public void setName(String newName) {
+        name = newName;
     }
 
     /**

@@ -42,22 +42,22 @@ public class CharacterSelectUI_Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         characterRadioButtons = new ToggleGroup();
         character1.setToggleGroup(characterRadioButtons);
-        character1.setUserData("images/Abigail.png");
+        character1.setUserData("Abigail");
 
         character2.setToggleGroup(characterRadioButtons);
-        character2.setUserData("images/Gus.png");
+        character2.setUserData("Gus");
 
         character3.setToggleGroup(characterRadioButtons);
-        character3.setUserData("images/Penny.png");
+        character3.setUserData("Penny");
 
         character4.setToggleGroup(characterRadioButtons);
-        character4.setUserData("images/Elliot.png");
+        character4.setUserData("Elliot");
 
         character5.setToggleGroup(characterRadioButtons);
-        character5.setUserData("images/Alex.png");
+        character5.setUserData("Alex");
 
         character6.setToggleGroup(characterRadioButtons);
-        character6.setUserData("images/Demitrius.png");
+        character6.setUserData("Demitrius");
     }
 
     @FXML
