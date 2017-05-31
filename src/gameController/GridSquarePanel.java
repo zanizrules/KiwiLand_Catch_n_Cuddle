@@ -21,7 +21,7 @@ class GridSquarePanel extends Label {
     private final Game game;
     private final int row, column;
     private ImageView imageView;
-    private static Image playerImage = null;
+    private static Image playerImage;
 
     // Terrain Images
     private static final Image DEFAULT_TERRAIN = new Image(GridSquarePanel.class.getResource("/gameModel/gameObjects/images/wetland.png").toExternalForm());
@@ -33,9 +33,7 @@ class GridSquarePanel extends Label {
 
     GridSquarePanel(Game game, int row, int column) {
         this.game = game;
-        if (playerImage == null) {
-            playerImage = game.getPlayer().getImage();
-        }
+        playerImage = game.getPlayer().getImage();
         this.row = row;
         this.column = column;
         initComponents();

@@ -5,7 +5,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import main.Main;
 
@@ -24,7 +23,6 @@ public class CharacterSelectUI_Controller implements Initializable {
     private Button selectButton;
     @FXML
     private Button returnButton;
-
     @FXML
     private RadioButton character1;
     @FXML
@@ -38,20 +36,28 @@ public class CharacterSelectUI_Controller implements Initializable {
     @FXML
     private RadioButton character6;
 
-    public CharacterSelectUI_Controller() {
-
-    }
-
+    private ToggleGroup characterRadioButtons;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ToggleGroup characterRadioButtons = new ToggleGroup();
+        characterRadioButtons = new ToggleGroup();
         character1.setToggleGroup(characterRadioButtons);
+        character1.setUserData("images/Abigail.png");
+
         character2.setToggleGroup(characterRadioButtons);
+        character2.setUserData("images/Gus.png");
+
         character3.setToggleGroup(characterRadioButtons);
+        character3.setUserData("images/Penny.png");
+
         character4.setToggleGroup(characterRadioButtons);
+        character4.setUserData("images/Elliot.png");
+
         character5.setToggleGroup(characterRadioButtons);
+        character5.setUserData("images/Alex.png");
+
         character6.setToggleGroup(characterRadioButtons);
+        character6.setUserData("images/Demitrius.png");
     }
 
     @FXML
@@ -61,8 +67,10 @@ public class CharacterSelectUI_Controller implements Initializable {
 
     @FXML
     public void selectButtonClick() throws IOException { // Called when return button is clicked
-        // todo
-
+        if(characterRadioButtons.getSelectedToggle() != null) {
+            KiwiLandUI_Controller.setSelectedCharacter(
+                    (String) characterRadioButtons.getSelectedToggle().getUserData());
+        }
         Main.loadScene((Stage) selectButton.getScene().getWindow(), "/gameView/KiwiLandUI.fxml");
     }
 }

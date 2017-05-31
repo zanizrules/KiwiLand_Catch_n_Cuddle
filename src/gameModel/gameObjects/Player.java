@@ -54,6 +54,10 @@ public class Player extends Occupant {
         super.setImage("images/player.png");
     }
 
+    public void setImage(String imageLoc) {
+        super.setImage(imageLoc);
+    }
+
     /**
      * Checks if Player is still alive
      *

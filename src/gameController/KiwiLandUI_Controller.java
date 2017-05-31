@@ -64,10 +64,14 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
     private final HashMap<KeyCode, String> keyMappings;
     private final static Image HAZARD_IMAGE
             = new Image(Hazard.class.getResource("images/hazard.png").toExternalForm());
+    private static String selectedCharacter;
 
     public KiwiLandUI_Controller() {
         // Default constructor is the first thing to be called.
         game = new Game();
+        if(selectedCharacter != null && !selectedCharacter.isEmpty()) {
+            game.getPlayer().setImage(selectedCharacter);
+        }
         keyMappings = new HashMap<>();
         setUpKeys();
     }
@@ -94,6 +98,10 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
         }
         setAsGameListener();
         update();
+    }
+
+    static void setSelectedCharacter(String imageLoc) {
+        selectedCharacter = imageLoc;
     }
 
     private void setUpKeys() { // Set up the key mappings
