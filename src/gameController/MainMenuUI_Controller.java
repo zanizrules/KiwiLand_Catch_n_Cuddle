@@ -32,7 +32,8 @@ public class MainMenuUI_Controller {
     private void handleButtonClick(ActionEvent event) throws IOException {
 
         if(event.getSource() == playButton) {
-            loadFXML("/gameView/KiwiLandUI.fxml");
+            loadFXML("/gameView/CharacterSelectUI.fxml");
+            //loadFXML("/gameView/KiwiLandUI.fxml");
         } else if(event.getSource() == highscoresButton) {
             loadFXML("/gameView/HighScoresUI.fxml");
         } else if(event.getSource() == instructionsButton) {
