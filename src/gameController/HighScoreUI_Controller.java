@@ -16,7 +16,7 @@ import java.io.IOException;
  * Author: Shane Birdsall
  * ID: 14870204
  * Date: 27/04/2017.
- *
+ * Highscore controller that handles populating the UI with highscores, and returning to the main menu.
  */
 public class HighScoreUI_Controller {
     @FXML

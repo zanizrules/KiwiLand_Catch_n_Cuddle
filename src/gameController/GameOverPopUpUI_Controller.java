@@ -14,7 +14,7 @@ import static gameController.HighScoreController.checkIfPlayerScoreIsHighScore;
  * Author: Shane Birdsall
  * ID: 14870204
  * Date: 27/04/2017.
- *
+ * Controller for the games game over pop ups that also handle user input for high scores.
  */
 public class GameOverPopUpUI_Controller {
 

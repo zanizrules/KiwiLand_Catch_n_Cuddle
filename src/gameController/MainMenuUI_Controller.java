@@ -17,10 +17,9 @@ import java.io.IOException;
  * Author: Shane Birdsall
  * ID: 14870204
  * Date: 26/04/2017.
- * Insert Description...
+ * Main menu controller that handles scene switching between the game, instructions, and high scores.
  */
 public class MainMenuUI_Controller {
-
     @FXML
     private Button playButton;
     @FXML
@@ -30,14 +29,12 @@ public class MainMenuUI_Controller {
 
     @FXML
     private void handleButtonClick(ActionEvent event) throws IOException {
-
         if(event.getSource() == playButton) {
             loadFXML("/gameView/CharacterSelectUI.fxml");
         } else if(event.getSource() == highscoresButton) {
             loadFXML("/gameView/HighScoresUI.fxml");
         } else if(event.getSource() == instructionsButton) {
             loadFXML("/gameView/InstructionsUI.fxml");
-
         }
     }
 

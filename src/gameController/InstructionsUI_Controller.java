@@ -11,6 +11,7 @@ import java.io.IOException;
  * Author: Shane Birdsall
  * ID: 14870204
  * Date: 27/04/2017.
+ * Instructions controller that handles returning to the main menu.
  */
 public class InstructionsUI_Controller {
     @FXML

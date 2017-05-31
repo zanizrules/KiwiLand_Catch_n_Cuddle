@@ -11,7 +11,7 @@ import javafx.stage.Stage;
  * Author: Shane Birdsall
  * ID: 14870204
  * Date: 27/04/2017.
- *
+ * Controller for the games info pop ups.
  */
 public class InformationPopUpUI_Controller {
     @FXML
