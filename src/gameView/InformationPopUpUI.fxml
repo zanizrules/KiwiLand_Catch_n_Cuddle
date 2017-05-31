@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
             prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
@@ -14,7 +14,7 @@
             <Insets left="25.0" top="25.0"/>
          </HBox.margin>
       </ImageView>
-      <VBox prefHeight="362.0" prefWidth="663.0">
+      <VBox alignment="TOP_RIGHT" prefHeight="362.0" prefWidth="663.0">
          <Label fx:id="nameLabel" prefHeight="103.0" prefWidth="638.0" wrapText="true">
             <font>
                <Font name="System Bold" size="35.0"/>
@@ -32,14 +32,23 @@
                <Font size="22.0"/>
             </font>
          </Label>
+         <Hyperlink alignment="TOP_LEFT" prefHeight="23.0" prefWidth="644.0"
+                    text="Click for more interesting information!" underline="true">
+            <font>
+               <Font size="18.0"/>
+            </font>
+            <padding>
+               <Insets left="20.0"/>
+            </padding>
+            <VBox.margin>
+               <Insets/>
+            </VBox.margin>
+         </Hyperlink>
          <Button fx:id="okButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
                  onAction="#okButtonClick" prefHeight="40.0" prefWidth="90.0" text="OK" textAlignment="CENTER">
             <font>
                <Font name="System Bold" size="24.0"/>
             </font>
-            <VBox.margin>
-               <Insets left="540.0" top="25.0"/>
-            </VBox.margin>
          </Button>
       </VBox>
    </HBox>
