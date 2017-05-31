@@ -15,7 +15,9 @@ import java.util.ResourceBundle;
 /**
  * Author: Shane Birdsall
  * ID: 14870204
- * Date: 27/04/2017.
+ * Date: 31/05/2017.
+ * Controller class for the character select screen.
+ * Handles character selection and returning to the main menu.
  */
 public class CharacterSelectUI_Controller implements Initializable {
 
