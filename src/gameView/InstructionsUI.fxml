@@ -78,7 +78,7 @@
                   </Label>
                </HBox>
             </VBox>
-            <Button fx:id="restartButton" layoutX="1133.0" layoutY="845.0" mnemonicParsing="false"
+            <Button fx:id="returnButton" layoutX="1133.0" layoutY="845.0" mnemonicParsing="false"
                     onAction="#returnButtonClick" prefHeight="60.0" prefWidth="120.0" text="Return">
                <font>
                   <Font name="System Bold" size="16.0"/>

@@ -14,10 +14,10 @@ import java.io.IOException;
  */
 public class InstructionsUI_Controller {
     @FXML
-    private Button restartButton;
+    private Button returnButton;
 
     @FXML
     public void returnButtonClick() throws IOException { // Called when return button is clicked
-        Main.loadMenu((Stage) restartButton.getScene().getWindow());
+        Main.loadMenu((Stage) returnButton.getScene().getWindow());
     }
 }
