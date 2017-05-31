@@ -1,11 +1,14 @@
 package gameController;
 
-import gameController.HighScoreController.*;
+import gameController.HighScoreController.PlayerScore;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import main.Main;
+
+import java.io.IOException;
 
 import static gameController.HighScoreController.addNewScore;
 import static gameController.HighScoreController.checkIfPlayerScoreIsHighScore;
@@ -17,7 +20,7 @@ import static gameController.HighScoreController.checkIfPlayerScoreIsHighScore;
  * Controller for the games game over pop ups that also handle user input for high scores.
  */
 public class GameOverPopUpUI_Controller {
-
+    private static Stage gameStageReference;
     @FXML
     private Label titleLabel;
     @FXML
@@ -45,7 +48,8 @@ public class GameOverPopUpUI_Controller {
         inputNameField.visibleProperty().setValue(inputRequired);
     }
 
-    public static void setValues(PlayerScore score, String loseMessage) {
+    public static void setValues(Stage stage, PlayerScore score, String loseMessage) {
+        gameStageReference = stage;
         playerScoreReference = score;
         inputRequired = checkIfPlayerScoreIsHighScore(score);
         popUpTitle = "You scored " + score.totalScore + " points!";
@@ -59,22 +63,27 @@ public class GameOverPopUpUI_Controller {
     @FXML
     public void okButtonClick() { // Called when ok button is clicked
         String playerName = inputNameField.getText();
-        if(inputRequired) {
-            if(playerName == null || playerName.trim().isEmpty()) {
+        if (inputRequired) {
+            if (playerName == null || playerName.trim().isEmpty()) {
                 inputNameField.setText("");
                 inputNameField.setPromptText("Please input your name");
-            } else if(playerName.length() > MAX_PLAYER_NAME_LENGTH) {
+            } else if (playerName.length() > MAX_PLAYER_NAME_LENGTH) {
                 inputNameField.setText("");
                 inputNameField.setPromptText("Please input a name no longer than " + MAX_PLAYER_NAME_LENGTH + " characters");
             } else {
                 playerScoreReference.setName(playerName.trim());
                 addNewScore(playerScoreReference);
                 inputRequired = false;
+                okButton.getScene().getWindow().hide();
+                try { // Switch to high-scores screen
+                    if(gameStageReference != null) {
+                        Main.loadScene(gameStageReference, "/gameView/HighScoresUI.fxml");
+                        System.out.println("hmm");
+                    } else System.out.println("Was null");
+                } catch (IOException ignored) {}
             }
-        }
-        if(!inputRequired){
-            Stage stage = (Stage) okButton.getScene().getWindow();
-            stage.hide();
+        } else {
+            okButton.getScene().getWindow().hide();
         }
     }
 }

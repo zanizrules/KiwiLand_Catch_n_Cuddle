@@ -379,10 +379,10 @@ public class Game {
         }
     }
 
-    public void showPopUpGameOverScreen() {
+    public void showPopUpGameOverScreen(Stage stage) {
         PlayerScore score = new PlayerScore("", getScore(), kiwisCuddled, predatorsTrapped);
         try {
-            GameOverPopUpUI_Controller.setValues(score, getLoseMessage());
+            GameOverPopUpUI_Controller.setValues(stage, score, getLoseMessage());
             Region root = FXMLLoader.load(getClass().getResource("/gameView/GameOverPopUpUI.fxml"));
             showPopUpScene(root, "Game Over!");
         } catch (IOException e) {

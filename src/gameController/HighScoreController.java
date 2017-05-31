@@ -1,14 +1,17 @@
 package gameController;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
 
 public class HighScoreController {
     private final static String HIGH_SCORE_FILE = "HighScores.txt";
     private final static ArrayList<PlayerScore> highScores = new ArrayList<>();
+    private final static int MAX_NUMBER_OF_HIGHSCORES = 10;
 
     static ArrayList<PlayerScore> getHighScores() {
-        if(highScores.isEmpty()) {
+        if (highScores.isEmpty()) {
             loadHighScoresFromFile();
         }
         return highScores;
@@ -19,6 +22,10 @@ public class HighScoreController {
             Scanner input = new Scanner(new File(HIGH_SCORE_FILE));
             input.useDelimiter("\\s*,\\s*");
             int numberOfScores = input.nextInt();
+
+            if(numberOfScores > MAX_NUMBER_OF_HIGHSCORES) {
+                numberOfScores = MAX_NUMBER_OF_HIGHSCORES;
+            }
 
             for (int i = 0; i < numberOfScores; i++) {
                 String name = input.next();
@@ -35,7 +42,7 @@ public class HighScoreController {
     }
 
     public static boolean checkIfPlayerScoreIsHighScore(PlayerScore score) {
-        PlayerScore lowestHighScore = (PlayerScore) getHighScores().toArray()[highScores.size()-1];
+        PlayerScore lowestHighScore = (PlayerScore) getHighScores().toArray()[highScores.size() - 1];
         return (lowestHighScore.compareTo(score) > 0);
     }
 
@@ -43,6 +50,11 @@ public class HighScoreController {
     static void addNewScore(PlayerScore newHighScore) {
         getHighScores().add(newHighScore);
         Collections.sort(highScores);
+
+        // Limit the amount of high scores to the maximum limit
+        while (highScores.size() > MAX_NUMBER_OF_HIGHSCORES) {
+            highScores.remove(highScores.size() - 1);
+        }
         rewriteTextFile();
     }
 
@@ -75,7 +87,7 @@ public class HighScoreController {
         final int kiwisCuddled;
         final int predatorsCaptured;
 
-        public PlayerScore(String name, int totalScore, int kiwisCuddled, int predatorsCaptured){
+        public PlayerScore(String name, int totalScore, int kiwisCuddled, int predatorsCaptured) {
             this.name = name;
             this.totalScore = totalScore;
             this.kiwisCuddled = kiwisCuddled;
@@ -85,6 +97,7 @@ public class HighScoreController {
         public void setName(String name) {
             this.name = name;
         }
+
         public String getName() {
             return name;
         }
@@ -94,7 +107,7 @@ public class HighScoreController {
             return Integer.compare(o.totalScore, this.totalScore);
         }
 
-        public String toString(){
+        public String toString() {
             return "Cuddling " + kiwisCuddled + " kiwis, and catching "
                     + predatorsCaptured + " predators has scored you " + totalScore + " points";
         }

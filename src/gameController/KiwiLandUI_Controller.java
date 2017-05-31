@@ -23,6 +23,8 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import main.Main;
 
+import static gameController.HighScoreController.checkIfPlayerScoreIsHighScore;
+
 /**
  * Main Game Screen/UI for KiwiLand Catch n Cuddle.
  * Author: Shane Birdsall
@@ -205,7 +207,7 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
 
         // check for "game over" or "game won"
         if (game.getState() == GameState.GAME_OVER) {
-            game.showPopUpGameOverScreen();
+            game.showPopUpGameOverScreen((Stage) exitButton.getScene().getWindow());
             game.createNewGame();
         } else if (game.messageForPlayer()) {
             game.showPopUpInformation(HAZARD_IMAGE, "Important Information", game.getPlayerMessage());
