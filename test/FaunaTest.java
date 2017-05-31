@@ -20,12 +20,11 @@ import static org.junit.Assert.assertEquals;
  *  4. Added test case for correct animal state of an oystercatcher (sample test)
  */
 public class FaunaTest {
-    private Game game;
     private Fauna instance;
 
     @Before
     public void setUp() {
-        game = new Game();
+        Game game = new Game();
         game.occupantMove(MoveDirection.EAST);
         instance = (Fauna) game.getOccupantsPlayerPosition().toArray()[0];
     }

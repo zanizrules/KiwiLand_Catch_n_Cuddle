@@ -17,7 +17,6 @@ public class Island {
     private final int numRows;
     private final int numColumns;
     private GridSquare[][] islandGrid;
-    private Position previousPlayerPos;
 
 
     /**
@@ -29,7 +28,7 @@ public class Island {
     public Island(int numRows, int numColumns) {
         this.numRows = numRows;
         this.numColumns = numColumns;
-        this.previousPlayerPos = null;
+        Position previousPlayerPos = null;
         initialiseIsland();
     }
 

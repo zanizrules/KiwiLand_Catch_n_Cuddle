@@ -1,5 +1,4 @@
 import gameModel.*;
-import gameModel.Position;
 import gameModel.gameObjects.Predator;
 import gameModel.gameObjects.Trap;
 import org.junit.After;
@@ -55,7 +54,7 @@ public class ToolTest {
     
     @Test
     public void testIsTrap() {
-        Assert.assertTrue("Should  be trap", trap instanceof Trap);
+        Assert.assertTrue("Should  be trap", trap != null);
     }
 
     @Test
