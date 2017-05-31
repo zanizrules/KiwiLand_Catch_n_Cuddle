@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gameController.CharacterSelectUI_Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gameController.CharacterSelectUI_Controller">
    <children>
       <VBox alignment="CENTER" layoutX="7.0" prefHeight="960.0" prefWidth="1280.0">
          <children>
@@ -32,11 +36,10 @@
                            </image>
                         </ImageView>
                         <RadioButton fx:id="character1" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="4.0" />
-                        <Label prefHeight="42.0" prefWidth="121.0" text="Character1 information" wrapText="true">
-                           <VBox.margin>
-                              <Insets left="150.0" right="150.0" />
-                           </VBox.margin>
-                        </Label>
+                        <ImageView fitHeight="25.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/gameModel/gameObjects/images/AbigailNameTag.png" />
+                           </image></ImageView>
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
@@ -50,11 +53,10 @@
                            </image>
                         </ImageView>
                         <RadioButton fx:id="character2" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="4.0" />
-                        <Label prefHeight="58.0" prefWidth="121.0" text="Character2 information" wrapText="true">
-                           <VBox.margin>
-                              <Insets left="150.0" right="150.0" />
-                           </VBox.margin>
-                        </Label>
+                        <ImageView fitHeight="25.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/gameModel/gameObjects/images/GusNameTag.png" />
+                           </image></ImageView>
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
@@ -68,11 +70,10 @@
                            </image>
                         </ImageView>
                         <RadioButton fx:id="character3" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="4.0" />
-                        <Label prefHeight="58.0" prefWidth="121.0" text="Character3 information" wrapText="true">
-                           <VBox.margin>
-                              <Insets left="150.0" right="150.0" />
-                           </VBox.margin>
-                        </Label>
+                        <ImageView fitHeight="25.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/gameModel/gameObjects/images/PennyNameTag.png" />
+                           </image></ImageView>
                      </children>
                   </VBox>
                </children>
@@ -90,11 +91,10 @@
                            </image>
                         </ImageView>
                         <RadioButton fx:id="character4" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="4.0" />
-                        <Label prefHeight="58.0" prefWidth="121.0" text="Character4 information" wrapText="true">
-                           <VBox.margin>
-                              <Insets left="150.0" right="150.0" />
-                           </VBox.margin>
-                        </Label>
+                        <ImageView fitHeight="25.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/gameModel/gameObjects/images/ElliotNameTag.png" />
+                           </image></ImageView>
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
@@ -108,11 +108,10 @@
                            </image>
                         </ImageView>
                         <RadioButton fx:id="character5" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="4.0" />
-                        <Label prefHeight="58.0" prefWidth="121.0" text="Character5 information" wrapText="true">
-                           <VBox.margin>
-                              <Insets left="150.0" right="150.0" />
-                           </VBox.margin>
-                        </Label>
+                        <ImageView fitHeight="25.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/gameModel/gameObjects/images/AlexNameTag.png" />
+                           </image></ImageView>
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
@@ -126,11 +125,10 @@
                            </image>
                         </ImageView>
                         <RadioButton fx:id="character6" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="4.0" />
-                        <Label prefHeight="58.0" prefWidth="121.0" text="Character6 information" wrapText="true">
-                           <VBox.margin>
-                              <Insets left="150.0" right="150.0" />
-                           </VBox.margin>
-                        </Label>
+                        <ImageView fitHeight="25.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/gameModel/gameObjects/images/DemitriusNameTag.png" />
+                           </image></ImageView>
                      </children>
                   </VBox>
                </children>
