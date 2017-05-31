@@ -64,7 +64,7 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
     private final HashMap<KeyCode, String> keyMappings;
     private final static Image HAZARD_IMAGE
             = new Image(Hazard.class.getResource("images/hazard.png").toExternalForm());
-    private static String selectedCharacter;
+    private static String selectedCharacter; // Used to set player image and name based on user selection
 
     public KiwiLandUI_Controller() {
         // Default constructor is the first thing to be called.
