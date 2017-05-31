@@ -44,7 +44,11 @@ public class Main extends Application {
     /* I got help with window rescaling from the following source:
     http://gillius.org/blog/2013/02/javafx-window-scaling-on-resize.html */
     public static void loadMenu(Stage stage) throws IOException {
-        Region root = FXMLLoader.load(Main.class.getResource("/gameView/mainMenuUI.fxml"));
+        loadScene(stage, "/gameView/mainMenuUI.fxml");
+    }
+
+    public static void loadScene(Stage stage, String scene) throws IOException {
+        Region root = FXMLLoader.load(Main.class.getResource(scene));
         stage.setTitle("KiwiLand Catch n Cuddle");
 
         double sceneWidth = 1280;

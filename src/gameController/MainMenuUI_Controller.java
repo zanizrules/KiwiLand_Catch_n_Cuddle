@@ -33,7 +33,6 @@ public class MainMenuUI_Controller {
 
         if(event.getSource() == playButton) {
             loadFXML("/gameView/CharacterSelectUI.fxml");
-            //loadFXML("/gameView/KiwiLandUI.fxml");
         } else if(event.getSource() == highscoresButton) {
             loadFXML("/gameView/HighScoresUI.fxml");
         } else if(event.getSource() == instructionsButton) {

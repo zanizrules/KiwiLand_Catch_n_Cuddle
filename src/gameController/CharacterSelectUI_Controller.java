@@ -19,6 +19,7 @@ import java.util.ResourceBundle;
  * Date: 27/04/2017.
  */
 public class CharacterSelectUI_Controller implements Initializable {
+
     @FXML
     private Button selectButton;
     @FXML
@@ -59,13 +60,9 @@ public class CharacterSelectUI_Controller implements Initializable {
     }
 
     @FXML
-    public void characterRadioButtonClicked() {
-
-    }
-
-    @FXML
     public void selectButtonClick() throws IOException { // Called when return button is clicked
         // todo
-        Main.loadMenu((Stage) returnButton.getScene().getWindow());
+
+        Main.loadScene((Stage) selectButton.getScene().getWindow(), "/gameView/KiwiLandUI.fxml");
     }
 }
