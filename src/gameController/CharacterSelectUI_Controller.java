@@ -68,7 +68,7 @@ public class CharacterSelectUI_Controller implements Initializable {
     }
 
     @FXML
-    public void selectButtonClick() throws IOException { // Called when return button is clicked
+    public void playButtonClick() throws IOException { // Called when return button is clicked
         if(characterRadioButtons.getSelectedToggle() != null) {
             KiwiLandUI_Controller.setSelectedCharacter(
                     (String) characterRadioButtons.getSelectedToggle().getUserData());
