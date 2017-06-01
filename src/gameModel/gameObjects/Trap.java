@@ -11,10 +11,12 @@ public class Trap extends Tool {
     public static final int MAX_DURABILITY = 4;
     private static final Random rand = new Random();
     private int durability;
+    private static String ORIGINAL_DESCRIPTION;
 
     public Trap(Position pos, String name, String description, double weight, double size){
         super(pos,name,description, weight, size);
         setDurability(0);
+        ORIGINAL_DESCRIPTION = description;
     }
 
     public Trap(Position pos, String name, String description, double weight, double size, boolean broken){
@@ -44,6 +46,7 @@ public class Trap extends Tool {
 
     public void setDurability(int durability){
         this.durability = durability;
+        updateDescription();
     }
 
     public void calculateChanceOfBreaking() {
@@ -52,6 +55,15 @@ public class Trap extends Tool {
             setBroken();
         }
         durability++;
+        updateDescription();
+    }
+
+    private void updateDescription() {
+        if(!isBroken()) {
+            float percentage = (float) durability/MAX_DURABILITY *100;
+            description = ORIGINAL_DESCRIPTION + " , there is a " + percentage + "% chance of this trap breaking on use";
+            System.out.println(description);
+        }
     }
 
     public int getDurability(){
