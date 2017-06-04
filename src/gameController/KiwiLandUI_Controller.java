@@ -210,6 +210,7 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
             game.showPopUpGameOverScreen((Stage) exitButton.getScene().getWindow());
             game.createNewGame();
         } else if (game.messageForPlayer()) {
+            System.out.println("Called");
             game.showPopUpInformation(HAZARD_IMAGE, "Important Information", game.getPlayerMessage());
         }
     }

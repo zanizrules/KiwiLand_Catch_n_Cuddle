@@ -91,8 +91,8 @@ public class Game {
                     predatorHasMoved = occupantMove(predator, MoveDirection.WEST);
                 }
             }
-            for(Occupant o : island.getOccupants(predator.getPosition())) {
-                if(o instanceof Trap) {
+            for (Occupant o : island.getOccupants(predator.getPosition())) {
+                if (o instanceof Trap) {
                     trapAnimal((Trap) o, predator.getPosition());
                     break;
                 }
@@ -114,7 +114,7 @@ public class Game {
         island.removeOccupant(kiwi.getPosition(), kiwi);
         kiwiQueue.offer(kiwi);
 
-        showPopUpInformation(predator.getImage(), "A " + predator.getName() +" has attacked a kiwi",
+        showPopUpInformation(predator.getImage(), "A " + predator.getName() + " has attacked a kiwi",
                 "You need to make sure the predators are caught before they reach the kiwis!");
     }
 
@@ -136,6 +136,12 @@ public class Game {
     }
 
     public void createNewGame() {
+        // Nullify to clean up
+        kiwiQueue = null;
+        foodQueue = null;
+        predatorQueue = null;
+        livePredatorReferences = null;
+
         kiwiQueue = new ConcurrentLinkedQueue<>();
         foodQueue = new ConcurrentLinkedQueue<>();
         predatorQueue = new ConcurrentLinkedQueue<>();
@@ -186,9 +192,9 @@ public class Game {
             Terrain newTerrain = island.getTerrain(newPosition);
             // can the player do it?
             return player.hasStaminaToMove(newTerrain) && player.isAlive();
-        } else if(occupant instanceof Predator && newPosition != null) {
-            for(Occupant o : island.getOccupants(newPosition)) {
-                if(o instanceof Predator) {
+        } else if (occupant instanceof Predator && newPosition != null) {
+            for (Occupant o : island.getOccupants(newPosition)) {
+                if (o instanceof Predator) {
                     return false; // A predator exists on that tile already
                 }
             }
@@ -453,22 +459,20 @@ public class Game {
             occupant.moveToPosition(newPosition, terrain);
             island.updateOccupantPosition(occupant, oldPosition);
 
+            // Is there a hazard?
+            checkForHazard();
             if (occupant instanceof Player) {
-                boolean gameOver = updateGameState();
                 turnCount++;
-                if(!gameOver) {
-                    if (turnCount % TURNS_BETWEEN_SPAWNS == 0) {
-                        spawnOccupants();
-                    }
-                    if (turnCount % TURNS_BETWEEN_SINGLE_PREDATOR_MOVES == 0) {
-                        int randomPredatorIndex = rand.nextInt(livePredatorReferences.size());
-                        Predator predator = (Predator) livePredatorReferences.toArray()[randomPredatorIndex];
-                        movePredatorToNewPosition(predator);
-                    }
-                    // Is there a hazard?
-                    checkForHazard();
+                if (turnCount % TURNS_BETWEEN_SPAWNS == 0) {
+                    spawnOccupants();
+                }
+                if (turnCount % TURNS_BETWEEN_SINGLE_PREDATOR_MOVES == 0) {
+                    int randomPredatorIndex = rand.nextInt(livePredatorReferences.size());
+                    Predator predator = (Predator) livePredatorReferences.toArray()[randomPredatorIndex];
+                    movePredatorToNewPosition(predator);
                 }
             }
+            updateGameState();
             successfulMove = true;
         }
         return successfulMove;
@@ -563,7 +567,7 @@ public class Game {
             //Animal has been trapped so remove
             island.removeOccupant(current, fauna);
             String extraInformation = "";
-            if(current != player.getPosition()) {
+            if (current != player.getPosition()) {
                 extraInformation += " with a trap positioned on the island";
             }
             if (fauna instanceof Predator) {
