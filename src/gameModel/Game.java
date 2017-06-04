@@ -5,7 +5,6 @@ import gameController.HighScoreController.PlayerScore;
 import gameController.InformationPopUpUI_Controller;
 import gameModel.gameObjects.*;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -61,7 +60,7 @@ public class Game {
     private static final int MIN_NUM_OF_PREDATOR_ON_BOARD = 2;
     private static final int SPAWN_LOOP_TIMEOUT_LIMIT = 6;
     private static final int TURNS_BETWEEN_SPAWNS = 2;
-    private static final int TURNS_BETWEEN_PREDATOR_AI_MOVEMENT = 1;
+    private static final int TURNS_BETWEEN_SINGLE_PREDATOR_MOVES = 1;
 
     public Game() {
         eventListeners = new HashSet<>();
@@ -114,6 +113,7 @@ public class Game {
     private void predatorConsumeKiwi(Kiwi kiwi, Predator predator) {
         island.removeOccupant(kiwi.getPosition(), kiwi);
         kiwiQueue.offer(kiwi);
+
         showPopUpInformation(predator.getImage(), "A " + predator.getName() +" has attacked a kiwi",
                 "You need to make sure the predators are caught before they reach the kiwis!");
     }
@@ -454,20 +454,22 @@ public class Game {
             island.updateOccupantPosition(occupant, oldPosition);
 
             if (occupant instanceof Player) {
+                boolean gameOver = updateGameState();
                 turnCount++;
-                if (turnCount % TURNS_BETWEEN_SPAWNS == 0) {
-                    spawnOccupants();
-                }
-                if (turnCount % TURNS_BETWEEN_PREDATOR_AI_MOVEMENT == 0) {
-                    for (Predator predator : livePredatorReferences) {
+                if(!gameOver) {
+                    if (turnCount % TURNS_BETWEEN_SPAWNS == 0) {
+                        spawnOccupants();
+                    }
+                    if (turnCount % TURNS_BETWEEN_SINGLE_PREDATOR_MOVES == 0) {
+                        int randomPredatorIndex = rand.nextInt(livePredatorReferences.size());
+                        Predator predator = (Predator) livePredatorReferences.toArray()[randomPredatorIndex];
                         movePredatorToNewPosition(predator);
                     }
+                    // Is there a hazard?
+                    checkForHazard();
                 }
-                // Is there a hazard?
-                checkForHazard();
             }
             successfulMove = true;
-            updateGameState();
         }
         return successfulMove;
     }
@@ -517,8 +519,9 @@ public class Game {
         eventListeners.add(listener);
     }
 
-    private void updateGameState() {
+    private boolean updateGameState() {
         String message;
+        boolean gameOver = true;
         if (!player.isAlive()) {
             state = GameState.GAME_OVER;
             message = "Sorry, you have lost the game. " + this.getLoseMessage();
@@ -527,9 +530,10 @@ public class Game {
             state = GameState.GAME_OVER;
             message = "Sorry, you have lost the game. You do not have sufficient stamina to move.";
             this.setLoseMessage(message);
-        }
+        } else gameOver = false;
         // notify listeners about changes
         notifyGameEventListeners();
+        return gameOver;
     }
 
     private void setLoseMessage(String message) {
