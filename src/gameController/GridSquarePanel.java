@@ -17,10 +17,11 @@ import java.util.ArrayList;
  * Author: Shane Birdsall
  */
 class GridSquarePanel extends Label {
+    private static boolean revealMap;
     private final Game game;
     private final int row, column;
     private ImageView imageView;
-    private static Image playerImage = null;
+    private static Image playerImage;
 
     // Terrain Images
     private static final Image DEFAULT_TERRAIN = new Image(GridSquarePanel.class.getResource("/gameModel/gameObjects/images/wetland.png").toExternalForm());
@@ -32,12 +33,17 @@ class GridSquarePanel extends Label {
 
     GridSquarePanel(Game game, int row, int column) {
         this.game = game;
-        if (playerImage == null) {
-            playerImage = new Image(game.getPlayer().getImage());
-        }
+        playerImage = game.getPlayer().getImage();
         this.row = row;
         this.column = column;
         initComponents();
+    }
+
+    /**
+     * Reveal map is a developer/testing option that allows for the entire map to be seen.
+     */
+    static void toggleRevealMap() {
+        revealMap = !revealMap;
     }
 
     private void initComponents() {
@@ -77,7 +83,7 @@ class GridSquarePanel extends Label {
         }
 
         // Show images if the square is explored and visible
-        if (squareVisible) {
+        if (squareVisible || revealMap) {
             if (game.getPlayer().getPosition().getRow() == row &&
                     game.getPlayer().getPosition().getColumn() == column) {
                 imageView.setImage(playerImage);

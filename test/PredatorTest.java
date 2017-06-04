@@ -41,4 +41,6 @@ public class PredatorTest {
         String result = rat.getStringRepresentation();
         assertEquals(expResult, result);
     }
+
+
 }

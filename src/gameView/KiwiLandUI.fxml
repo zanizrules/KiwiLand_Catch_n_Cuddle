@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="gameController.KiwiLandUI_Controller">
     <BorderPane fx:id="gameScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
@@ -16,67 +15,118 @@
                 </padding>
                 <Label fx:id="scoreLabel" text="SCORE: ">
                     <font>
-                        <Font name="System Bold" size="14.0"/>
+                        <Font name="System Bold" size="18.0"/>
                     </font>
                 </Label>
-                <HBox prefHeight="94.0" prefWidth="149.0">
-                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-                        <Label text="Player: "/>
-                        <Label text="Stamina:"/>
-                        <Label text="Bag Weight:"/>
-                        <Label text="Bag Size:"/>
+                <HBox prefHeight="102.0" prefWidth="400.0">
+                    <VBox prefHeight="123.0" prefWidth="124.0" spacing="5.0">
+                        <Label text="Player: ">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="Stamina:">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="Bag Weight:">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="Bag Size:">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
                     </VBox>
-                    <VBox prefHeight="94.0" prefWidth="155.0" spacing="5.0">
-                        <Label fx:id="nameLabel" text="Shane"/>
-                        <ProgressBar fx:id="staminaProgressBar" prefHeight="18.0" prefWidth="160.0"
+                    <VBox prefHeight="96.0" prefWidth="300.0" spacing="13.0">
+                        <Label fx:id="nameLabel" prefHeight="27.0" prefWidth="217.0" text="Shane">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
+                        <ProgressBar fx:id="staminaProgressBar" prefHeight="20.0" prefWidth="200.0"
                                      progress="0.0"/>
-                        <ProgressBar fx:id="weightProgressBar" prefWidth="200.0" progress="0.0"/>
-                        <ProgressBar fx:id="sizeProgressBar" prefWidth="200.0" progress="0.0"/>
+                        <ProgressBar fx:id="weightProgressBar" prefHeight="20.0" prefWidth="200.0"
+                                     progress="0.0"/>
+                        <ProgressBar fx:id="sizeProgressBar" prefHeight="20.0" prefWidth="200.0"
+                                     progress="0.0"/>
                     </VBox>
                 </HBox>
                 <Label text="Inventory">
                     <font>
-                        <Font name="System Bold" size="14.0"/>
+                        <Font name="System Bold" size="24.0"/>
                     </font>
                 </Label>
-                <ListView fx:id="inventoryListView" onMouseClicked="#inventoryListValueChanged" prefHeight="400.0"
+                <ListView fx:id="inventoryListView" onMouseClicked="#inventoryListValueChanged" prefHeight="265.0"
                           prefWidth="400.0">
                     <VBox.margin>
                         <Insets/>
                     </VBox.margin>
                 </ListView>
-                <HBox prefHeight="4.0" prefWidth="149.0" spacing="5.0">
+                <HBox prefHeight="4.0" prefWidth="149.0" spacing="15.0">
                     <padding>
                         <Insets left="1.0" right="1.0"/>
                     </padding>
-                    <Button fx:id="useButton" mnemonicParsing="false" onAction="#useButtonClick" prefHeight="25.0"
-                            prefWidth="71.0" text="Use"/>
+                    <VBox.margin>
+                        <Insets bottom="10.0"/>
+                    </VBox.margin>
+                    <Button fx:id="useButton" mnemonicParsing="false" onAction="#useButtonClick" prefHeight="39.0"
+                            prefWidth="150.0" text="Use">
+                        <font>
+                            <Font size="18.0"/>
+                        </font>
+                    </Button>
                     <Button fx:id="discardButton" mnemonicParsing="false" onAction="#discardButtonClick"
-                            prefHeight="25.0" prefWidth="71.0" text="Discard"/>
+                            prefHeight="39.0" prefWidth="150.0" text="Discard">
+                        <font>
+                            <Font size="18.0"/>
+                        </font>
+                    </Button>
                 </HBox>
-                <Label text="Objects">
+                <Label prefHeight="35.0" prefWidth="132.0" text="Objects">
                     <font>
-                        <Font name="System Bold" size="14.0"/>
+                        <Font name="System Bold" size="24.0"/>
                     </font>
                 </Label>
-                <ListView fx:id="objectListView" onMouseClicked="#objectListValueChanged" prefHeight="400.0"
+                <ListView fx:id="objectListView" onMouseClicked="#objectListValueChanged" prefHeight="265.0"
                           prefWidth="400.0"/>
-                <HBox prefHeight="10.0" prefWidth="149.0" spacing="5.0">
+                <HBox prefHeight="10.0" prefWidth="149.0" spacing="15.0">
                     <padding>
                         <Insets bottom="20.0" left="1.0" right="1.0"/>
                     </padding>
                     <Button fx:id="cuddleButton" mnemonicParsing="false" onAction="#cuddleButtonClick"
-                            prefHeight="25.0" prefWidth="71.0" text="Cuddle"/>
+                            prefHeight="25.0" prefWidth="150.0" text="Cuddle">
+                        <font>
+                            <Font size="18.0"/>
+                        </font>
+                    </Button>
                     <Button fx:id="collectButton" mnemonicParsing="false" onAction="#collectButtonClick"
-                            prefHeight="25.0" prefWidth="71.0" text="Collect"/>
+                            prefHeight="25.0" prefWidth="150.0" text="Collect">
+                        <font>
+                            <Font size="18.0"/>
+                        </font>
+                    </Button>
                 </HBox>
-                <VBox alignment="BOTTOM_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
-                    <Button alignment="CENTER" mnemonicParsing="false"
-                            onAction="#restartButtonClick" prefHeight="40.0" prefWidth="133.0"
-                            text="Restart Game"/>
+                <HBox alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="400.0" spacing="15.0">
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#restartButtonClick"
+                            prefHeight="25.0" prefWidth="150.0" text="Restart Game">
+                        <font>
+                            <Font size="18.0"/>
+                        </font>
+                    </Button>
                     <Button fx:id="exitButton" alignment="CENTER" mnemonicParsing="false"
-                            onAction="#exitButtonClick" prefHeight="40.0" prefWidth="133.0" text="Exit Game"/>
-                </VBox>
+                            onAction="#exitButtonClick" prefHeight="25.0" prefWidth="150.0" text="Exit Game">
+                        <font>
+                            <Font size="18.0"/>
+                        </font>
+                    </Button>
+                </HBox>
             </VBox>
         </right>
         <center>
@@ -114,7 +164,11 @@
                     </padding>
                 </GridPane>
                 <TextField fx:id="descriptionTextField" alignment="TOP_LEFT" editable="false" prefHeight="90.0"
-                           prefWidth="840.0" promptText="Description..."/>
+                           prefWidth="840.0" promptText="Description...">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </TextField>
             </VBox>
         </center>
     </BorderPane>

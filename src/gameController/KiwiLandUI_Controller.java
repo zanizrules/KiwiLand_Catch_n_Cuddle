@@ -12,11 +12,8 @@ import gameModel.gameObjects.Occupant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -24,6 +21,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import main.Main;
+
+import static gameController.HighScoreController.checkIfPlayerScoreIsHighScore;
 
 /**
  * Main Game Screen/UI for KiwiLand Catch n Cuddle.
@@ -66,10 +66,15 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
     private final HashMap<KeyCode, String> keyMappings;
     private final static Image HAZARD_IMAGE
             = new Image(Hazard.class.getResource("images/hazard.png").toExternalForm());
+    private static String selectedCharacter; // Used to set player image and name based on user selection
 
     public KiwiLandUI_Controller() {
         // Default constructor is the first thing to be called.
         game = new Game();
+        if(selectedCharacter != null && !selectedCharacter.isEmpty()) {
+            game.getPlayer().setImage(selectedCharacter);
+            game.getPlayer().setName(selectedCharacter);
+        }
         keyMappings = new HashMap<>();
         setUpKeys();
     }
@@ -98,11 +103,16 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
         update();
     }
 
+    static void setSelectedCharacter(String imageLoc) {
+        selectedCharacter = imageLoc;
+    }
+
     private void setUpKeys() { // Set up the key mappings
         keyMappings.put(KeyCode.W, "north");
         keyMappings.put(KeyCode.A, "west");
         keyMappings.put(KeyCode.S, "south");
         keyMappings.put(KeyCode.D, "east");
+        keyMappings.put(KeyCode.F1, "revealMap");
     }
 
     @FXML
@@ -115,11 +125,7 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
 
     @FXML
     private void exitButtonClick() throws IOException { // Called when exit button is clicked
-            Stage stage = (Stage) exitButton.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("../gameView/mainMenuUI.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+        Main.loadMenu((Stage) exitButton.getScene().getWindow());
     }
 
     @FXML
@@ -172,16 +178,20 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
         // Based on the command past in determines which way the player should move
         switch (command) {
             case "north":
-                game.playerMove(MoveDirection.NORTH);
+                game.occupantMove(MoveDirection.NORTH);
                 break;
             case "south":
-                game.playerMove(MoveDirection.SOUTH);
+                game.occupantMove(MoveDirection.SOUTH);
                 break;
             case "west":
-                game.playerMove(MoveDirection.WEST);
+                game.occupantMove(MoveDirection.WEST);
                 break;
             case "east":
-                game.playerMove(MoveDirection.EAST);
+                game.occupantMove(MoveDirection.EAST);
+                break;
+            case "revealMap":
+                GridSquarePanel.toggleRevealMap();
+                update();
                 break;
             // Do nothing if invalid command
         }
@@ -197,10 +207,11 @@ public class KiwiLandUI_Controller implements Initializable, GameEventListener {
 
         // check for "game over" or "game won"
         if (game.getState() == GameState.GAME_OVER) {
-            game.showPopUpGameOverScreen();
+            game.showPopUpGameOverScreen((Stage) exitButton.getScene().getWindow());
             game.createNewGame();
         } else if (game.messageForPlayer()) {
-            game.showPopUpFact(HAZARD_IMAGE, "Important Information", game.getPlayerMessage());
+            System.out.println("Called");
+            game.showPopUpInformation(HAZARD_IMAGE, "Important Information", game.getPlayerMessage());
         }
     }
 

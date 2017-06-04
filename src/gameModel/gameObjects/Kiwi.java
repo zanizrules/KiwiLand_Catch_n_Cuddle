@@ -1,8 +1,6 @@
 package gameModel.gameObjects;
 
 import gameModel.Position;
-import gameModel.gameObjects.ANIMAL_TYPE;
-import gameModel.gameObjects.Fauna;
 
 /**
  * Kiwi represents a kiwi living on the island

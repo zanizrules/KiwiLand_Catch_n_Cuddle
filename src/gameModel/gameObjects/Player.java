@@ -14,18 +14,14 @@ import java.util.*;
  * @author AS
  * @version July 2011
  */
-public class Player {
+public class Player extends Occupant {
     private static final double MOVE_STAMINA = 1.0;
-
-    private Position position;
-    private final String name;
     private final double maxStamina;
     private double stamina;
     private boolean alive;
     private final List<Item> backpack;
     private final double maxBackpackWeight;
     private final double maxBackpackSize;
-    private final String image;
 
     /**
      * Constructs a new player object.
@@ -38,33 +34,32 @@ public class Player {
      */
     public Player(Position position, String name, double maxStamina,
                   double maxBackpackWeight, double maxBackpackSize) {
-        this.position = position;
-        this.name = name;
+        super(position, name, "Player Character");
         this.maxStamina = maxStamina;
         this.stamina = maxStamina;
         this.maxBackpackWeight = maxBackpackWeight;
         this.maxBackpackSize = maxBackpackSize;
         this.alive = true;
         this.backpack = new ArrayList<>();
-        image = getClass().getResource("images/player.png").toExternalForm();
+        setImage();
     }
 
-    /**
-     * Gets the name of the player.
-     *
-     * @return the name of the player
-     */
-    public String getName() {
-        return this.name;
+    @Override
+    public String getStringRepresentation() {
+        return "";
     }
 
-    /**
-     * Gets the current position of the player.
-     *
-     * @return the current position of the player
-     */
-    public Position getPosition() {
-        return position;
+    @Override
+    protected void setImage() {
+        setImage("player");
+    }
+
+    public void setImage(String name) {
+        super.setImage("images/" + name + ".png");
+    }
+
+    public void setName(String newName) {
+        name = newName;
     }
 
     /**
@@ -306,23 +301,13 @@ public class Player {
         return backpack.remove(item);
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    /**
-     * Moves the player over terrain to a new position.
-     *
-     * @param newPosition the new position of the player
-     * @param terrain     the terrain to move over
-     */
-    public void moveToPosition(Position newPosition, Terrain terrain) {
-        if ((position == null) || (terrain == null)) {
+    @Override
+    public void moveToPosition(Position position, Terrain terrain) {
+        if (position == null || terrain == null) {
             throw new IllegalArgumentException("Null parameters");
         }
-
         if (hasStaminaToMove(terrain)) {
-            this.position = newPosition;
+            setPosition(position);
             reduceStamina(getStaminaNeededToMove(terrain));
         }
     }

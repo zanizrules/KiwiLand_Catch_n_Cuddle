@@ -1,8 +1,8 @@
 package gameModel;
 
+import gameModel.gameObjects.Fauna;
 import gameModel.gameObjects.Occupant;
 import gameModel.gameObjects.Player;
-import gameModel.gameObjects.Predator;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -17,7 +17,6 @@ public class Island {
     private final int numRows;
     private final int numColumns;
     private GridSquare[][] islandGrid;
-    private Position previousPlayerPos;
 
 
     /**
@@ -29,7 +28,6 @@ public class Island {
     public Island(int numRows, int numColumns) {
         this.numRows = numRows;
         this.numColumns = numColumns;
-        this.previousPlayerPos = null;
         initialiseIsland();
     }
 
@@ -155,22 +153,22 @@ public class Island {
     }
 
     /**
-     * Checks if this position contains a predator.
+     * Checks if this position contains a animal (fauna, kiwi, predator).
      *
      * @param position which position
-     * @return true if contains a predator, false if not
+     * @return true if contains animal, false if not
      */
-    public boolean hasPredator(Position position) {
+    public boolean hasAnimal(Position position) {
         GridSquare square = getGridSquare(position);
         CopyOnWriteArraySet<Occupant> occupants = square.getOccupants();
-        boolean isPredator = false;
+        boolean isAnimal = false;
         if (!occupants.isEmpty()) {
             Iterator<Occupant> it = occupants.iterator();
-            while (it.hasNext() && !isPredator) {
-                isPredator = it.next() instanceof Predator;
+            while (it.hasNext() && !isAnimal) {
+                isAnimal = it.next() instanceof Fauna;
             }
         }
-        return isPredator;
+        return isAnimal;
     }
 
     /**
@@ -187,31 +185,34 @@ public class Island {
     /**
      * Update the grid and the explored & visible state of the grid to reflect new position of player.
      */
-    public void updatePlayerPosition(Player player) {
+    public void updateOccupantPosition(Occupant occupant, Position oldPosition) {
         // the grid square with the player on it is now explored...
-        Position position = player.getPosition();
-        getGridSquare(position).setExplored();
-        //... and has the player on it
-        getGridSquare(position).setPlayer(player);
+        Position position = occupant.getPosition();
+        occupant.setPreviousPosition(oldPosition);
 
-        // remove player from previous square
-        if (previousPlayerPos != null) {
-            getGridSquare(previousPlayerPos).setPlayer(null);
-        }
+        if(occupant instanceof Player) {
+            getGridSquare(position).setExplored();
+            getGridSquare(position).setPlayer((Player) occupant);
+            // remove player from previous square
+            if (oldPosition != null) {
+                getGridSquare(oldPosition).setPlayer(null);
+            }
 
-        // set visibility to all squares around player, and hide all others
-        for(int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numColumns; j++) {
-                if(i >= position.getRow() -1 && i <= position.getRow() +1
-                        && j >= position.getColumn() -1 && j <= position.getColumn() +1) {
-                    setVisible(new Position(this, i, j), true);
-                } else setVisible(new Position(this, i, j), false);
-
+            // set visibility to all squares around player, and hide all others
+            for(int i = 0; i < numRows; i++) {
+                for (int j = 0; j < numColumns; j++) {
+                    if(i >= position.getRow() -1 && i <= position.getRow() +1
+                            && j >= position.getColumn() -1 && j <= position.getColumn() +1) {
+                        setVisible(new Position(this, i, j), true);
+                    } else setVisible(new Position(this, i, j), false);
+                }
+            }
+        } else {
+            getGridSquare(position).addOccupant(occupant);
+            if (occupant.getPreviousPosition() != position) {
+                getGridSquare(occupant.getPreviousPosition()).removeOccupant(occupant);
             }
         }
-
-        // remember the new player position
-        previousPlayerPos = position;
     }
 
     /**
@@ -254,25 +255,25 @@ public class Island {
     }
 
     /**
-     * Get the first predator that is in this position
+     * Get the first fauna that is in this position
      *
      * @param position which position
-     * @return predator or null if there is not one here.
+     * @return fauna or null if there is not one here.
      */
-    public Predator getPredator(Position position) {
+    public Fauna getFauna(Position position) {
         GridSquare square = getGridSquare(position);
         CopyOnWriteArraySet<Occupant> occupants = square.getOccupants();
-        Predator predator = null;
+        Fauna fauna = null;
         if (!occupants.isEmpty()) {
             Iterator<Occupant> it = occupants.iterator();
-            while (it.hasNext() && predator == null) {
+            while (it.hasNext() && fauna == null) {
                 Occupant o = it.next();
-                if (o instanceof Predator) {
-                    predator = (Predator) o;
+                if (o instanceof Fauna) {
+                    fauna = (Fauna) o;
                 }
             }
         }
-        return predator;
+        return fauna;
     }
 
     /**
