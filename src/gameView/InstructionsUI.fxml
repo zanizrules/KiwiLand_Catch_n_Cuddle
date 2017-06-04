@@ -70,7 +70,7 @@
                      <Image url="@/gameModel/gameObjects/images/rat2.png"/>
                   </ImageView>
                   <Label prefHeight="150.0" prefWidth="641.0"
-                         text="Capture predators with traps to stop them doing any harm and score points!"
+                         text="Capture predators with traps to stop them doing any harm and score points! They lurk around the island and attack kiwis when given the opportunity."
                          wrapText="true">
                      <font>
                         <Font size="18.0"/>
@@ -210,7 +210,7 @@
                      <Image url="@/gameModel/gameObjects/images/tool.png"/>
                   </ImageView>
                   <Label prefHeight="170.0" prefWidth="633.0"
-                         text="The more a trap is used, the more likely it will break! A screwdriver can be used to fix traps. So if you have a broken trap make sure to find one quickly!"
+                         text="The more a trap is used, the more likely it will break! A screwdriver can be used to fix traps. So if you have a broken trap make sure to find one quickly! You may also find it useful to place traps around the island to trap predators."
                          wrapText="true">
                      <font>
                         <Font size="18.0"/>

@@ -71,13 +71,13 @@ public class GameTest {
     @Test
     public void testIsPlayerMovePossibleValidMove() {
         //At start of game player has valid moves EAST, West & South
-        Assert.assertTrue("Move should be valid", game.isPlayerMovePossible(MoveDirection.SOUTH));
+        Assert.assertTrue("Move should be valid", game.isOccupantMovePossible(MoveDirection.SOUTH, player));
     }
 
     @Test
     public void testIsPlayerMovePossibleInvalidMove() {
         //At start of game player has valid moves EAST, West & South
-        Assert.assertFalse("Move should not be valid", game.isPlayerMovePossible(MoveDirection.NORTH));
+        Assert.assertFalse("Move should not be valid", game.isOccupantMovePossible(MoveDirection.NORTH, player));
     }
 
     @Test
@@ -411,7 +411,6 @@ public class GameTest {
         Assert.assertEquals(7, game.getTotalPredators());
         trapAllOriginalPredators();
         Assert.assertNotEquals(0, game.getTotalPredators());
-        Assert.assertEquals(7, game.getPredatorsTrapped());
     }
 
     @Test
@@ -419,7 +418,6 @@ public class GameTest {
         Assert.assertEquals(10, game.getTotalKiwis());
         collectAllOriginalKiwis();
         Assert.assertNotEquals(0, game.getTotalKiwis());
-        Assert.assertEquals(10, game.getKiwisCuddled());
     }
 
     @Test
@@ -496,7 +494,7 @@ public class GameTest {
         //Firstly player needs a trap
         Trap trap = new Trap(playerPosition,"Trap", "A predator trap",1.0, 1.0);
         game.collectItem(trap);
-        trap.setDurability(-7); // Ensure it does not break
+        trap.setDurability(-70); // Ensure it does not break
 
         //Now player needs to trap all predators
         //Predator 1

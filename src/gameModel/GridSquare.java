@@ -2,6 +2,7 @@ package gameModel;
 
 import gameModel.gameObjects.Occupant;
 import gameModel.gameObjects.Player;
+import gameModel.gameObjects.Predator;
 import javafx.scene.image.Image;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;

@@ -28,7 +28,6 @@ public class Island {
     public Island(int numRows, int numColumns) {
         this.numRows = numRows;
         this.numColumns = numColumns;
-        Position previousPlayerPos = null;
         initialiseIsland();
     }
 

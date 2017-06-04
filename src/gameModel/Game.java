@@ -1,10 +1,11 @@
 package gameModel;
 
-import gameController.HighScoreController.*;
 import gameController.GameOverPopUpUI_Controller;
+import gameController.HighScoreController.PlayerScore;
 import gameController.InformationPopUpUI_Controller;
 import gameModel.gameObjects.*;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -26,17 +27,19 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * The functionality to read in a game
  */
 public class Game {
+    private static final Random rand = new Random();
+
     private Island island;
     private Player player;
     private GameState state;
     private int turnCount;
     private int kiwisCuddled;
     private int score;
-    private int totalPredators;
     private int totalKiwis;
     private int totalFood;
     private int predatorsTrapped;
 
+    private ConcurrentLinkedQueue<Predator> livePredatorReferences;
     private ConcurrentLinkedQueue<Predator> predatorQueue;
     private ConcurrentLinkedQueue<Food> foodQueue;
     private ConcurrentLinkedQueue<Kiwi> kiwiQueue;
@@ -58,45 +61,70 @@ public class Game {
     private static final int MIN_NUM_OF_PREDATOR_ON_BOARD = 2;
     private static final int SPAWN_LOOP_TIMEOUT_LIMIT = 6;
     private static final int TURNS_BETWEEN_SPAWNS = 2;
-    private static final int TURNS_BETWEEN_PREDATOR_AI_MOVEMENT = 3;
+    private static final int TURNS_BETWEEN_PREDATOR_AI_MOVEMENT = 1;
 
     public Game() {
         eventListeners = new HashSet<>();
         createNewGame();
     }
 
-    public void predatorConsumeOccupantOnSameTile(Predator predator){
-        for(Occupant itemToRemove : island.getOccupants(predator.getPosition())) {
-            if (itemToRemove instanceof Food) {
-                predatorConsumeFood((Food) itemToRemove);
-            } else if (itemToRemove instanceof Kiwi) {
-                predatorConsumeKiwi((Kiwi) itemToRemove);
+    private void movePredatorToNewPosition(Predator predator) {
+        predatorConsumeOccupantOnSameTile(predator); // Consume before moving
+
+        boolean canMoveNorth = isOccupantMoveWithinTheIsland(predator, MoveDirection.NORTH) != null;
+        boolean canMoveSouth = isOccupantMoveWithinTheIsland(predator, MoveDirection.SOUTH) != null;
+        boolean canMoveEast = isOccupantMoveWithinTheIsland(predator, MoveDirection.EAST) != null;
+        boolean canMoveWest = isOccupantMoveWithinTheIsland(predator, MoveDirection.WEST) != null;
+        boolean predatorHasMoved = false;
+
+        if (canMoveNorth || canMoveSouth || canMoveEast || canMoveWest) {
+            while (!predatorHasMoved) {
+                int result = rand.nextInt(4);
+                // occupantMove returns false if a predator is occupying the new position.
+                // Find new position if predator other predators are on the new spot.
+                if (result == 0 && canMoveNorth) {
+                    predatorHasMoved = occupantMove(predator, MoveDirection.NORTH);
+                } else if (result == 1 && canMoveEast) {
+                    predatorHasMoved = occupantMove(predator, MoveDirection.EAST);
+                } else if (result == 2 && canMoveSouth) {
+                    predatorHasMoved = occupantMove(predator, MoveDirection.SOUTH);
+                } else if (result == 3 && canMoveWest) {
+                    predatorHasMoved = occupantMove(predator, MoveDirection.WEST);
+                }
+            }
+            for(Occupant o : island.getOccupants(predator.getPosition())) {
+                if(o instanceof Trap) {
+                    trapAnimal((Trap) o, predator.getPosition());
+                    break;
+                }
             }
         }
     }
 
-    private void predatorConsumeKiwi(Kiwi kiwi) {
+    public void predatorConsumeOccupantOnSameTile(Predator predator) {
+        for (Occupant itemToRemove : island.getOccupants(predator.getPosition())) {
+            if (itemToRemove instanceof Food) {
+                predatorConsumeFood((Food) itemToRemove);
+            } else if (itemToRemove instanceof Kiwi) {
+                predatorConsumeKiwi((Kiwi) itemToRemove, predator);
+            }
+        }
+    }
+
+    private void predatorConsumeKiwi(Kiwi kiwi, Predator predator) {
         island.removeOccupant(kiwi.getPosition(), kiwi);
+        kiwiQueue.offer(kiwi);
+        showPopUpInformation(predator.getImage(), "A " + predator.getName() +" has attacked a kiwi",
+                "You need to make sure the predators are caught before they reach the kiwis!");
     }
 
     private void predatorConsumeFood(Food food) {
         island.removeOccupant(food.getPosition(), food);
-    }
-
-    private void movePredatorToNewPosition(Predator predator) {
-        if(isOccupantMoveWithinTheIsland(predator, MoveDirection.NORTH) != null) {
-            occupantMove(predator, MoveDirection.NORTH);
-        } else if(isOccupantMoveWithinTheIsland(predator, MoveDirection.EAST) != null) {
-            occupantMove(predator, MoveDirection.EAST);
-        } else if(isOccupantMoveWithinTheIsland(predator, MoveDirection.SOUTH) != null) {
-            occupantMove(predator, MoveDirection.SOUTH);
-        } else if(isOccupantMoveWithinTheIsland(predator, MoveDirection.WEST) != null) {
-            occupantMove(predator, MoveDirection.WEST);
-        }
+        foodQueue.offer(food);
     }
 
     public int getTotalPredators() {
-        return totalPredators;
+        return livePredatorReferences.size();
     }
 
     public int getPredatorsTrapped() {
@@ -111,9 +139,9 @@ public class Game {
         kiwiQueue = new ConcurrentLinkedQueue<>();
         foodQueue = new ConcurrentLinkedQueue<>();
         predatorQueue = new ConcurrentLinkedQueue<>();
+        livePredatorReferences = new ConcurrentLinkedQueue<>();
         turnCount = 0;
         score = 0;
-        totalPredators = 0;
         totalKiwis = 0;
         totalFood = 0;
         predatorsTrapped = 0;
@@ -151,18 +179,21 @@ public class Game {
         return player;
     }
 
-    public boolean isPlayerMovePossible(MoveDirection direction) {
-        Position newPosition = isOccupantMoveWithinTheIsland(player, direction);
-        // is that a valid position?
-        boolean enoughStamina = false;
-        if (newPosition != null) {
+    public boolean isOccupantMovePossible(MoveDirection direction, Occupant occupant) {
+        Position newPosition = isOccupantMoveWithinTheIsland(occupant, direction);
+        if (occupant instanceof Player && newPosition != null) {
             // what is the terrain at that new position?
             Terrain newTerrain = island.getTerrain(newPosition);
             // can the player do it?
-            enoughStamina = player.hasStaminaToMove(newTerrain) &&
-                    player.isAlive();
+            return player.hasStaminaToMove(newTerrain) && player.isAlive();
+        } else if(occupant instanceof Predator && newPosition != null) {
+            for(Occupant o : island.getOccupants(newPosition)) {
+                if(o instanceof Predator) {
+                    return false; // A predator exists on that tile already
+                }
+            }
         }
-        return enoughStamina;
+        return newPosition != null;
     }
 
     private Position isOccupantMoveWithinTheIsland(Occupant occupant, MoveDirection direction) {
@@ -176,10 +207,6 @@ public class Game {
 
     public boolean isVisible(int row, int column) {
         return island.isVisible(new Position(island, row, column));
-    }
-
-    public boolean isExplored(int row, int column) {
-        return island.isExplored(new Position(island, row, column));
     }
 
     public CopyOnWriteArraySet<Occupant> getOccupantsPlayerPosition() {
@@ -260,7 +287,7 @@ public class Game {
                     result = island.hasAnimal(player.getPosition());
                 }
                 //Screwdriver can only be used if player has a broken trap
-                else if(tool instanceof ScrewDriver) {
+                else if (tool instanceof ScrewDriver) {
                     result = player.hasTrap() && player.getTrap().isBroken();
                 }
             }
@@ -293,7 +320,7 @@ public class Game {
         if (success) {
             // player has picked up an item: remove from grid square
             island.removeOccupant(player.getPosition(), (Item) item);
-            if(item instanceof Food) {
+            if (item instanceof Food) {
                 foodQueue.offer((Food) item);
             }
 
@@ -333,7 +360,7 @@ public class Game {
         } else if (item instanceof Tool) {
             Tool tool = (Tool) item;
             if (tool instanceof Trap) {
-                if(tool.isBroken()) {
+                if (tool.isBroken()) {
                     showPopUpInformation(tool.getImage(), "Your Trap Is Broken!", "You must fix your trap with a screwdriver before using it");
                 } else success = trapAnimal((Trap) item);
             } else if (tool instanceof ScrewDriver)// Use screwdriver (to fix trap)
@@ -399,7 +426,7 @@ public class Game {
         Stage newStage = new Stage();
         Group group = new Group(root);
         StackPane rootPane = new StackPane(group);
-        Scene scene = new Scene(rootPane, Main.usersScreenWidth/1.42, Main.usersScreenHeight/2.4);
+        Scene scene = new Scene(rootPane, Main.usersScreenWidth / 1.42, Main.usersScreenHeight / 2.4);
 
         group.scaleXProperty().bind(scene.widthProperty().divide(sceneWidth));
         group.scaleYProperty().bind(scene.heightProperty().divide(sceneHeight));
@@ -417,7 +444,7 @@ public class Game {
     public boolean occupantMove(Occupant occupant, MoveDirection direction) {
         // what terrain is the player moving on currently
         boolean successfulMove = false;
-        if (isPlayerMovePossible(direction)) {
+        if (isOccupantMovePossible(direction, occupant)) {
             Position newPosition = occupant.getPosition().getNewPosition(direction);
             Terrain terrain = island.getTerrain(newPosition);
 
@@ -426,17 +453,16 @@ public class Game {
             occupant.moveToPosition(newPosition, terrain);
             island.updateOccupantPosition(occupant, oldPosition);
 
-            if(occupant instanceof Player) {
+            if (occupant instanceof Player) {
                 turnCount++;
-                if(turnCount % TURNS_BETWEEN_SPAWNS == 0) {
+                if (turnCount % TURNS_BETWEEN_SPAWNS == 0) {
                     spawnOccupants();
                 }
-                if(turnCount % TURNS_BETWEEN_PREDATOR_AI_MOVEMENT == 0) {
-                    // todo: in here we want to call movePredatorToNewPosition(predator);
-                    // We want to do this for every predator on the island
-                    // We could store reference to all predators, or we could loop through the island.
+                if (turnCount % TURNS_BETWEEN_PREDATOR_AI_MOVEMENT == 0) {
+                    for (Predator predator : livePredatorReferences) {
+                        movePredatorToNewPosition(predator);
+                    }
                 }
-
                 // Is there a hazard?
                 checkForHazard();
             }
@@ -447,20 +473,21 @@ public class Game {
     }
 
     private void spawnOccupants() {
-        if(totalKiwis < MIN_NUM_OF_KIWIS_ON_BOARD) {
-            if(!kiwiQueue.isEmpty()) {
+        if (totalKiwis < MIN_NUM_OF_KIWIS_ON_BOARD) {
+            if (!kiwiQueue.isEmpty()) {
                 spawnItem(kiwiQueue.poll());
                 totalKiwis++;
             }
         }
-        if(totalPredators < MIN_NUM_OF_PREDATOR_ON_BOARD) {
-            if(!predatorQueue.isEmpty()) {
-                spawnItem(predatorQueue.poll());
-                totalPredators++;
+        if (getTotalPredators() < MIN_NUM_OF_PREDATOR_ON_BOARD) {
+            if (!predatorQueue.isEmpty()) {
+                Predator newPredator = predatorQueue.poll();
+                spawnItem(newPredator);
+                livePredatorReferences.add(newPredator);
             }
         }
-        if(totalFood < MIN_NUM_OF_FOOD_ON_BOARD) {
-            if(!foodQueue.isEmpty()) {
+        if (totalFood < MIN_NUM_OF_FOOD_ON_BOARD) {
+            if (!foodQueue.isEmpty()) {
                 spawnItem(foodQueue.poll());
                 totalFood++;
             }
@@ -479,9 +506,9 @@ public class Game {
             col = rand.nextInt(island.getNumColumns());
             randomPosition = new Position(island, row, col);
             count++;
-        } while(island.hasOccupantWithinArea(randomPosition, occupant) && count < SPAWN_LOOP_TIMEOUT_LIMIT);
+        } while (island.hasOccupantWithinArea(randomPosition, occupant) && count < SPAWN_LOOP_TIMEOUT_LIMIT);
 
-        if(count < SPAWN_LOOP_TIMEOUT_LIMIT) {
+        if (count < SPAWN_LOOP_TIMEOUT_LIMIT) {
             island.addOccupant(randomPosition, occupant);
         }
     }
@@ -514,12 +541,15 @@ public class Game {
     }
 
     private boolean playerCanMove() {
-        return (isPlayerMovePossible(MoveDirection.NORTH) || isPlayerMovePossible(MoveDirection.SOUTH)
-                || isPlayerMovePossible(MoveDirection.EAST) || isPlayerMovePossible(MoveDirection.WEST));
+        return (isOccupantMovePossible(MoveDirection.NORTH, player) || isOccupantMovePossible(MoveDirection.SOUTH, player)
+                || isOccupantMovePossible(MoveDirection.EAST, player) || isOccupantMovePossible(MoveDirection.WEST, player));
     }
 
     private boolean trapAnimal(Trap trap) {
-        Position current = player.getPosition();
+        return trapAnimal(trap, player.getPosition());
+    }
+
+    private boolean trapAnimal(Trap trap, Position current) {
         boolean hadAnimal = island.hasAnimal(current);
         if (hadAnimal) { //can trap it
             // Calculate chance of trap breaking
@@ -528,23 +558,29 @@ public class Game {
             Fauna fauna = island.getFauna(current);
             //Animal has been trapped so remove
             island.removeOccupant(current, fauna);
-            if(fauna instanceof Predator) {
-                System.out.println("Pred removed at: " + current.getRow() + ", " + current.getColumn());
+            String extraInformation = "";
+            if(current != player.getPosition()) {
+                extraInformation += " with a trap positioned on the island";
+            }
+            if (fauna instanceof Predator) {
                 Predator predator = (Predator) fauna;
                 predatorQueue.offer(predator);
                 predatorsTrapped++;
-                totalPredators--;
+                livePredatorReferences.remove(predator);
                 addToScore(10);
-                showPopUpInformation(predator.getImage(), "You Captured: " + predator.getDescription(),
+                showPopUpInformation(predator.getImage(), "You Captured: " + predator.getDescription()
+                                + extraInformation,
                         predator.getPredatorFact());
-            } else if(fauna instanceof Kiwi) {
+            } else if (fauna instanceof Kiwi) {
                 resetScore();
-                showPopUpInformation(fauna.getImage(), "You Captured: " + fauna.getDescription(),
+                showPopUpInformation(fauna.getImage(), "You Captured: " + fauna.getDescription()
+                                + extraInformation,
                         "What have you done!? You are damaging the kiwi population!  ");
             } else { // Ordinary Fauna
                 addToScore(-10);
                 System.out.println("YOU CAUGHT INNOCENT FAUNA :'(");
-                showPopUpInformation(fauna.getImage(), "You Captured: " + fauna.getName(),
+                showPopUpInformation(fauna.getImage(), "You Captured: " + fauna.getName()
+                                + extraInformation,
                         "You captured an animal which is not a threat to Kiwis! How cruel!");
             }
 
@@ -553,12 +589,14 @@ public class Game {
     }
 
     private void resetScore() {
-        if(score > 0) {
+        if (score > 0) {
             score = 0;
         }
     }
 
-    public void addToScore(int amount) { score += amount; }
+    public void addToScore(int amount) {
+        score += amount;
+    }
 
     private void checkForHazard() {
         //check if there are hazards
@@ -668,7 +706,7 @@ public class Game {
             Position occPos = new Position(island, occRow, occCol);
 
             String fact = "";
-            if(occType.equals("K") || occType.equals("P")) {
+            if (occType.equals("K") || occType.equals("P")) {
                 fact = input.next();
             }
 
@@ -721,7 +759,7 @@ public class Game {
                     } else if (occName.equalsIgnoreCase("Possum")) {
                         occupant = new Predator(occPos, occName, occDesc, fact, ANIMAL_TYPE.POSSUM);
                     }
-                    totalPredators++;
+                    livePredatorReferences.add((Predator) occupant);
                     break;
                 case "F":
                     if (occName.equalsIgnoreCase("Oystercatcher")) {

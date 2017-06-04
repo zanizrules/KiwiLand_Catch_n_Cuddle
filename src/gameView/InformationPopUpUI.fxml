@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
             prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="gameController.InformationPopUpUI_Controller">
@@ -15,9 +18,9 @@
          </HBox.margin>
       </ImageView>
       <VBox alignment="TOP_RIGHT" prefHeight="362.0" prefWidth="663.0">
-         <Label fx:id="nameLabel" prefHeight="103.0" prefWidth="638.0" wrapText="true">
+         <Label fx:id="nameLabel" prefHeight="115.0" prefWidth="638.0" textAlignment="CENTER" wrapText="true">
             <font>
-               <Font name="System Bold" size="35.0"/>
+               <Font name="System Bold" size="32.0"/>
             </font>
             <padding>
                <Insets top="10.0"/>
